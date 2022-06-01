@@ -1,0 +1,7 @@
+Visa,Date,Code,Hrs,Comment,Description,VN ?,Subproject,Subproject name,Project,Project name,VN Hrs,CH Hrs,Unique,Calculated subproject name,Division
+ABC,4/1/2022,543123-101-44,8,comment of task 1,dummy description,FALSE,543123-101,dummy sub name,543123,dummy project name,0,8,1,"dummy project name, dummy sub name",reserve
+DEF,4/4/2022,543123-101-44,8,comment of task 2,dummy description,FALSE,543123-101,dummy sub name,543123,dummy project name,0,8,1,"dummy project name, dummy sub name",reserve
+ABY,4/5/2022,543123-101-44,8,comment of task 3,dummy description,FALSE,543123-101,dummy sub name,543123,dummy project name,0,8,1,"dummy project name, dummy sub name",reserve
+AB2,4/6/2022,19513-101-44,8,Project X comment,dummy description,FALSE,19513-101,dummy sub name,19513,dummy project name,0,8,1,"dummy project name, dummy sub name",reserve
+XYZ,4/7/2022,18020-101-33,1,Project X comment,dummy description,FALSE,18020-101,dummy sub name,18020,dummy project name,0,1,1,"dummy project name, dummy sub name",reserve
+ABC,4/7/2022,19513-101-44,7,Project Y,dummy description,FALSE,19513-101,dummy sub name,19513,dummy project name,0,7,1,"dummy project name, dummy sub name",reserve

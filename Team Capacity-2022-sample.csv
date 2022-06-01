@@ -1,0 +1,7 @@
+Visa,reserve 1,reserve 2,reserve 3,reserve 4,Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec
+ABC,raw data 1,raw data 2,raw data 3,raw data 4,1,1,1,Left,,,,,,,,
+DEF,raw data 1,raw data 2,raw data 3,raw data 4,1,Left,,,,,,,,,,
+XYZ,raw data 1,raw data 2,raw data 3,raw data 4,,,1,1,1,1,1,1,1,1,1,1
+AB1,raw data 1,raw data 2,raw data 3,raw data 4,1,1,1,1,1,1,1,1,1,1,1,1
+AB2,raw data 1,raw data 2,raw data 3,raw data 4,1,1,1,1,1,1,1,1,1,1,1,1
+XY2,raw data 1,raw data 2,raw data 3,raw data 4,1,1,1,1,1,1,1,1,1,1,1,1
