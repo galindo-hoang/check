@@ -10,7 +10,7 @@ class EmployRole {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private var id:Int = 0
+    var id:Int = 0
 
     @Column(name = "Employee_Nr")
     @CsvBindByName(column = "Employee Nr")
@@ -28,9 +28,10 @@ class EmployRole {
     @CsvBindByName(column = "First")
     var first:String = ""
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Abbreviation")
-    lateinit var abbreviation:EmployMetaInfo
+    @CsvBindByName(column = "Abbreviation")
+    var abbreviation:String = ""
 
     @Column(name = "Contract")
     @CsvBindByName(column = "Contract")
@@ -46,18 +47,18 @@ class EmployRole {
 
     @Column(name = "Level")
     @CsvBindByName(column = "Level")
-    var level:Int? = null
+    var level:String = ""
 
     @Column(name = "Sub_Level")
     @CsvBindByName(column = "Sub-level")
-    var subLevel:Int? = null
+    var subLevel:String = ""
 
     @Column(name = "Part_Time")
     @CsvBindByName(column = "Part-time")
     var partTime:Double = 0.0
 
-    @ManyToOne(fetch = FetchType.LAZY)
+//    @ManyToOne(cascade = [CascadeType.ALL])
     @JoinColumn(name = "Supervisor")
     @CsvBindByName(column = "Supervisor")
-    lateinit var supervisor:EmployMetaInfo
+    var supervisor:String = ""
 }

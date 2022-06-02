@@ -1,28 +1,23 @@
 package com.example.ex.model
 
 import com.opencsv.bean.CsvBindByName
-import javax.persistence.Column
-import javax.persistence.Embedded
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.JoinColumn
-import javax.persistence.MapsId
-import javax.persistence.OneToOne
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "Capacity")
 class Capacity {
     @Id
+    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @CsvBindByName(column = "Visa")
+    var id:Long = 0
+
+//    @OneToOne(cascade = [CascadeType.ALL])
+//    @MapsId
+//    @JoinColumn(name = "Visa")
     @Column(name = "Visa")
     @CsvBindByName(column = "Visa")
-    private var id:String = ""
-
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "Visa")
-    @CsvBindByName(column = "Date")
-    lateinit var metaInfo: EmployMetaInfo
+    var metaInfo: String = ""
 
     @Column(name = "Reverse_1")
     @CsvBindByName(column = "reserve 1")
@@ -41,5 +36,5 @@ class Capacity {
     var reverse4:String = ""
 
     @Embedded
-    private lateinit var month: Month
+    lateinit var month: Month
 }

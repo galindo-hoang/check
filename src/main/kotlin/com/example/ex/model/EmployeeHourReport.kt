@@ -8,103 +8,103 @@ import javax.persistence.*
 class EmployeeHourReport{
     @Id
     @Column(name = "Visa")
-    private var id:Long = 0
+    var id:Long = 0
 
-    @OneToOne
+    @OneToOne(cascade = [CascadeType.ALL])
     @MapsId
     @JoinColumn(name = "Visa")
-    lateinit var employMetaInfo:EmployMetaInfo
+    var employMetaInfo:EmployMetaInfo? = null
 
     @Column(name = "Name")
-    private var name: String = ""
+    var name: String = ""
 
     @Column(name = "First_Name")
-    private var firstName: String = ""
+    var firstName: String = ""
 
     @Column(name = "Last_Name")
-    private var lastName: String = ""
+    var lastName: String = ""
 
     @Column(name = "Division")
-    private var division: String = ""
+    var division: String = ""
 
     @Column(name = "Is_Mgr")
-    private var isMgr: String = ""
+    var isMgr: String = ""
 
     @Column(name = "Groups")
-    private var group:String = ""
+    var group:String = ""
 
     @Column(name = "Working_Hours")
-    private var workingHours: Double = 0.0
+    var workingHours: Double = 0.0
 
     @Column(name = "Worked_Hours")
-    private var workedHours: Double = 0.0
+    var workedHours: Double = 0.0
 
     @Column(name = "Difference")
-    private var difference: Double = 0.0
+    var difference: Double = 0.0
 
     @Column(name = "Cumul_Diff")
-    private var cumulDiff: Double = 0.0
+    var cumulDiff: Double = 0.0
 
     @Column(name = "Vac_Left")
-    private var vecLeft: Double = 0.0
+    var vecLeft: Double = 0.0
 
     @Column(name = "Entrance")
-    private var entrance:Date = TODO()
+    lateinit var entrance:String
 
     @Column(name = "Resignation")
-    private var resignation:Int = 0
+    var resignation:Int = 0
 
     @Column(name = "CH_Prd")
-    private var chPrd:Double = 0.0
+    var chPrd:Double = 0.0
 
     @Column(name = "CHPrd")
-    private var CHPrd:Double = 0.0
+    var CHPrd:Double = 0.0
 
     @Column(name = "Absence")
-    private var absence:Double = 0.0
+    var absence:Double = 0.0
 
     @Column(name = "Sort")
-    private var sort: Int = 0
+    var sort: Int = 0
 
     @Column(name = "Forfait")
-    private var forfait:Boolean = false
+    var forfait:Boolean = false
 
     @Column(name = "Part_Time")
-    private var partTime: Int = 0
+    var partTime: Int = 0
 
     @Column(name = "Calculated")
-    private var calculated:Double = 0.0
+    var calculated:Double = 0.0
 
     @Column(name = "Calculated_Vac_Left")
-    private var calculatedVecLeft:Double = 0.0
+    var calculatedVecLeft:Double = 0.0
 
     @Column(name = "Calculated_Is_Mgr")
-    private var calculatedIsMgr:String
+    lateinit var calculatedIsMgr:String
 
     @Column(name = "VN_Entry")
-    private var vnEntry:Date
+    lateinit var vnEntry:Date
 
     @Column(name = "Calculated_Division")
-    private var calculatedDivision:String
+    lateinit var calculatedDivision:String
 
     @Column(name = "Calculated_Overview")
-    private var calculatedOverview:String
+    lateinit var calculatedOverview:String
 
     @Column(name = "Holidays")
-    private var holidays:Int = 0
+    var holidays:Int = 0
 
     @Column(name = "Illness")
-    private var illness:Int = 0
+    var illness:Int = 0
 
     @Column(name = "Trainings")
-    private var trainings:Int = 0
+    var trainings:Int = 0
 
     @Column(name = "Onboaring")
-    private var onboarding:Int = 0
+    var onboarding:Int = 0
 
     @Column(name = "Others")
-    private var others:Int = 0
+    var others:Int = 0
 
     @Column(name = "ConsolidatedHours")
-    private var consolidatedHours:Double = 0.0
+    var consolidatedHours:Double = 0.0
 }

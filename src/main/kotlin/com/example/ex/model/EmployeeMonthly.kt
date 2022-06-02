@@ -9,72 +9,77 @@ import javax.persistence.*
 @Table(name = "EmployeeMonthlyVertec")
 class EmployeeMonthly {
     @Id
-    @Column(name = "Visa")
-    private var id:String = ""
+    @Column(name = "Id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    var id:Long = 0
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name = "Visa")
-    lateinit var metaInfo: EmployMetaInfo
+//    @OneToOne(cascade = [CascadeType.ALL])
+//    @MapsId
+//    @JoinColumn(name = "Visa")
+//    lateinit var metaInfo: EmployMetaInfo
+
+    @Column(name = "Visa")
+    @CsvBindByName(column = "Visa")
+    var visa:String = ""
 
     @Column(name = "Date")
     @CsvBindByName(column = "Date")
-    private lateinit var date:Date
+    var date:String = ""
 
     @Column(name = "Code")
     @CsvBindByName(column = "Code")
-    private var code:String = ""
+    var code:String = ""
 
     @Column(name = "Hrs")
     @CsvBindByName(column = "Hrs")
-    private var hours: Int = 0
+    var hours: Int = 0
 
     @Column(name = "Comment")
     @CsvBindByName(column = "Comment")
-    private var comment:String = ""
+    var comment:String = ""
 
     @Column(name = "Description")
     @CsvBindByName(column = "Description")
-    private var description:String = ""
+    var description:String = ""
 
     @Column(name = "VN")
     @CsvBindByName(column = "VN ?")
-    private var vn: Boolean = false
+    var vn: Boolean = false
 
     @Column(name = "Subproject")
     @CsvBindByName(column = "Subproject")
-    private var subProject:String = ""
+    var subProject:String = ""
 
     @Column(name = "Subproject_Name")
     @CsvBindByName(column = "Subproject name")
-    private var subprojectName:String = ""
+    var subprojectName:String = ""
 
     @Column(name = "Project")
     @CsvBindByName(column = "Project")
-    private var project:Long = 0
+    var project:Long = 0
 
     @Column(name = "Project_Name")
     @CsvBindByName(column = "Project name")
-    private var projectName:String = ""
+    var projectName:String = ""
 
     @Column(name = "VN_Hrs")
     @CsvBindByName(column = "VN Hrs")
-    private var vnHrs:Int = 0
+    var vnHrs:Int = 0
 
     @Column(name = "CH_Hrs")
     @CsvBindByName(column = "CH Hrs")
-    private var chHrs:Int = 0
+    var chHrs:Int = 0
 
-    @Column(name = "Unique")
+    @Column(name = "Uniques")
     @CsvBindByName(column = "Unique")
-    private var unique:Int = 0
+    var unique:Int = 0
 
     @Column(name = "Calculated_Subproject_Name")
     @CsvBindByName(column = "Calculated subproject name")
-    private var calculatedSubprojectName:String = ""
+    var calculatedSubprojectName:String = ""
 
     @Column(name = "Division")
     @CsvBindByName(column = "Division")
-    private var division:String = ""
+    var division:String = ""
 
 }

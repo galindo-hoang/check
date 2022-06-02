@@ -1,12 +1,12 @@
 package com.example.ex.repository
 
+import com.example.ex.model.Capacity
 import com.example.ex.model.EmployMetaInfo
+import com.example.ex.model.EmployRole
+import com.example.ex.model.EmployeeMonthly
 import org.springframework.data.repository.CrudRepository
-import org.springframework.stereotype.Repository
 
-@Repository
-interface EmRepository : CrudRepository<EmployMetaInfo, String> {}
-
-//interface UserRepository : CrudRepository<User, Long> {
-//    fun findByLogin(login: String): User?
-//}
+interface EmployMetaInfoRepository : CrudRepository<EmployMetaInfo, Long>
+interface EmployRoleRepository : CrudRepository<EmployRole, Long>
+interface EmployeeMonthlyRepository : CrudRepository<EmployeeMonthly, Long>
+interface EmployeeCapacityRepository : CrudRepository<Capacity, Long>
