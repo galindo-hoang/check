@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <title>View User</title>
+</head>
+<body>
+    <div>
+        <h1>Person Table</h1>
+        <div>
+            <a th:href="@{/employee/create}">Add New</a>
+        </div>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Option</th>
+            </tr>
+            <tr each="employee : ${uList}">
+                <td th:text="${employee.id}"></td>
+                <td th:text="${employee.name}"></td>
+                <td >
+                    <a th:href="@{'/user/delete?id=' + ${employee.id}}">Delete</a>
+                    <a th:href="@{'/user/edit?id=' + ${employee.id}}">Edit</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

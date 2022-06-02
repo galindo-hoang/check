@@ -1,4 +1,4 @@
-package com.example.PilotReadingService.model
+package com.example.ex.model
 
 import java.util.Date
 import javax.persistence.*

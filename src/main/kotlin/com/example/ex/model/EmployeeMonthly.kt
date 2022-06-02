@@ -1,4 +1,4 @@
-package com.example.PilotReadingService.model
+package com.example.ex.model
 
 import com.opencsv.bean.CsvBindByName
 import java.util.Date
