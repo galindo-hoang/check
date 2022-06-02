@@ -9,14 +9,11 @@ import javax.persistence.*
 @Table(name = "EmployeeMonthlyVertec")
 class EmployeeMonthly {
     @Id
-    @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long = 0
 
-//    @OneToOne(cascade = [CascadeType.ALL])
-//    @MapsId
-//    @JoinColumn(name = "Visa")
-//    lateinit var metaInfo: EmployMetaInfo
+    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @MapsId
+    lateinit var metaInfo: EmployMetaInfo
 
     @Column(name = "Visa")
     @CsvBindByName(column = "Visa")

@@ -25,40 +25,18 @@ class HtmlController(
 
     ) {
 
-    @PostConstruct fun getEmployeeInfo(){
-        val fileName = "C:\\Users\\hoah\\Desktop\\Ex\\Ex\\EmployeeMetaInfo-sample.csv"
-        val beans: MutableList<EmployMetaInfo?>? = CsvToBeanBuilder<Any?>(FileReader(fileName))
-            .withType(EmployMetaInfo::class.java)
-            .build()
-            .parse() as MutableList<EmployMetaInfo?>?
-        employMetaInfoRepository.saveAll(beans!!)
-    }
+//    }
 
-    @PostConstruct fun getEmployeeRole(){
-        val fileName = "C:\\Users\\hoah\\Desktop\\Ex\\Ex\\EmployeeRole-sample.csv"
-        val beans: MutableList<EmployRole?>? = CsvToBeanBuilder<Any?>(FileReader(fileName))
-            .withType(EmployRole::class.java)
-            .build()
-            .parse() as MutableList<EmployRole?>?
-        employRoleRepository.saveAll(beans!!)
-    }
-
-    @PostConstruct fun getEmployeeMonthly(){
-        val fileName = "C:\\Users\\hoah\\Desktop\\Ex\\Ex\\EmployeeMonthlyVertec-sample.csv"
-        val beans: MutableList<EmployeeMonthly?>? = CsvToBeanBuilder<Any?>(FileReader(fileName))
-            .withType(EmployeeMonthly::class.java)
-            .build()
-            .parse() as MutableList<EmployeeMonthly?>?
-        employeeMonthlyRepository.saveAll(beans!!)
-    }
-
-    @PostConstruct fun getEmployeeCapacity(){
-        val fileName = "C:\\Users\\hoah\\Desktop\\Ex\\Ex\\Team Capacity-2022-sample.csv"
-        val beans: MutableList<Capacity?>? = CsvToBeanBuilder<Any?>(FileReader(fileName))
-            .withType(Capacity::class.java)
-            .build()
-            .parse() as MutableList<Capacity?>?
-        employeeCapacityRepository.saveAll(beans!!)
+    @PostConstruct
+    fun insert(){
+        val employMetaInfo = EmployMetaInfo()
+        employMetaInfo.visa = "123"
+        employMetaInfoRepository.save(employMetaInfo)
+//
+//        val capacity = Capacity()
+//        capacity.metaInfo = employMetaInfo
+//
+//        employeeCapacityRepository.save(capacity)
     }
 
     @RequestMapping(value = ["/employeeInfo"], method = [RequestMethod.GET])

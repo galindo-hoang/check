@@ -7,17 +7,12 @@ import javax.persistence.*
 @Table(name = "Capacity")
 class Capacity {
     @Id
-    @Column(name = "Id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @CsvBindByName(column = "Visa")
     var id:Long = 0
 
-//    @OneToOne(cascade = [CascadeType.ALL])
-//    @MapsId
-//    @JoinColumn(name = "Visa")
-    @Column(name = "Visa")
+    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @MapsId
     @CsvBindByName(column = "Visa")
-    var metaInfo: String = ""
+    lateinit var metaInfo: EmployMetaInfo
 
     @Column(name = "Reverse_1")
     @CsvBindByName(column = "reserve 1")

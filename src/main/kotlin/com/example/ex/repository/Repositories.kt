@@ -6,7 +6,7 @@ import com.example.ex.model.EmployRole
 import com.example.ex.model.EmployeeMonthly
 import org.springframework.data.repository.CrudRepository
 
-interface EmployMetaInfoRepository : CrudRepository<EmployMetaInfo, Long>
+interface EmployMetaInfoRepository : CrudRepository<EmployMetaInfo, String>
 interface EmployRoleRepository : CrudRepository<EmployRole, Long>
 interface EmployeeMonthlyRepository : CrudRepository<EmployeeMonthly, Long>
 interface EmployeeCapacityRepository : CrudRepository<Capacity, Long>

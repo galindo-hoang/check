@@ -28,11 +28,6 @@ class EmployRole {
     @CsvBindByName(column = "First")
     var first:String = ""
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Abbreviation")
-    @CsvBindByName(column = "Abbreviation")
-    var abbreviation:String = ""
-
     @Column(name = "Contract")
     @CsvBindByName(column = "Contract")
     var contract:Char? = null
@@ -57,8 +52,13 @@ class EmployRole {
     @CsvBindByName(column = "Part-time")
     var partTime:Double = 0.0
 
-//    @ManyToOne(cascade = [CascadeType.ALL])
-    @JoinColumn(name = "Supervisor")
+    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @JoinColumn(name = "Supervisor_id", nullable = false, foreignKey = ForeignKey(name = "fk_roleSupervisor_employee"))
     @CsvBindByName(column = "Supervisor")
-    var supervisor:String = ""
+    lateinit var supervisor:EmployMetaInfo
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
+    @JoinColumn(name = "Abbreviation_id", nullable = false, foreignKey = ForeignKey(name = "fk_roleAbbreviation_employee"))
+    @CsvBindByName(column = "Abbreviation")
+    lateinit var abbreviation:EmployMetaInfo
 }
