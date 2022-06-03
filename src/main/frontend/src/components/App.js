@@ -11,7 +11,11 @@ class App extends React.Component{
         const respone = await unsplash.get('/employeeInfo',{
             params: {query: term},
         });
-        this.setState({images: respone.data.results});
+        this.setState({images: respone.data});
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log(this.state.images)
     }
 
     render(){

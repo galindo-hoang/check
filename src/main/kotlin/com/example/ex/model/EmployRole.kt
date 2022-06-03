@@ -1,5 +1,7 @@
 package com.example.ex.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.opencsv.bean.CsvBindByName
 import org.slf4j.event.Level
 import javax.persistence.*
@@ -10,7 +12,7 @@ class EmployRole {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id:Int = 0
+    var id:Long = 0
 
     @Column(name = "Employee_Nr")
     @CsvBindByName(column = "Employee Nr")
@@ -50,15 +52,17 @@ class EmployRole {
 
     @Column(name = "Part_Time")
     @CsvBindByName(column = "Part-time")
-    var partTime:Double = 0.0
+    var partTime:Double? = null
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    @JoinColumn(name = "Supervisor_id", nullable = false, foreignKey = ForeignKey(name = "fk_roleSupervisor_employee"))
+    @JoinColumn(name = "Supervisor_visa", nullable = true, foreignKey = ForeignKey(name = "fk_roleSupervisor_employee"))
     @CsvBindByName(column = "Supervisor")
+    @JsonBackReference
     lateinit var supervisor:EmployMetaInfo
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "Abbreviation_id", nullable = false, foreignKey = ForeignKey(name = "fk_roleAbbreviation_employee"))
+    @JoinColumn(name = "Abbreviation_visa", nullable = true, foreignKey = ForeignKey(name = "fk_roleAbbreviation_employee"))
     @CsvBindByName(column = "Abbreviation")
+    @JsonBackReference
     lateinit var abbreviation:EmployMetaInfo
 }

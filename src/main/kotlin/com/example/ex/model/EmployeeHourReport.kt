@@ -10,10 +10,10 @@ class EmployeeHourReport{
     @Column(name = "Visa")
     var id:Long = 0
 
-    @OneToOne(cascade = [CascadeType.ALL])
-    @MapsId
-    @JoinColumn(name = "Visa")
-    var employMetaInfo:EmployMetaInfo? = null
+//    @OneToOne(cascade = [CascadeType.ALL])
+//    @MapsId
+//    @JoinColumn(name = "Visa")
+//    var employMetaInfo:EmployMetaInfo? = null
 
     @Column(name = "Name")
     var name: String = ""

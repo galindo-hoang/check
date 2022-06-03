@@ -8,5 +8,5 @@ import org.springframework.data.repository.CrudRepository
 
 interface EmployMetaInfoRepository : CrudRepository<EmployMetaInfo, String>
 interface EmployRoleRepository : CrudRepository<EmployRole, Long>
-interface EmployeeMonthlyRepository : CrudRepository<EmployeeMonthly, Long>
-interface EmployeeCapacityRepository : CrudRepository<Capacity, Long>
+interface EmployeeMonthlyRepository : CrudRepository<EmployeeMonthly, String>
+interface EmployeeCapacityRepository : CrudRepository<Capacity, String>

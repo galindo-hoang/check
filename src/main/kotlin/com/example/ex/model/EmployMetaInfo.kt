@@ -1,6 +1,10 @@
 package com.example.ex.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
+import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.opencsv.bean.CsvBindByName
+import org.hibernate.annotations.Fetch
+import org.hibernate.annotations.FetchMode
 import java.util.*
 import javax.persistence.*
 
@@ -132,23 +136,25 @@ class EmployMetaInfo {
     @CsvBindByName(column = "Others")
     var others: Int = 0
 
-    @OneToOne(mappedBy = "metaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY, optional = false)
+    @OneToOne(mappedBy = "metaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     lateinit var capacity: Capacity
 
-    @OneToOne(mappedBy = "metaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY, optional = false)
-    @PrimaryKeyJoinColumn
-    lateinit var employeeMonthly: EmployeeMonthly
+//    @OneToOne(mappedBy = "employMetaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+//    lateinit var employeeHourReport: EmployeeHourReport
 
-    @OneToOne(mappedBy = "employMetaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY, optional = false)
-    @PrimaryKeyJoinColumn
-    lateinit var employeeHourReport: EmployeeHourReport
-
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "supervisor")
+    @OneToMany( mappedBy = "supervisor", fetch = FetchType.LAZY)
     @OrderBy("id")
-    lateinit var supervisors: MutableSet<EmployRole>
+    @JsonManagedReference
+    var supervisors: MutableSet<EmployRole> = mutableSetOf()
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "abbreviation")
+    @OneToMany(mappedBy = "abbreviation", fetch = FetchType.LAZY)
     @OrderBy("id")
-    lateinit var abbreviations: MutableSet<EmployRole>
+    @JsonManagedReference
+    var abbreviations: MutableSet<EmployRole> = mutableSetOf()
+
+    @OneToMany(mappedBy = "metaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @OrderBy("id")
+    @JsonManagedReference
+    var employeeMonthly: MutableSet<EmployeeMonthly> = mutableSetOf()
 
 }

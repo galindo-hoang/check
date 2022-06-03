@@ -1,5 +1,6 @@
 package com.example.ex.model
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.opencsv.bean.CsvBindByName
 import java.util.Date
 import javax.persistence.*
@@ -9,15 +10,16 @@ import javax.persistence.*
 @Table(name = "EmployeeMonthlyVertec")
 class EmployeeMonthly {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long = 0
 
-    @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    @MapsId
+    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "Visa", nullable = true, foreignKey = ForeignKey(name = "fk_monthly_employee"))
+    @JsonBackReference
     lateinit var metaInfo: EmployMetaInfo
 
-    @Column(name = "Visa")
-    @CsvBindByName(column = "Visa")
-    var visa:String = ""
+//    @CsvBindByName(column = "Visa")
+//    var visa:String = ""
 
     @Column(name = "Date")
     @CsvBindByName(column = "Date")

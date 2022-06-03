@@ -10,6 +10,7 @@ import com.example.ex.repository.EmployeeCapacityRepository
 import com.example.ex.repository.EmployeeMonthlyRepository
 import com.opencsv.bean.CsvToBeanBuilder
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RestController
@@ -17,6 +18,7 @@ import java.io.FileReader
 import javax.annotation.PostConstruct
 
 @RestController
+@CrossOrigin
 class HtmlController(
     @Autowired private val employMetaInfoRepository: EmployMetaInfoRepository,
     @Autowired private val employRoleRepository: EmployRoleRepository,
@@ -25,18 +27,11 @@ class HtmlController(
 
     ) {
 
-//    }
-
     @PostConstruct
     fun insert(){
         val employMetaInfo = EmployMetaInfo()
         employMetaInfo.visa = "123"
         employMetaInfoRepository.save(employMetaInfo)
-//
-//        val capacity = Capacity()
-//        capacity.metaInfo = employMetaInfo
-//
-//        employeeCapacityRepository.save(capacity)
     }
 
     @RequestMapping(value = ["/employeeInfo"], method = [RequestMethod.GET])
