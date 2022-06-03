@@ -1,11 +1,7 @@
 package com.example.ex.model
 
-import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.opencsv.bean.CsvBindByName
-import org.hibernate.annotations.Fetch
-import org.hibernate.annotations.FetchMode
-import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -66,13 +62,13 @@ class EmployMetaInfo {
 
     @Column(name = "Resignation")
     @CsvBindByName(column = "Resignation")
-    var resignation: Int = 0
+    var resignation: Int? = null
 
     @Column(name = "CH_Prd")
     @CsvBindByName(column = "CH Prd")
     var chPrd: Double = 0.0
 
-    @Column(name = "CHPrd")
+    @Column(name = "ch_Prd_Percent")
     @CsvBindByName(column = "CH Prd %")
     var CHPrd: Double = 0.0
 
@@ -128,7 +124,7 @@ class EmployMetaInfo {
     @CsvBindByName(column = "Trainings")
     var trainings: Int = 0
 
-    @Column(name = "Onboaring")
+    @Column(name = "Onboarding")
     @CsvBindByName(column = "Onboarding")
     var onboarding: Int = 0
 
@@ -137,7 +133,7 @@ class EmployMetaInfo {
     var others: Int = 0
 
     @OneToOne(mappedBy = "metaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    lateinit var capacity: Capacity
+    var capacity: Capacity? = null
 
 //    @OneToOne(mappedBy = "employMetaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
 //    lateinit var employeeHourReport: EmployeeHourReport

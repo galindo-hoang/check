@@ -29,9 +29,9 @@ class HtmlController(
 
     @PostConstruct
     fun insert(){
-        val employMetaInfo = EmployMetaInfo()
-        employMetaInfo.visa = "123"
-        employMetaInfoRepository.save(employMetaInfo)
+//        val employMetaInfo = EmployMetaInfo()
+//        employMetaInfo.visa = "123"
+//        employMetaInfoRepository.save(employMetaInfo)
     }
 
     @RequestMapping(value = ["/employeeInfo"], method = [RequestMethod.GET])

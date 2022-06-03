@@ -2,7 +2,7 @@ package com.example.ex.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.opencsv.bean.CsvBindByName
-import java.util.Date
+import java.sql.Date
 import javax.persistence.*
 
 
@@ -23,7 +23,7 @@ class EmployeeMonthly {
 
     @Column(name = "Date")
     @CsvBindByName(column = "Date")
-    var date:String = ""
+    var date:Date? = null
 
     @Column(name = "Code")
     @CsvBindByName(column = "Code")

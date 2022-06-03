@@ -55,14 +55,14 @@ class EmployRole {
     var partTime:Double? = null
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    @JoinColumn(name = "Supervisor_visa", nullable = true, foreignKey = ForeignKey(name = "fk_roleSupervisor_employee"))
+    @JoinColumn(name = "Supervisor", nullable = true, foreignKey = ForeignKey(name = "fk_roleSupervisor_employee"))
     @CsvBindByName(column = "Supervisor")
     @JsonBackReference
-    lateinit var supervisor:EmployMetaInfo
+    var supervisor:EmployMetaInfo? = null
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
-    @JoinColumn(name = "Abbreviation_visa", nullable = true, foreignKey = ForeignKey(name = "fk_roleAbbreviation_employee"))
+    @JoinColumn(name = "Abbreviation", nullable = true, foreignKey = ForeignKey(name = "fk_roleAbbreviation_employee"))
     @CsvBindByName(column = "Abbreviation")
     @JsonBackReference
-    lateinit var abbreviation:EmployMetaInfo
+    var abbreviation:EmployMetaInfo? = null
 }
