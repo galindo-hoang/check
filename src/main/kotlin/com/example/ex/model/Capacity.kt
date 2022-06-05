@@ -14,7 +14,7 @@ class Capacity {
     @OneToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @MapsId
     @CsvBindByName(column = "Visa")
-//    @JsonBackReference
+    @JsonBackReference
     @JoinColumn(name = "visa", nullable = true, foreignKey = ForeignKey(name = "fk_capacity_employee"))
     lateinit var metaInfo: EmployMetaInfo
 

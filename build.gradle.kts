@@ -29,7 +29,9 @@ dependencies {
     // XSSFWorkbook
     implementation("org.apache.poi:poi-ooxml:5.2.2")
     // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
-    implementation("org.apache.commons:commons-csv:1.1")
+    implementation("org.apache.commons:commons-csv:1.9.0")
+    // ModelMapper
+    implementation("org.modelmapper:modelmapper:3.1.0")
 
 
 
