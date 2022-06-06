@@ -42,7 +42,7 @@ class HtmlController(
     fun viewMonthly(): MutableIterable<EmployeeMonthly> = employeeMonthlyService.loadAllEmployee()
 
     @RequestMapping(value = ["/test"], method = [RequestMethod.GET])
-    fun test(): MutableList<EmployeeMetaInfo> {
+    fun test(): MutableList<EmployeeHourReportDto> {
         return employeeMonthlyService.loadEmployeeByHourReportCriteria(
             HourReportCriteriaDto(
                 levels = listOf("1.2","1.4"),

@@ -59,7 +59,7 @@ CREATE TABLE capacity
 
 ALTER TABLE capacity ADD CONSTRAINT FK_CAPACITY_ON_VISA FOREIGN KEY (visa) REFERENCES employ_meta_info (visa);
 
-CREATE TABLE employ_role
+CREATE TABLE employee_role
 (
     id                BIGINT AUTO_INCREMENT NOT NULL,
     employee_nr       INT,
@@ -77,10 +77,10 @@ CREATE TABLE employ_role
     CONSTRAINT pk_employrole PRIMARY KEY (id)
 );
 
-ALTER TABLE employ_role
+ALTER TABLE employee_role
     ADD CONSTRAINT FK_EMPLOYROLE_ON_ABBREVIATION_VISA FOREIGN KEY (abbreviation) REFERENCES employ_meta_info (visa);
 
-ALTER TABLE employ_role
+ALTER TABLE employee_role
     ADD CONSTRAINT FK_EMPLOYROLE_ON_SUPERVISOR_VISA FOREIGN KEY (supervisor) REFERENCES employ_meta_info (visa);
 
 
@@ -90,7 +90,7 @@ CREATE TABLE employee_monthly_vertec
     visa                       VARCHAR(255)          NOT NULL,
     date                       VARCHAR(255),
     code                       VARCHAR(255),
-    hrs                        INT,
+    hrs                        DOUBLE,
     comment                    VARCHAR(255),
     description                VARCHAR(255),
     vn                         BOOLEAN,
@@ -125,25 +125,10 @@ INSERT INTO EMPLOY_META_INFO(visa, name, FIRST_NAME, LAST_NAME, division, is_Mgr
 
 
 INSERT INTO EMPLOYEE_MONTHLY_VERTEC (visa, DATE, code, hrs, comment, description, vn, SUBPROJECT, SUBPROJECT_NAME, PROJECT, project_Name, vn_Hrs, ch_Hrs, uniques, CALCULATED_SUBPROJECT_NAME, division) VALUES ('ABC', '2022-1-4', '543123-101-44', 8, 'comment of task 1', 'dummy description', 'FALSE', '543123-101', 'dummy sub name', 543123, 'dummy project name', 0, 8, 1, 'dummy project name, dummy sub name', 'reserve');
-
-
-
 INSERT INTO EMPLOYEE_MONTHLY_VERTEC (visa, DATE, code, hrs, comment, description, vn, SUBPROJECT, SUBPROJECT_NAME, PROJECT, project_Name, vn_Hrs, ch_Hrs, uniques, CALCULATED_SUBPROJECT_NAME, division) VALUES ('DEF', '2022-4-4', '543123-101-44', 8, 'comment of task 2', 'dummy description', 'FALSE', '543123-101', 'dummy sub name', 543123, 'dummy project name', 0, 8, 1, 'dummy project name, dummy sub name', 'reserve');
-
-
-
 INSERT INTO EMPLOYEE_MONTHLY_VERTEC (visa, DATE, code, hrs, comment, description, vn, SUBPROJECT, SUBPROJECT_NAME, PROJECT, project_Name, vn_Hrs, ch_Hrs, uniques, CALCULATED_SUBPROJECT_NAME, division) VALUES ('AB2', '2022-5-4', '543123-101-44', 8, 'comment of task 3', 'dummy description', 'FALSE', '543123-101', 'dummy sub name', 543123, 'dummy project name', 0, 8, 1, 'dummy project name, dummy sub name', 'reserve');
-
-
-
 INSERT INTO EMPLOYEE_MONTHLY_VERTEC (visa, DATE, code, hrs, comment, description, vn, SUBPROJECT, SUBPROJECT_NAME, PROJECT, project_Name, vn_Hrs, ch_Hrs, uniques, CALCULATED_SUBPROJECT_NAME, division) VALUES ('AB2', '2022-6-4', '19513-101-44', 8, 'Project X comment', 'dummy description', 'FALSE', '19513-101', 'dummy sub name', 19513, 'dummy project name', 0, 8, 1, 'dummy project name, dummy sub name', 'reserve');
-
-
-
 INSERT INTO EMPLOYEE_MONTHLY_VERTEC (visa, DATE, code, hrs, comment, description, vn, SUBPROJECT, SUBPROJECT_NAME, PROJECT, project_Name, vn_Hrs, ch_Hrs, uniques, CALCULATED_SUBPROJECT_NAME, division) VALUES ('XYZ', '2022-7-4', '18020-101-33', 1, 'Project X comment', 'dummy description', 'FALSE', '18020-101', 'dummy sub name', 18020, 'dummy project name', 0, 1, 1, 'dummy project name, dummy sub name', 'reserve');
-
-
-
 INSERT INTO EMPLOYEE_MONTHLY_VERTEC (visa, DATE, code, hrs, comment, description, vn, SUBPROJECT, SUBPROJECT_NAME, PROJECT, project_Name, vn_Hrs, ch_Hrs, uniques, CALCULATED_SUBPROJECT_NAME, division) VALUES ('ABC', '2022-7-4', '19513-101-44', 7, 'Project Y', 'dummy description', 'FALSE', '19513-101', 'dummy sub name', 19513, 'dummy project name', 0, 7, 1, 'dummy project name, dummy sub name', 'reserve');
 
 
@@ -153,53 +138,13 @@ INSERT INTO EMPLOYEE_MONTHLY_VERTEC (visa, DATE, code, hrs, comment, description
 
 
 
-INSERT INTO EMPLOY_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
+INSERT INTO EMPLOYEE_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
 VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
 
 
 
-INSERT INTO EMPLOY_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
-
-
-
-INSERT INTO EMPLOY_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
-
-
-
-INSERT INTO EMPLOY_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
-
-
-
-INSERT INTO EMPLOY_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
-
-
-
-INSERT INTO EMPLOY_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
-
-
-
-INSERT INTO EMPLOY_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
-
-
-
-INSERT INTO EMPLOY_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
-
-
-
-INSERT INTO EMPLOY_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
-
-
-
-INSERT INTO EMPLOY_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
+INSERT INTO EMPLOYEE_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
+VALUES (true, 23209, 'name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .4, 100.00, 'AB1');
 
 
 

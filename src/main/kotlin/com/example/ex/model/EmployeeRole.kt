@@ -5,7 +5,7 @@ import com.opencsv.bean.CsvBindByName
 import javax.persistence.*
 
 @Entity
-@Table(name = "EmployRole")
+@Table(name = "EmployeeRole")
 class EmployeeRole {
     @Id
     @Column(name = "Id")

@@ -28,7 +28,7 @@ class EmployeeMonthly {
 
     @Column(name = "Hrs")
     @CsvBindByName(column = "Hrs")
-    var hours: Int = 0
+    var hours: Double = 0.0
 
     @Column(name = "Comment")
     @CsvBindByName(column = "Comment")
