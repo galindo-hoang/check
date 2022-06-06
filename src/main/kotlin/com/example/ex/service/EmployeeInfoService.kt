@@ -1,9 +1,10 @@
 package com.example.ex.service
 
-import com.example.ex.model.EmployMetaInfo
+import com.example.ex.dto.EmployeeMetaInfoDto
+import com.example.ex.model.EmployeeMetaInfo
 
 interface EmployeeInfoService {
-    fun loadAllEmployee(): MutableIterable<EmployMetaInfo>
-    fun loadEmployeeByVisa(visa: String): MutableIterable<EmployMetaInfo>
-    fun saveEmployee(employee: EmployMetaInfo)
+    fun loadAllEmployee(): List<EmployeeMetaInfoDto>
+    fun loadEmployeeByVisa(visa: String): List<EmployeeMetaInfoDto>
+    fun saveEmployee(employee: EmployeeMetaInfo)
 }

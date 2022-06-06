@@ -16,7 +16,7 @@ class EmployeeMonthly {
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Visa", nullable = true, foreignKey = ForeignKey(name = "fk_monthly_employee"))
     @JsonBackReference
-    lateinit var metaInfo: EmployMetaInfo
+    lateinit var metaInfo: EmployeeMetaInfo
 
 //    @CsvBindByName(column = "Visa")
 //    var visa:String = ""

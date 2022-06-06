@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "Employ_Meta_Info")
-class EmployMetaInfo {
+class EmployeeMetaInfo {
     @Id
     @Column(name = "Visa")
     @CsvBindByName(column = "Visa")
@@ -70,7 +70,7 @@ class EmployMetaInfo {
 
     @Column(name = "ch_Prd_Percent")
     @CsvBindByName(column = "CH Prd %")
-    var CHPrd: Double = 0.0
+    var chPrdPercent: Double = 0.0
 
     @Column(name = "Absence")
     @CsvBindByName(column = "Absence")
@@ -141,12 +141,12 @@ class EmployMetaInfo {
     @OneToMany( mappedBy = "supervisor", fetch = FetchType.LAZY)
     @OrderBy("id")
     @JsonManagedReference
-    var supervisors: MutableSet<EmployRole> = mutableSetOf()
+    var supervisors: MutableSet<EmployeeRole> = mutableSetOf()
 
     @OneToMany(mappedBy = "abbreviation", fetch = FetchType.LAZY)
     @OrderBy("id")
     @JsonManagedReference
-    var abbreviations: MutableSet<EmployRole> = mutableSetOf()
+    var abbreviations: MutableSet<EmployeeRole> = mutableSetOf()
 
     @OneToMany(mappedBy = "metaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @OrderBy("id")

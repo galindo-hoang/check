@@ -7,7 +7,14 @@ plugins {
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
     id("org.jetbrains.kotlin.plugin.allopen") version "1.6.21"
+    kotlin("kapt") version "1.6.21"
+    kotlin("plugin.noarg") version "1.6.21"
 }
+
+noArg {
+    annotation("javax.persistence.Entity")
+}
+
 
 group = "com.example"
 version = "0.0.1-SNAPSHOT"
@@ -15,6 +22,8 @@ java.sourceCompatibility = JavaVersion.VERSION_17
 
 repositories {
     mavenCentral()
+    maven("https://jitpack.io")
+    maven("https://plugins.gradle.org/m2/")
 }
 
 allOpen {
@@ -32,6 +41,13 @@ dependencies {
     implementation("org.apache.commons:commons-csv:1.9.0")
     // ModelMapper
     implementation("org.modelmapper:modelmapper:3.1.0")
+    // query dsl
+    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
+    implementation("com.querydsl:querydsl-jpa:5.0.0")
+    implementation("com.querydsl:querydsl-kotlin-codegen:5.0.0")
+
+
 
 
 
@@ -56,3 +72,8 @@ tasks.withType<KotlinCompile> {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+sourceSets["main"].withConvention(org.jetbrains.kotlin.gradle.plugin.KotlinSourceSet::class) {
+    kotlin.srcDir("$buildDir/generated/source/kaptKotlin/main")
+} // QueryDSL
+

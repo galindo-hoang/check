@@ -2,7 +2,6 @@ package com.example.ex.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
 import com.opencsv.bean.CsvBindByName
-import org.apache.commons.lang3.ObjectUtils.Null
 import javax.persistence.*
 
 @Entity
@@ -16,7 +15,7 @@ class Capacity {
     @CsvBindByName(column = "Visa")
     @JsonBackReference
     @JoinColumn(name = "visa", nullable = true, foreignKey = ForeignKey(name = "fk_capacity_employee"))
-    lateinit var metaInfo: EmployMetaInfo
+    lateinit var metaInfo: EmployeeMetaInfo
 
     @Column(name = "Reserve_1")
     @CsvBindByName(column = "reserve 1")

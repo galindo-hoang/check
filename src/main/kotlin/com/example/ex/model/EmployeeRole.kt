@@ -1,14 +1,12 @@
 package com.example.ex.model
 
 import com.fasterxml.jackson.annotation.JsonBackReference
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import com.opencsv.bean.CsvBindByName
-import org.slf4j.event.Level
 import javax.persistence.*
 
 @Entity
 @Table(name = "EmployRole")
-class EmployRole {
+class EmployeeRole {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -58,11 +56,11 @@ class EmployRole {
     @JoinColumn(name = "Supervisor", nullable = true, foreignKey = ForeignKey(name = "fk_roleSupervisor_employee"))
     @CsvBindByName(column = "Supervisor")
     @JsonBackReference
-    var supervisor:EmployMetaInfo? = null
+    var supervisor:EmployeeMetaInfo? = null
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "Abbreviation", nullable = true, foreignKey = ForeignKey(name = "fk_roleAbbreviation_employee"))
     @CsvBindByName(column = "Abbreviation")
     @JsonBackReference
-    var abbreviation:EmployMetaInfo? = null
+    var abbreviation:EmployeeMetaInfo? = null
 }
