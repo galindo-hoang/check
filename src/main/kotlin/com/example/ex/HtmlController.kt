@@ -48,7 +48,7 @@ class HtmlController(
                 levels = listOf("1.2","1.4"),
                 startMonth = Date.valueOf("2022-01-01"),
                 endMonth = Date.valueOf("2023-01-01"),
-                listOf("543123-101","18020-101","19513-101")
+                listOf("18020-101","19513-101")
             )
         )
     }

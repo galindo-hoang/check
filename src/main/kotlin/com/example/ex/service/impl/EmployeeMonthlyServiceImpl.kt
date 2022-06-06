@@ -53,6 +53,7 @@ class EmployeeMonthlyServiceImpl(@Autowired private val employeeMonthlyRepositor
             .on(employeeMonthly.metaInfo.visa.eq(employeeMetaInfo.visa))
             .where(employeeMonthly.date.goe(hourReportCriteria.startMonth).and(employeeMonthly.date.loe(hourReportCriteria.endMonth)))
             .where(employeeMetaInfo.visa.`in`(subQuery))
+            .where(employeeMonthly.subProject.`in`(hourReportCriteria.projectCodes))
             .groupBy(employeeMetaInfo.visa)
             .select(employeeMetaInfo,employeeMonthly.hours.sum())
             .fetch().map {
