@@ -1,6 +1,8 @@
 package com.example.ex
 
+import com.example.ex.dto.EmployeeHourReportDto
 import com.example.ex.dto.EmployeeMetaInfoDto
+import com.example.ex.dto.HourReportCriteriaDto
 import com.example.ex.model.Capacity
 import com.example.ex.model.EmployeeMetaInfo
 import com.example.ex.model.EmployeeRole
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
+import java.sql.Date
 
 @RestController
 @CrossOrigin
@@ -37,4 +40,16 @@ class HtmlController(
     fun viewCapacity(): MutableIterable<Capacity> = employeeCapacityService.loadAllEmployee()
     @RequestMapping(value = ["/employeeMonthly"], method = [RequestMethod.GET])
     fun viewMonthly(): MutableIterable<EmployeeMonthly> = employeeMonthlyService.loadAllEmployee()
+
+    @RequestMapping(value = ["/test"], method = [RequestMethod.GET])
+    fun test(): MutableList<EmployeeMetaInfo> {
+        return employeeMonthlyService.loadEmployeeByHourReportCriteria(
+            HourReportCriteriaDto(
+                levels = listOf("1.2","1.4"),
+                startMonth = Date.valueOf("2022-01-01"),
+                endMonth = Date.valueOf("2023-01-01"),
+                listOf("543123-101","18020-101","19513-101")
+            )
+        )
+    }
 }

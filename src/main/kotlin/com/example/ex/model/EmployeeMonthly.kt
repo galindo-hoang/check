@@ -18,9 +18,6 @@ class EmployeeMonthly {
     @JsonBackReference
     lateinit var metaInfo: EmployeeMetaInfo
 
-//    @CsvBindByName(column = "Visa")
-//    var visa:String = ""
-
     @Column(name = "Date")
     @CsvBindByName(column = "Date")
     var date:Date? = null

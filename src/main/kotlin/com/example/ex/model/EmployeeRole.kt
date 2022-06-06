@@ -46,7 +46,7 @@ class EmployeeRole {
 
     @Column(name = "Sub_Level")
     @CsvBindByName(column = "Sub-level")
-    var subLevel:String = ""
+    var subLevel:Double = 0.0
 
     @Column(name = "Part_Time")
     @CsvBindByName(column = "Part-time")

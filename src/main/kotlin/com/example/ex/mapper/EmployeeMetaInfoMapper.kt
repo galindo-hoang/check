@@ -1,9 +1,9 @@
 package com.example.ex.mapper
 
+import com.example.ex.dto.EmployeeHourReportDto
 import com.example.ex.dto.EmployeeMetaInfoDto
 import com.example.ex.model.EmployeeMetaInfo
 import org.springframework.stereotype.Component
-import javax.persistence.PersistenceContext
 
 @Component
 class EmployeeMetaInfoMapper {
@@ -42,8 +42,41 @@ class EmployeeMetaInfoMapper {
             .workingHours(employeeMetaInfo.workingHours)
             .build()
     }
-
-
-
+    fun entityReportHourToDto(employeeMetaInfo: EmployeeMetaInfo, consolidatedHours: Double): EmployeeHourReportDto {
+        return EmployeeHourReportDto.Builder()
+            .chPrdPercent(employeeMetaInfo.chPrdPercent)
+            .chPrd(employeeMetaInfo.chPrd)
+            .name(employeeMetaInfo.name)
+            .visa(employeeMetaInfo.visa)
+            .absence(employeeMetaInfo.absence)
+            .calculated(employeeMetaInfo.calculated)
+            .calculatedDivision(employeeMetaInfo.calculatedDivision)
+            .calculatedIsMgr(employeeMetaInfo.calculatedIsMgr)
+            .calculatedOverview(employeeMetaInfo.calculatedOverview)
+            .calculatedVecLeft(employeeMetaInfo.calculatedVecLeft)
+            .cumulDiff(employeeMetaInfo.cumulDiff)
+            .difference(employeeMetaInfo.difference)
+            .division(employeeMetaInfo.division)
+            .entrance(employeeMetaInfo.entrance)
+            .firstName(employeeMetaInfo.firstName)
+            .forFait(employeeMetaInfo.forfait)
+            .group(employeeMetaInfo.groupsa)
+            .holidays(employeeMetaInfo.holidays)
+            .illness(employeeMetaInfo.illness)
+            .lastName(employeeMetaInfo.lastName)
+            .mgr(employeeMetaInfo.isMgr)
+            .onBoarding(employeeMetaInfo.onboarding)
+            .others(employeeMetaInfo.others)
+            .partTime(employeeMetaInfo.partTime)
+            .resignation(employeeMetaInfo.resignation?:0)
+            .sort(employeeMetaInfo.sort)
+            .trainings(employeeMetaInfo.trainings)
+            .vecLeft(employeeMetaInfo.vecLeft)
+            .vnEntry(employeeMetaInfo.vnEntry)
+            .workedHours(employeeMetaInfo.workedHours)
+            .workingHours(employeeMetaInfo.workingHours)
+            .consolidatedHours(consolidatedHours)
+            .build()
+    }
 
 }

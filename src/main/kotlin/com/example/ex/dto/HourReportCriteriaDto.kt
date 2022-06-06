@@ -1,8 +1,8 @@
-package com.example.ex.model
+package com.example.ex.dto
 
-import java.util.*
+import java.sql.Date
 
-data class HourReportCriteria(
+data class HourReportCriteriaDto(
     val levels: List<String>,
     val startMonth: Date,
     val endMonth:Date,
