@@ -11,5 +11,5 @@ interface EmployeeMonthlyService {
     fun loadAllEmployee(): MutableIterable<EmployeeMonthly>
     fun loadEmployeeByVisa(visa: String): Iterable<EmployeeMonthly>
     fun saveEmployee(employeeMonthly: EmployeeMonthly)
-    fun loadEmployeeByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto): MutableList<EmployeeHourReportDto>
+    fun loadEmployeeByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto): Map<EmployeeMetaInfo, Double>
 }
