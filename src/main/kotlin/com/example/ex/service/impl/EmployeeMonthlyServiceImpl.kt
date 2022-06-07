@@ -57,7 +57,9 @@ class EmployeeMonthlyServiceImpl(@Autowired private val employeeMonthlyRepositor
             .groupBy(employeeMetaInfo.visa)
             .select(employeeMetaInfo,employeeMonthly.hours.sum())
             .fetch().map {
-                result.add(employeeMetaInfoMapper.entityReportHourToDto(it.toArray()[0] as EmployeeMetaInfo, it.toArray()[1] as Double))
+                result.add(employeeMetaInfoMapper.entityReportHourToDto(it[employeeMetaInfo]!!,
+                    it[employeeMonthly.hours.sum()]!!
+                ))
             }
 
         return  result
