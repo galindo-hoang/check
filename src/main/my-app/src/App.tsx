@@ -1,27 +1,34 @@
 import React from 'react';
 import './App.css'
-import Level from "./components/levelInput/Level";
-import SubProject from "./components/subProject/SubProject";
-import StartDate from "./components/startDate/StartDate";
-import EndDate from "./components/endDate/EndDate";
+import Text from "./components/text/Text";
 import hibernate from "./api/hibernate";
+import Date from "./components/date/Date";
+import Table from './components/table/Table';
+
+
+export type employee = {
+    visa: string,
+    consolidatedHours: bigint,
+    name: string
+}
 
 type hourReportCriteria = {
     level: string
     subProject: string
     start: string
     end: string
+    employee: Array<employee>
 }
-type props = {
 
-}
+type props = {}
 
 class App extends React.Component<props,hourReportCriteria>{
     state: hourReportCriteria = {
         level: "",
         subProject: "",
         start: "",
-        end: ""
+        end: "",
+        employee: Array()
     };
 
     level = (value: string) => {
@@ -41,22 +48,34 @@ class App extends React.Component<props,hourReportCriteria>{
         e.preventDefault()
         const response = await hibernate.get('/test', {
             params: {
-                level: this.state.level
+                levels: this.state.level,
+                start: this.state.start,
+                end: this.state.end,
+                projects: this.state.subProject,
             }
         })
-        console.log(response.data)
+
+        response.data.forEach((emp:undefined) => {
+            let b:Array<employee> = []
+            // @ts-ignore
+            b.push({visa: emp.visa,name: emp.name,consolidatedHours: emp.consolidatedHours})
+            this.setState({employee:b})
+        })
+
     }
+
 
     render() {
         return (
             <div className="App">
                 <form className="form" onSubmit={(e) => this.onSubmit(e.nativeEvent)}>
                     <span className="heading">Hibernate</span>
-                    <Level fun={this.level}/>
-                    <SubProject fun={this.subproject}/>
-                    <StartDate fun={this.startDate}/>
-                    <EndDate fun={this.endDate}/>
+                    <Text fun={this.level} label="Level"/>
+                    <Text fun={this.subproject} label="Sub-Project"/>
+                    <Date fun={this.startDate} label="Start-Date"/>
+                    <Date fun={this.endDate} label="End-Date"/>
                     <input type="submit" value="Submit"/>
+                    <Table list={this.state.employee}/>
                 </form>
             </div>
         );
