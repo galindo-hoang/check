@@ -37,23 +37,26 @@ class App extends React.Component<props,hourReportCriteria>{
         this.setState({end:value})
     }
 
-    onSubmit = async () => {
-        const respone = await hibernate.get('/test', {
+    onSubmit = async (e: Event) => {
+        e.preventDefault()
+        const response = await hibernate.get('/test', {
             params: {
                 level: this.state.level
             }
         })
+        console.log(response.data)
     }
 
     render() {
         return (
             <div className="App">
-                <form onSubmit={this.onSubmit}>
+                <form className="form" onSubmit={(e) => this.onSubmit(e.nativeEvent)}>
                     <span className="heading">Hibernate</span>
                     <Level fun={this.level}/>
                     <SubProject fun={this.subproject}/>
                     <StartDate fun={this.startDate}/>
                     <EndDate fun={this.endDate}/>
+                    <input type="submit" value="Submit"/>
                 </form>
             </div>
         );
