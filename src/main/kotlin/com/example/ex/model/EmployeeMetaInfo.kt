@@ -30,7 +30,7 @@ class EmployeeMetaInfo {
 
     @Column(name = "Is_Mgr")
     @CsvBindByName(column = "Is Mgr ? ")
-    var isMgr: String = ""
+    var ismgr: String = ""
 
     @Column(name = "Group_sa")
     @CsvBindByName(column = "Group")

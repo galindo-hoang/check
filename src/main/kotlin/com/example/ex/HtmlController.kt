@@ -3,6 +3,7 @@ package com.example.ex
 import com.example.ex.dto.EmployeeHourReportDto
 import com.example.ex.dto.EmployeeMetaInfoDto
 import com.example.ex.dto.HourReportCriteriaDto
+import com.example.ex.mapper.EmployeeMapper
 import com.example.ex.mapper.EmployeeMetaInfoMapper
 import com.example.ex.model.Capacity
 import com.example.ex.model.EmployeeMetaInfo
@@ -24,7 +25,8 @@ class HtmlController(
     @Autowired private val employeeRoleService: EmployeeRoleService,
     @Autowired private val employeeMonthlyService: EmployeeMonthlyService,
     @Autowired private val employeeCapacityService: EmployeeCapacityService,
-    @Autowired private val employeeMetaInfoMapper: EmployeeMetaInfoMapper
+    @Autowired private val employeeMetaInfoMapper: EmployeeMetaInfoMapper,
+    @Autowired private val employeeMapper: EmployeeMapper
 
     ) {
 
@@ -56,7 +58,7 @@ class HtmlController(
         val result = mutableListOf<EmployeeHourReportDto>()
         data.forEach { (k, v) ->
             result.add(
-                employeeMetaInfoMapper.entityReportHourToDto(k,v)
+                employeeMapper.entityReportHourToDto(k,v)
             )
         }
         return result
