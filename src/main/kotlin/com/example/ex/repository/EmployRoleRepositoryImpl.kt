@@ -30,7 +30,6 @@ class EmployRoleRepositoryImpl: EmployRoleRepositoryCustom {
                 .join(employeeMetaInfo)
                 .on(employeeMonthly.metaInfo.visa.eq(employeeMetaInfo.visa))
         if(hourReportCriteria.projectCodes.isNotEmpty()){
-            print("asd")
             query.where(employeeMonthly.subProject.`in`(hourReportCriteria.projectCodes))
         }
 
@@ -39,7 +38,7 @@ class EmployRoleRepositoryImpl: EmployRoleRepositoryCustom {
                 .and(employeeMonthly.date.loe(hourReportCriteria.endMonth)))
             .where(
                 subQuery
-                .where(employeeMetaInfo.visa.eq(employeeRole.abbreviation.visa))
+                .where(employeeMonthly.metaInfo.visa.eq(employeeRole.abbreviation.visa))
                 .exists()
             )
             .groupBy(employeeMetaInfo.visa)
@@ -47,7 +46,6 @@ class EmployRoleRepositoryImpl: EmployRoleRepositoryCustom {
             .fetch().map {
                 result[it[employeeMetaInfo]!!] = it[employeeMonthly.hours.sum()]!!
             }
-        println(result.size)
         return result
     }
 }

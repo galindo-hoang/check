@@ -34,7 +34,7 @@ class EmployeeMonthly: EntitySuper() {
     @CsvBindByName(column = "Comment")
     var comment:String = ""
 
-    @Column(name = "Description")
+    @Column(name = "Descriptions")
     @CsvBindByName(column = "Description")
     var description:String = ""
 
