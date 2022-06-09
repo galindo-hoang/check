@@ -8,7 +8,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "EmployeeMonthlyVertec")
-class EmployeeMonthly {
+class EmployeeMonthly: EntitySuper() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long = 0

@@ -46,21 +46,32 @@ class HtmlController(
     fun viewMonthly(): MutableIterable<EmployeeMonthly> = employeeMonthlyService.loadAllEmployee()
 
     @RequestMapping(value = ["/test"], method = [RequestMethod.GET])
-    fun test(): MutableList<EmployeeHourReportDto> {
-        val data = employeeMonthlyService.loadEmployeeByHourReportCriteria(
-            HourReportCriteriaDto(
-                levels = mutableListOf("1.2","1.4"),
-                startMonth = Date.valueOf("2022-01-01"),
-                endMonth = Date.valueOf("2023-01-01"),
-                mutableListOf("18020-101","19513-101")
-            )
-        )
+    fun test(
+        @RequestParam("levels", required = false, defaultValue = "") levels: String,
+        @RequestParam("start", required = false, defaultValue = "") start: String,
+        @RequestParam("end", required = false, defaultValue = "") end: String,
+        @RequestParam("projects", required = false, defaultValue = "") projects: String,
+
+    ): MutableList<EmployeeHourReportDto> {
         val result = mutableListOf<EmployeeHourReportDto>()
+        val hourReportCriteriaDto = HourReportCriteriaDto()
+        if(levels.trim().trimStart() != "" && levels.trim().trimStart().contains(".")){
+            hourReportCriteriaDto.levels = levels.trim().trimStart().split(" ")
+        }
+        if(projects.trim().trimStart() != "" && projects.trim().trimStart().contains("-")){
+            hourReportCriteriaDto.projectCodes = projects.trim().trimStart().split(" ")
+        }
+        if(start != "") hourReportCriteriaDto.startMonth = Date.valueOf(start)
+        if(end != "") hourReportCriteriaDto.endMonth = Date.valueOf(end)
+        val data = employeeMonthlyService.loadEmployeeByHourReportCriteria(hourReportCriteriaDto)
         data.forEach { (k, v) ->
             result.add(
                 employeeMapper.entityReportHourToDto(k,v)
             )
         }
+        println(hourReportCriteriaDto.levels)
+        println(hourReportCriteriaDto.projectCodes)
+        println(result.size)
         return result
     }
 }

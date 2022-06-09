@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "EmployeeRole")
-class EmployeeRole {
+class EmployeeRole: EntitySuper() {
     @Id
     @Column(name = "Id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,11 +42,11 @@ class EmployeeRole {
 
     @Column(name = "Level")
     @CsvBindByName(column = "Level")
-    var level:String = ""
+    var level:Int = 0
 
     @Column(name = "Sub_Level")
     @CsvBindByName(column = "Sub-level")
-    var subLevel:Double = 0.0
+    var subLevel:Int = 0
 
     @Column(name = "Part_Time")
     @CsvBindByName(column = "Part-time")

@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "Capacity")
-class Capacity {
+class Capacity: EntitySuper() {
     @Id
     var visa:String = ""
 

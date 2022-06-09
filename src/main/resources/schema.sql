@@ -59,31 +59,6 @@ CREATE TABLE capacity
 
 ALTER TABLE capacity ADD CONSTRAINT FK_CAPACITY_ON_VISA FOREIGN KEY (visa) REFERENCES employ_meta_info (visa);
 
-CREATE TABLE employee_role
-(
-    id                BIGINT AUTO_INCREMENT NOT NULL,
-    employee_nr       INT,
-    active            BOOLEAN,
-    last              VARCHAR(255),
-    first             VARCHAR(255),
-    contract          CHAR,
-    forfait           CHAR,
-    user_level        VARCHAR(255),
-    level             VARCHAR(255),
-    sub_level         VARCHAR(255),
-    part_time         DOUBLE,
-    supervisor   VARCHAR(255),
-    abbreviation VARCHAR(255),
-    CONSTRAINT pk_employrole PRIMARY KEY (id)
-);
-
-ALTER TABLE employee_role
-    ADD CONSTRAINT FK_EMPLOYROLE_ON_ABBREVIATION_VISA FOREIGN KEY (abbreviation) REFERENCES employ_meta_info (visa);
-
-ALTER TABLE employee_role
-    ADD CONSTRAINT FK_EMPLOYROLE_ON_SUPERVISOR_VISA FOREIGN KEY (supervisor) REFERENCES employ_meta_info (visa);
-
-
 CREATE TABLE employee_monthly_vertec
 (
     id                         BIGINT AUTO_INCREMENT NOT NULL,
@@ -138,13 +113,33 @@ INSERT INTO EMPLOYEE_MONTHLY_VERTEC (visa, DATE, code, hrs, comment, description
 
 
 
+CREATE TABLE employee_role
+(
+    id                BIGINT AUTO_INCREMENT NOT NULL,
+    employee_nr       INT,
+    active            BOOLEAN,
+    last              VARCHAR(255),
+    first             VARCHAR(255),
+    contract          CHAR,
+    forfait           CHAR,
+    user_level        VARCHAR(255),
+    level             INT,
+    sub_level         INT,
+    part_time         DOUBLE,
+    supervisor   VARCHAR(255),
+    abbreviation VARCHAR(255),
+    CONSTRAINT pk_employrole PRIMARY KEY (id)
+);
+
+ALTER TABLE employee_role
+    ADD CONSTRAINT FK_EMPLOYROLE_ON_ABBREVIATION_VISA FOREIGN KEY (abbreviation) REFERENCES employ_meta_info (visa);
+ALTER TABLE employee_role
+    ADD CONSTRAINT FK_EMPLOYROLE_ON_SUPERVISOR_VISA FOREIGN KEY (supervisor) REFERENCES employ_meta_info (visa);
+
 INSERT INTO EMPLOYEE_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .2, 100.00, 'XYZ');
-
-
-
+VALUES (true, 23209, 'dummy last name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 1, 2, 100.00, 'XYZ');
 INSERT INTO EMPLOYEE_ROLE(active, EMPLOYEE_NR, last, first, abbreviation, contract, forfait, user_Level, level, sub_Level, part_Time, SUPERVISOR)
-VALUES (true, 23209, 'name', 'first name', 'ABC', 'B', 'N', 'Eng begin Vietnam', 'Level 1', .4, 100.00, 'AB1');
+VALUES (true, 23209, 'name', 'first name', 'XYZ', 'B', 'N', 'Eng begin Vietnam', 1, 4, 100.00, 'AB1');
 
 
 

@@ -6,7 +6,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "Employ_Meta_Info")
-class EmployeeMetaInfo {
+class EmployeeMetaInfo: EntitySuper() {
     @Id
     @Column(name = "Visa")
     @CsvBindByName(column = "Visa")

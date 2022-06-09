@@ -17,27 +17,37 @@ class EmployRoleRepositoryImpl: EmployRoleRepositoryCustom {
 
     override fun findEmployeesByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto):Map<EmployeeMetaInfo,Double> {
         val result = mutableMapOf<EmployeeMetaInfo,Double>()
-        getJpaQuery(entityManager)
-            .from(employeeMonthly)
-            .join(employeeMetaInfo)
-            .on(employeeMonthly.metaInfo.visa.eq(employeeMetaInfo.visa))
+        val subQuery = getJpaQuery(entityManager).from(employeeRole)
+
+        if(hourReportCriteria.levels.isNotEmpty()){
+            subQuery
+                .where(employeeRole.level.stringValue().append(".").append(employeeRole.subLevel.stringValue())
+                    .`in`(hourReportCriteria.levels))
+        }
+
+        val query = getJpaQuery(entityManager)
+                .from(employeeMonthly)
+                .join(employeeMetaInfo)
+                .on(employeeMonthly.metaInfo.visa.eq(employeeMetaInfo.visa))
+        if(hourReportCriteria.projectCodes.isNotEmpty()){
+            print("asd")
+            query.where(employeeMonthly.subProject.`in`(hourReportCriteria.projectCodes))
+        }
+
+        query
             .where(employeeMonthly.date.goe(hourReportCriteria.startMonth)
-                .and(employeeMonthly.date.loe(hourReportCriteria.endMonth)
-                    .and(employeeMonthly.subProject.`in`(hourReportCriteria.projectCodes))))
-            .where(employeeMetaInfo.visa.`in`(
-                getJpaQuery(entityManager)
-                    .from(employeeRole)
-                    .where(
-                        employeeRole.level.append(employeeRole.subLevel.stringValue())
-                            .`in`(hourReportCriteria.levels))
-                    .select(employeeRole.abbreviation.visa)
-                    .fetch()
-                ))
+                .and(employeeMonthly.date.loe(hourReportCriteria.endMonth)))
+            .where(
+                subQuery
+                .where(employeeMetaInfo.visa.eq(employeeRole.abbreviation.visa))
+                .exists()
+            )
             .groupBy(employeeMetaInfo.visa)
             .select(employeeMetaInfo,employeeMonthly.hours.sum())
             .fetch().map {
                 result[it[employeeMetaInfo]!!] = it[employeeMonthly.hours.sum()]!!
             }
+        println(result.size)
         return result
     }
 }

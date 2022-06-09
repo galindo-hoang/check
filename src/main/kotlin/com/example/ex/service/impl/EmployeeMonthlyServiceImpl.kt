@@ -35,9 +35,6 @@ class EmployeeMonthlyServiceImpl(@Autowired private val employeeMonthlyRepositor
     }
 
     override fun loadEmployeeByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto): Map<EmployeeMetaInfo,Double> {
-        for(i in 0 until hourReportCriteria.levels.size){
-            hourReportCriteria.levels[i] = "Level " + hourReportCriteria.levels[i].split(".")[0] + ("0."+hourReportCriteria.levels[i].split(".")[1])
-        }
         return employRoleRepositoryImpl.findEmployeesByHourReportCriteria(hourReportCriteria)
     }
 }
