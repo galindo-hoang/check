@@ -9,6 +9,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen") version "1.6.21"
     kotlin("kapt") version "1.6.21"
     kotlin("plugin.noarg") version "1.6.21"
+    kotlin("plugin.serialization") version "1.4.10"
 }
 
 noArg {
@@ -36,6 +37,7 @@ dependencies {
     // openCSV
     implementation("com.opencsv:opencsv:5.6")
     // XSSFWorkbook
+    implementation("org.apache.poi:poi:5.2.2")
     implementation("org.apache.poi:poi-ooxml:5.2.2")
     // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
     implementation("org.apache.commons:commons-csv:1.9.0")
@@ -47,7 +49,8 @@ dependencies {
     kapt("org.springframework.boot:spring-boot-configuration-processor")
     implementation("com.querydsl:querydsl-jpa:5.0.0")
     implementation("com.querydsl:querydsl-kotlin-codegen:5.0.0")
-
+    // serializable
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
 
 
