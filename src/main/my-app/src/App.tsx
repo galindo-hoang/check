@@ -54,8 +54,8 @@ class App extends React.Component<props,hourReportCriteria>{
                 projects: this.state.subProject,
             }
         })
-
         response.data.forEach((emp:undefined) => {
+            console.log(response.data)
             let b:Array<employee> = []
             // @ts-ignore
             b.push({visa: emp.visa,name: emp.name,consolidatedHours: emp.consolidatedHours})
