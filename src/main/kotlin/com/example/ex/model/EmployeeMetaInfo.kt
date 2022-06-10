@@ -153,4 +153,9 @@ class EmployeeMetaInfo: EntitySuper() {
     @JsonManagedReference
     var employeeMonthly: MutableSet<EmployeeMonthly> = mutableSetOf()
 
+    @OneToMany(mappedBy = "visa", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @OrderBy("id")
+    @JsonManagedReference
+    var vertec: MutableSet<Vertec> = mutableSetOf()
+
 }

@@ -9,7 +9,7 @@ plugins {
     id("org.jetbrains.kotlin.plugin.allopen") version "1.6.21"
     kotlin("kapt") version "1.6.21"
     kotlin("plugin.noarg") version "1.6.21"
-    kotlin("plugin.serialization") version "1.4.10"
+    kotlin("plugin.serialization") version "1.4.31"
 }
 
 noArg {
@@ -51,6 +51,8 @@ dependencies {
     implementation("com.querydsl:querydsl-kotlin-codegen:5.0.0")
     // serializable
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
+    implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
+
 
 
 

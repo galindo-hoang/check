@@ -17,8 +17,7 @@ class EmployeeRoleServiceImpl(@Autowired private val employeeRoleRepository: Emp
     private lateinit var entityManager: EntityManager
     private val employeeRole = QEmployeeRole.employeeRole
     override fun loadAllEmployee(): MutableIterable<EmployeeRole> {
-        val result = employeeRoleRepository.findAll()
-        return result
+        return employeeRoleRepository.findAll()
     }
 
     override fun loadEmployeeBySupervisor(visa: String): Iterable<EmployeeRole> {

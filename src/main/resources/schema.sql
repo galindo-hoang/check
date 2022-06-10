@@ -113,6 +113,19 @@ CREATE TABLE employee_monthly_vertec
 ALTER TABLE employee_monthly_vertec
     ADD CONSTRAINT FK_EMPLOYEEMONTHLYVERTEC_ON_VISA FOREIGN KEY (visa) REFERENCES employ_meta_info (visa);
 
+
+CREATE TABLE vertec
+(
+    month_year VARCHAR(255) NOT NULL,
+    version    INT          NULL,
+    visa       VARCHAR(255) NOT NULL,
+    subproject VARCHAR(255) NULL,
+    CONSTRAINT pk_vertec PRIMARY KEY (month_year, visa)
+);
+
+ALTER TABLE vertec
+    ADD CONSTRAINT FK_VERTEC_ON_VISA FOREIGN KEY (visa) REFERENCES employ_meta_info (visa);
+
 INSERT INTO EMPLOY_META_INFO(visa, name, FIRST_NAME, LAST_NAME, division, is_Mgr, GROUP_SA, working_Hours, worked_Hours, difference, cumul_Diff, vac_Left, entrance, resignation, ch_Prd, ch_Prd_Percent, absence, sort, forfait, part_Time, CALCULATED, calculated_Vac_Left, calculated_Is_Mgr, vn_Entry, calculated_Division, calculated_Overview, holidays, illness, trainings, onboarding, others, version) VALUES ('ABC', 'DUMMY NAME 1', 'Name 1', 'Last Name 1', 'Dummy Division 1', 'Engineers', 'Group 1', 160.00, 160.00, 0.00, -3.58, 72.00, '12/16/2020', null, 132.00, 82.50, 20.00, 980, 'FALSE', 100, 0.0, 9, 'Engineers', '12/16/2020', 'Dummy Division 1', 'Engineers',  0, 0, 0, 0, 0, 0);
 INSERT INTO EMPLOY_META_INFO(visa, name, FIRST_NAME, LAST_NAME, division, is_Mgr, GROUP_SA, working_Hours, worked_Hours, difference, cumul_Diff, vac_Left, entrance, resignation, ch_Prd, ch_Prd_Percent, absence, sort, forfait, part_Time, CALCULATED, calculated_Vac_Left, calculated_Is_Mgr, vn_Entry, calculated_Division, calculated_Overview, holidays, illness, trainings, onboarding, others, version) VALUES ('XYZ', 'DUMMY NAME 2', 'Name 2', 'Last Name 2', 'Dummy Division 2', 'Engineers', 'Group 2', 160.00, 160.00, 0.00, -8.50, 128.00, '1/18/2021', null, 136.00, 85.00, 16.00, 1000, 'FALSE', 100, 0.0, 16, 'Engineers', '1/18/2021', 'Dummy Division 2', 'Engineers',  0, 0, 0, 0, 0, 0);
 INSERT INTO EMPLOY_META_INFO(visa, name, FIRST_NAME, LAST_NAME, division, is_Mgr, GROUP_SA, working_Hours, worked_Hours, difference, cumul_Diff, vac_Left, entrance, resignation, ch_Prd, ch_Prd_Percent, absence, sort, forfait, part_Time, CALCULATED, calculated_Vac_Left, calculated_Is_Mgr, vn_Entry, calculated_Division, calculated_Overview, holidays, illness, trainings, onboarding, others, version) VALUES ('DEF', 'DUMMY NAME 3', 'Name 3', 'Last Name 3', 'Dummy Division 3', 'Engineers', 'Group 3', 160.00, 160.00, 0.00, 0.00, 144.00, '11/2/2020', null, 152.00, 95.00, 0.00, 1000, 'FALSE', 100, 0.0, 18, 'Engineers', '11/2/2020', 'Dummy Division 3', 'Engineers',  0, 0, 0, 0, 0, 0);

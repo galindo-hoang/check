@@ -101,71 +101,71 @@ class EmployeeMetaInfoDto : Serializable {
         this.others = others
     }
 
-    class Builder(
-        private var visa: String = "",
-        private var name: String = "",
-        private var firstName: String = "",
-        private var lastName: String = "",
-        private var division: String = "",
-        private var isMgr: String = "",
-        private var group: String = "",
-        private var workingHours: Double = 0.0,
-        private var workedHours: Double = 0.0,
-        private var difference: Double = 0.0,
-        private var cumulDiff: Double = 0.0,
-        private var vecLeft: Double = 0.0,
-        private var entrance: String = "",
-        private var resignation: Int? = null,
-        private var chPrd: Double = 0.0,
-        private var chPrdPercent: Double = 0.0,
-        private var absence: Double = 0.0,
-        private var sort: Int = 0,
-        private var forfait: Boolean = false,
-        private var partTime: Int = 0,
-        private var calculated: Double = 0.0,
-        private var calculatedVecLeft: Double = 0.0,
-        private var calculatedIsMgr: String = "",
-        private var vnEntry: String = "",
-        private var calculatedDivision: String = "",
-        private var calculatedOverview: String = "",
-        private var holidays: Int = 0,
-        private var illness: Int = 0,
-        private var trainings: Int = 0,
-        private var onboarding: Int = 0,
-        private var others: Int = 0,
-    ){
-        fun Visa(visa:String) = apply {this.visa = visa}
-        fun Name(name: String) = apply {this.name = name}
-        fun firstName(firstName: String) = apply {this.firstName = firstName}
-        fun lastName(lastName: String) = apply {this.lastName = lastName}
-        fun division(division: String) = apply {this.division = division}
-        fun mgr(mgr: String) = apply {this.isMgr = mgr}
-        fun group(group: String) = apply {this.group = group}
-        fun workingHours(workingHours: Double) = apply {this.workingHours = workingHours}
-        fun workedHours(workedHours: Double) = apply {this.workedHours = workedHours}
-        fun difference(difference: Double) = apply {this.difference = difference}
-        fun cumulDiff(cumulDiff: Double) = apply {this.cumulDiff = cumulDiff}
-        fun vecLeft(vecLeft: Double) = apply {this.vecLeft = vecLeft}
-        fun entrance(entrance: String) = apply {this.entrance = entrance}
-        fun resignation(resignation: Int) = apply {this.resignation = resignation}
-        fun chPrd(chProd: Double) = apply {this.chPrd = chProd}
-        fun chPrdPercent(chPrdPercent:Double) = apply {this.chPrdPercent = chPrdPercent}
-        fun absence(absence: Double) = apply {this.absence = absence}
-        fun sort(sort: Int) = apply {this.sort = sort}
-        fun forFait(forFait: Boolean) = apply {this.forfait = forFait}
-        fun partTime(partTime: Int) = apply {this.partTime = partTime}
-        fun calculated(calculated: Double) = apply {this.calculated = calculated}
-        fun calculatedVecLeft(calculatedVecLeft: Double) = apply {this.calculatedVecLeft = calculatedVecLeft}
-        fun calculatedIsMgr(calculatedIsMgr: String) = apply {this.calculatedIsMgr = calculatedIsMgr}
-        fun vnEntry(vnEntry: String) = apply {this.vnEntry = vnEntry}
-        fun calculatedDivision(calculatedDivision: String) = apply {this.calculatedDivision = calculatedDivision}
-        fun calculatedOverview(calculatedOverview: String) = apply {this.calculatedOverview = calculatedOverview}
-        fun holidays(holidays: Int) = apply {this.holidays = holidays}
-        fun illness(illness: Int) = apply {this.illness = illness}
-        fun trainings(trainings: Int) = apply {this.trainings = trainings}
-        fun onBoarding(onBoarding: Int) = apply {this.onboarding = onBoarding}
-        fun others(others: Int) = apply {this.others = others}
-        fun build() = EmployeeMetaInfoDto(visa,name,firstName,lastName,division,isMgr,group,workingHours,workedHours,difference,cumulDiff,vecLeft,entrance,resignation,chPrd,chPrdPercent,absence,sort,forfait,partTime,calculated,calculatedVecLeft,calculatedIsMgr,vnEntry,calculatedDivision,calculatedOverview,holidays,illness,trainings,onboarding,others)
-
-    }
+//    class Builder(
+//        private var visa: String = "",
+//        private var name: String = "",
+//        private var firstName: String = "",
+//        private var lastName: String = "",
+//        private var division: String = "",
+//        private var isMgr: String = "",
+//        private var group: String = "",
+//        private var workingHours: Double = 0.0,
+//        private var workedHours: Double = 0.0,
+//        private var difference: Double = 0.0,
+//        private var cumulDiff: Double = 0.0,
+//        private var vecLeft: Double = 0.0,
+//        private var entrance: String = "",
+//        private var resignation: Int? = null,
+//        private var chPrd: Double = 0.0,
+//        private var chPrdPercent: Double = 0.0,
+//        private var absence: Double = 0.0,
+//        private var sort: Int = 0,
+//        private var forfait: Boolean = false,
+//        private var partTime: Int = 0,
+//        private var calculated: Double = 0.0,
+//        private var calculatedVecLeft: Double = 0.0,
+//        private var calculatedIsMgr: String = "",
+//        private var vnEntry: String = "",
+//        private var calculatedDivision: String = "",
+//        private var calculatedOverview: String = "",
+//        private var holidays: Int = 0,
+//        private var illness: Int = 0,
+//        private var trainings: Int = 0,
+//        private var onboarding: Int = 0,
+//        private var others: Int = 0,
+//    ){
+//        fun Visa(visa:String) = apply {this.visa = visa}
+//        fun Name(name: String) = apply {this.name = name}
+//        fun firstName(firstName: String) = apply {this.firstName = firstName}
+//        fun lastName(lastName: String) = apply {this.lastName = lastName}
+//        fun division(division: String) = apply {this.division = division}
+//        fun mgr(mgr: String) = apply {this.isMgr = mgr}
+//        fun group(group: String) = apply {this.group = group}
+//        fun workingHours(workingHours: Double) = apply {this.workingHours = workingHours}
+//        fun workedHours(workedHours: Double) = apply {this.workedHours = workedHours}
+//        fun difference(difference: Double) = apply {this.difference = difference}
+//        fun cumulDiff(cumulDiff: Double) = apply {this.cumulDiff = cumulDiff}
+//        fun vecLeft(vecLeft: Double) = apply {this.vecLeft = vecLeft}
+//        fun entrance(entrance: String) = apply {this.entrance = entrance}
+//        fun resignation(resignation: Int) = apply {this.resignation = resignation}
+//        fun chPrd(chProd: Double) = apply {this.chPrd = chProd}
+//        fun chPrdPercent(chPrdPercent:Double) = apply {this.chPrdPercent = chPrdPercent}
+//        fun absence(absence: Double) = apply {this.absence = absence}
+//        fun sort(sort: Int) = apply {this.sort = sort}
+//        fun forFait(forFait: Boolean) = apply {this.forfait = forFait}
+//        fun partTime(partTime: Int) = apply {this.partTime = partTime}
+//        fun calculated(calculated: Double) = apply {this.calculated = calculated}
+//        fun calculatedVecLeft(calculatedVecLeft: Double) = apply {this.calculatedVecLeft = calculatedVecLeft}
+//        fun calculatedIsMgr(calculatedIsMgr: String) = apply {this.calculatedIsMgr = calculatedIsMgr}
+//        fun vnEntry(vnEntry: String) = apply {this.vnEntry = vnEntry}
+//        fun calculatedDivision(calculatedDivision: String) = apply {this.calculatedDivision = calculatedDivision}
+//        fun calculatedOverview(calculatedOverview: String) = apply {this.calculatedOverview = calculatedOverview}
+//        fun holidays(holidays: Int) = apply {this.holidays = holidays}
+//        fun illness(illness: Int) = apply {this.illness = illness}
+//        fun trainings(trainings: Int) = apply {this.trainings = trainings}
+//        fun onBoarding(onBoarding: Int) = apply {this.onboarding = onBoarding}
+//        fun others(others: Int) = apply {this.others = others}
+//        fun build() = EmployeeMetaInfoDto(visa,name,firstName,lastName,division,isMgr,group,workingHours,workedHours,difference,cumulDiff,vecLeft,entrance,resignation,chPrd,chPrdPercent,absence,sort,forfait,partTime,calculated,calculatedVecLeft,calculatedIsMgr,vnEntry,calculatedDivision,calculatedOverview,holidays,illness,trainings,onboarding,others)
+//
+//    }
 }

@@ -8,7 +8,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "EmployeeMonthlyVertec")
-class EmployeeMonthly: EntitySuper() {
+class EmployeeMonthly(): EntitySuper() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long = 0
@@ -78,4 +78,41 @@ class EmployeeMonthly: EntitySuper() {
     @CsvBindByName(column = "Division")
     var division:String = ""
 
+    constructor(
+        id: Long,
+        metaInfo: EmployeeMetaInfo,
+        date: Date?,
+        code: String,
+        hours: Double,
+        comment: String,
+        description: String,
+        vn: Boolean,
+        subProject: String,
+        subprojectName: String,
+        project: Long,
+        projectName: String,
+        vnHrs: Int,
+        chHrs: Int,
+        unique: Int,
+        calculatedSubprojectName: String,
+        division: String
+    ) : this() {
+        this.id = id
+        this.metaInfo = metaInfo
+        this.date = date
+        this.code = code
+        this.hours = hours
+        this.comment = comment
+        this.description = description
+        this.vn = vn
+        this.subProject = subProject
+        this.subprojectName = subprojectName
+        this.project = project
+        this.projectName = projectName
+        this.vnHrs = vnHrs
+        this.chHrs = chHrs
+        this.unique = unique
+        this.calculatedSubprojectName = calculatedSubprojectName
+        this.division = division
+    }
 }
