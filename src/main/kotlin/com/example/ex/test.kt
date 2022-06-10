@@ -1,57 +1,59 @@
 package com.example.ex
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.*
+import com.example.ex.Utils.format
+import com.example.ex.Utils.toJsonObject
+import com.example.ex.model.Vertec
+import kotlinx.serialization.json.decodeFromJsonElement
 import org.apache.poi.ss.usermodel.*
 import java.io.FileInputStream
-
-@Serializable
-class Place(
-){
-
-    @SerialName("place_id") val placeId: String = ""
-    val name: String = ""
-    val types: List<Int> = TODO()
-}
-
-
+import java.text.SimpleDateFormat
+import java.util.*
 
 fun main() {
-    val filepath = "C:\\Users\\huy\\elca\\Ex1\\src\\main\\kotlin\\com\\example\\ex\\ProjectData-sample.xlsx"
+    val filepath = "C:\\Users\\hoah\\Desktop\\jira\\Ex1\\src\\main\\kotlin\\com\\example\\ex\\ProjectData-sample.xlsx"
     val xlWb = WorkbookFactory.create(FileInputStream(filepath))
-    val b = xlWb.getSheet("ALL-DU-Vertec").getRow(47918)
-    val hash: HashMap<String,Int> = hashMapOf()
-    xlWb.getSheet("ALL-DU-Vertec").getRow(1).cellIterator().asSequence().toList().forEachIndexed{ i,v ->
-        hash[v.stringCellValue] = i
+    val sheet = xlWb.getSheet("ALL-DU-Vertec")
+    val hash: HashMap<Int,String> = hashMapOf()
+    sheet.getRow(1).cellIterator().asSequence().toList().forEachIndexed{ i,c ->
+        hash[i] = c.stringCellValue.toString()
     }
-    println(hash)
-//    for(i in 0 until  b.lastCellNum){
-//        println("$i - ${b.getCell(i).cellType}")
-//        when(b.getCell(i).cellType){
-//            CellType.STRING -> {
-//                println("string - "+ b.getCell(i).stringCellValue)
-//            }
-//            CellType.NUMERIC -> {
-//                if(DateUtil.isCellDateFormatted(b.getCell(i))){
-//                    println("date - "+ b.getCell(i).dateCellValue)
-//                }else{
-//                    println("numeric - "+ b.getCell(i))
-//                }
-//            }
-//            CellType.FORMULA -> {
-//                when(b.getCell(i).cachedFormulaResultType){
-//                    CellType.STRING -> {
-//                        println("string -- "+ b.getCell(i).stringCellValue)
-//                    }
-//                    CellType.BOOLEAN -> {
-//                        println("Boolean - "+ b.getCell(i).booleanCellValue)
-//                    }
-//                    CellType.NUMERIC -> {
-//                        println("Numeric -- "+ b.getCell(i).numericCellValue)
-//                    }
-//                }
-//            }
-//        }
-//    }
+    val listData: MutableList<Vertec> = mutableListOf()
+    sheet.rowIterator().asSequence().toList().forEachIndexed{ i,r ->
+        val model: HashMap<String,Any> = hashMapOf()
+        if(i >=2 && r.getCell(0).stringCellValue.split(".")[0] == "05" && r.getCell(0).stringCellValue.split(".")[1] == "2"){
+            r.cellIterator().asSequence().toList().forEachIndexed { index, cell ->
+                val titleCell = hash[index]!!
+                if(cell != null){
+                    when (cell.cellType) {
+                        CellType.STRING -> model[titleCell] = cell.stringCellValue
+
+                        CellType.NUMERIC -> {
+                            if (DateUtil.isCellDateFormatted(cell)) {
+                                model[titleCell] =
+                                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cell.dateCellValue)
+                                println("---" + model[titleCell])
+                            } else {
+                                if (!titleCell.contains("Hrs")) model[titleCell] = cell.numericCellValue.toInt()
+                                else model[titleCell] = cell.numericCellValue
+                            }
+                        }
+
+                        CellType.FORMULA -> {
+                            when (cell.cachedFormulaResultType) {
+                                CellType.STRING -> model[titleCell] = cell.stringCellValue
+                                CellType.BOOLEAN -> model[titleCell] = cell.booleanCellValue
+                                CellType.NUMERIC -> {
+                                    if (!titleCell.contains("Hrs")) model[titleCell] = cell.numericCellValue.toInt()
+                                    else model[titleCell] = cell.numericCellValue
+                                }
+                                else -> {}
+                            }
+                        }
+                        else -> {}
+                    }
+                }
+                listData.add(format.decodeFromJsonElement(model.toJsonObject()))
+            }
+        }
+    }
 }

@@ -16,7 +16,9 @@ object Utils {
     }
 
 
-    fun Any?.toJsonElement(): JsonElement {
+    val format = Json { isLenient = true }
+
+    private fun Any?.toJsonElement(): JsonElement {
         return when (this) {
             is Number -> JsonPrimitive(this)
             is Boolean -> JsonPrimitive(this)
@@ -29,13 +31,13 @@ object Utils {
         }
     }
 
-    fun Array<*>.toJsonArray(): JsonArray {
+    private fun Array<*>.toJsonArray(): JsonArray {
         val array = mutableListOf<JsonElement>()
         this.forEach { array.add(it.toJsonElement()) }
         return JsonArray(array)
     }
 
-    fun List<*>.toJsonArray(): JsonArray {
+    private fun List<*>.toJsonArray(): JsonArray {
         val array = mutableListOf<JsonElement>()
         this.forEach { array.add(it.toJsonElement()) }
         return JsonArray(array)
