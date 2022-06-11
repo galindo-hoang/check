@@ -16,7 +16,10 @@ object Utils {
     }
 
 
-    val format = Json { isLenient = true }
+    val format = Json {
+        isLenient = true
+        ignoreUnknownKeys = true
+    }
 
     private fun Any?.toJsonElement(): JsonElement {
         return when (this) {

@@ -3,6 +3,7 @@ package com.example.ex
 import com.example.ex.dto.EmployeeHourReportDto
 import com.example.ex.dto.EmployeeMetaInfoDto
 import com.example.ex.dto.HourReportCriteriaDto
+import com.example.ex.dto.VertecDto
 import com.example.ex.mapper.EmployeeMapper
 import com.example.ex.model.Capacity
 import com.example.ex.model.EmployeeRole
@@ -23,6 +24,7 @@ class HtmlController(
     @Autowired private val employeeRoleService: EmployeeRoleService,
     @Autowired private val employeeMonthlyService: EmployeeMonthlyService,
     @Autowired private val employeeCapacityService: EmployeeCapacityService,
+    @Autowired private val vertecService: VertecService,
     @Autowired private val employeeMapper: EmployeeMapper
 
 ) {
@@ -70,5 +72,13 @@ class HtmlController(
         println(hourReportCriteriaDto.projectCodes)
         println(result.size)
         return result
+    }
+
+    @RequestMapping(value = ["/loadVertecIntoDB"], method = [RequestMethod.GET])
+    fun loadVertec(
+        @RequestParam("month", required = false, defaultValue = "") month: Int,
+        @RequestParam("year", required = false, defaultValue = "") year: Int,
+    ): MutableList<VertecDto> {
+        return vertecService.loadVertecByMonthYear(month,year)
     }
 }

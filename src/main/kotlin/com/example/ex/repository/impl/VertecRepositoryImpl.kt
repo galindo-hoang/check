@@ -13,8 +13,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class VertecRepositoryImpl: VertecRepositoryCustom {
-    override fun findAllVertecByMonthYear(month: Int, year: Int) {
-        val filepath = "C:\\Users\\hoah\\Desktop\\jira\\Ex1\\src\\main\\kotlin\\com\\example\\ex\\ProjectData-sample.xlsx"
+    override fun findAllVertecByMonthYear(month: Int, year: Int): MutableList<VertecDto> {
+        val filepath = "C:\\Users\\huy\\elca\\Ex1\\src\\main\\kotlin\\com\\example\\ex\\ProjectData-sample.xlsx"
         val xlWb = WorkbookFactory.create(FileInputStream(filepath))
         val sheet = xlWb.getSheet("ALL-DU-Vertec")
         val hash: HashMap<Int, String> = hashMapOf()
@@ -24,7 +24,7 @@ class VertecRepositoryImpl: VertecRepositoryCustom {
         val listData: MutableList<VertecDto> = mutableListOf()
         sheet.rowIterator().asSequence().toList().forEachIndexed{ i,r ->
             val model: HashMap<String, Any> = hashMapOf()
-            if(i >=2 && r.getCell(0).stringCellValue.split(".")[0].toInt() == month && r.getCell(0).stringCellValue.split(".")[1].toInt() == year){
+            if(i >=2 && r.getCell(0).stringCellValue.length == 5 && r.getCell(0).stringCellValue.split(".")[0].toInt() == month && r.getCell(0).stringCellValue.split(".")[1].toInt() == year){
                 r.cellIterator().asSequence().toList().forEachIndexed { index, cell ->
                     val titleCell = hash[index]!!
                     if(cell != null){
@@ -60,5 +60,6 @@ class VertecRepositoryImpl: VertecRepositoryCustom {
                 }
             }
         }
+        return listData
     }
 }
