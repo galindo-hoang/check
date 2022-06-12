@@ -1,8 +1,7 @@
 package com.example.ex.repository
 
 import com.example.ex.dto.VertecDto
-import java.time.Month
 
 interface VertecRepositoryCustom {
-    fun findAllVertecByMonthYear(month: Int, year: Int): MutableList<VertecDto>
+    fun findAllVertecByMonthYear(data: HashMap<String, Any>): MutableList<VertecDto>
 }

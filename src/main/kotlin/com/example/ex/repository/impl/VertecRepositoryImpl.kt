@@ -1,9 +1,11 @@
 package com.example.ex.repository.impl
 
-import com.example.ex.Utils
-import com.example.ex.Utils.toJsonObject
 import com.example.ex.dto.VertecDto
 import com.example.ex.repository.VertecRepositoryCustom
+import com.example.ex.repository.filterxlsx.CriteriaFactory
+import com.example.ex.repository.filterxlsx.CriteriaXLSX
+import com.example.ex.utils.Constant
+import com.example.ex.utils.Constant.toJsonObject
 import kotlinx.serialization.json.decodeFromJsonElement
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.DateUtil
@@ -13,51 +15,64 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class VertecRepositoryImpl: VertecRepositoryCustom {
-    override fun findAllVertecByMonthYear(month: Int, year: Int): MutableList<VertecDto> {
+    override fun findAllVertecByMonthYear(data: HashMap<String, Any>): MutableList<VertecDto> {
+        val titleColumn: HashMap<Int, String> = hashMapOf()
         val filepath = "C:\\Users\\huy\\elca\\Ex1\\src\\main\\kotlin\\com\\example\\ex\\ProjectData-sample.xlsx"
         val xlWb = WorkbookFactory.create(FileInputStream(filepath))
         val sheet = xlWb.getSheet("ALL-DU-Vertec")
-        val hash: HashMap<Int, String> = hashMapOf()
+        val filter = hashMapOf<Int,CriteriaXLSX>()
         sheet.getRow(1).cellIterator().asSequence().toList().forEachIndexed{ i,c ->
-            hash[i] = c.stringCellValue.toString()
+            titleColumn[i] = c.stringCellValue
+            if(data.containsKey(c.stringCellValue)){
+                filter[i] = CriteriaFactory.getCriteria(c.stringCellValue)
+            }
         }
         val listData: MutableList<VertecDto> = mutableListOf()
         sheet.rowIterator().asSequence().toList().forEachIndexed{ i,r ->
             val model: HashMap<String, Any> = hashMapOf()
-            if(i >=2 && r.getCell(0).stringCellValue.length == 5 && r.getCell(0).stringCellValue.split(".")[0].toInt() == month && r.getCell(0).stringCellValue.split(".")[1].toInt() == year){
+            if(i>=2 && r.lastCellNum <= 19){
                 r.cellIterator().asSequence().toList().forEachIndexed { index, cell ->
-                    val titleCell = hash[index]!!
+                    val titleCell = titleColumn[index]!!
+                    if(cell == null && filter.containsKey(index)) {
+                        model.clear()
+                        return@forEachIndexed
+                    }
                     if(cell != null){
-                        when (cell.cellType) {
-                            CellType.STRING -> model[titleCell] = cell.stringCellValue
+                        if(!filter.containsKey(index) || (filter.containsKey(index) && filter[index]!!.meetCriteria(cell,data[titleCell]!!))){
+                            when (cell.cellType) {
+                                CellType.STRING -> model[titleCell] = cell.stringCellValue
 
-                            CellType.NUMERIC -> {
-                                if (DateUtil.isCellDateFormatted(cell)) {
-                                    model[titleCell] =
-                                        SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cell.dateCellValue)
-                                    println("---" + model[titleCell])
-                                } else {
-                                    if (!titleCell.contains("Hrs")) model[titleCell] = cell.numericCellValue.toInt()
-                                    else model[titleCell] = cell.numericCellValue
-                                }
-                            }
-
-                            CellType.FORMULA -> {
-                                when (cell.cachedFormulaResultType) {
-                                    CellType.STRING -> model[titleCell] = cell.stringCellValue
-                                    CellType.BOOLEAN -> model[titleCell] = cell.booleanCellValue
-                                    CellType.NUMERIC -> {
+                                CellType.NUMERIC -> {
+                                    if (DateUtil.isCellDateFormatted(cell)) {
+                                        model[titleCell] =
+                                            SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cell.dateCellValue)
+                                    } else {
                                         if (!titleCell.contains("Hrs")) model[titleCell] = cell.numericCellValue.toInt()
                                         else model[titleCell] = cell.numericCellValue
                                     }
-                                    else -> {}
                                 }
+
+                                CellType.FORMULA -> {
+                                    when (cell.cachedFormulaResultType) {
+                                        CellType.STRING -> model[titleCell] = cell.stringCellValue
+                                        CellType.BOOLEAN -> model[titleCell] = cell.booleanCellValue
+                                        CellType.NUMERIC -> {
+                                            if (!titleCell.contains("Hrs")) model[titleCell] = cell.numericCellValue.toInt()
+                                            else model[titleCell] = cell.numericCellValue
+                                        }
+                                        else -> {}
+                                    }
+                                }
+                                else -> {}
                             }
-                            else -> {}
+                        }else {
+                            model.clear()
+                            return@forEachIndexed
                         }
                     }
-                    listData.add(Utils.format.decodeFromJsonElement(model.toJsonObject()))
                 }
+                println(model)
+                if(model.isNotEmpty()) listData.add(Constant.format.decodeFromJsonElement(model.toJsonObject()))
             }
         }
         return listData

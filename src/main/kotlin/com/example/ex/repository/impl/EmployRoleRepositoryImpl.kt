@@ -1,6 +1,6 @@
 package com.example.ex.repository.impl
 
-import com.example.ex.Utils.getJpaQuery
+import com.example.ex.utils.Constant.getJpaQuery
 import com.example.ex.dto.HourReportCriteriaDto
 import com.example.ex.model.EmployeeMetaInfo
 import com.example.ex.model.QEmployeeMetaInfo.Companion.employeeMetaInfo
