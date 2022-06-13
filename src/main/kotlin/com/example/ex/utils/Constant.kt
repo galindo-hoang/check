@@ -7,19 +7,19 @@ import javax.persistence.EntityManager
 
 object Constant {
 
-    const val MONTH_YEAR = "month"
+    const val MONTH_YEAR = "Month"
     const val SUB_PROJECT = "Subproject"
-    const val VISA = "visa"
+    const val VISA = "Visa"
 
 
     const val YEAR = "year"
-    const val DATE = "date"
-    const val GRP_PRJ = "grp-prj"
-    const val P = "p"
-    const val CODE = "code"
-    const val HRS = "hrs"
-    const val IS_VN = "IsVn"
-    const val PROJECT = "project"
+    const val DATE = "Date"
+    const val GRP_PRJ = "GRP-PRJ"
+    const val P = "P"
+    const val CODE = "Code"
+    const val HRS = "Hrs"
+    const val IS_VN = "Vn ?"
+    const val PROJECT = "Project"
 
 
     fun getJpaQuery(entityManager: EntityManager): JPAQueryFactory {

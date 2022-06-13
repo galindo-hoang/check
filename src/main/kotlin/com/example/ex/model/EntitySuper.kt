@@ -5,7 +5,7 @@ import javax.persistence.MappedSuperclass
 import javax.persistence.Version
 
 @MappedSuperclass
-open class EntitySuper() {
+class EntitySuper {
     @Version
     @Column(name = "version")
     private val version: Int = 0

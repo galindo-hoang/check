@@ -25,7 +25,7 @@ class HtmlController(
     @Autowired private val employeeMonthlyService: EmployeeMonthlyService,
     @Autowired private val employeeCapacityService: EmployeeCapacityService,
     @Autowired private val vertecService: VertecService,
-    @Autowired private val employeeMapper: EmployeeMapper
+    @Autowired private val employeeMapper: EmployeeMapper,
 
 ) {
 
@@ -43,6 +43,11 @@ class HtmlController(
     fun viewCapacity(): MutableIterable<Capacity> = employeeCapacityService.loadAllEmployee()
     @RequestMapping(value = ["/employeeMonthly"], method = [RequestMethod.GET])
     fun viewMonthly(): MutableIterable<EmployeeMonthly> = employeeMonthlyService.loadAllEmployee()
+
+    @RequestMapping(value = ["/version"], method = [RequestMethod.GET])
+    fun version(){
+
+    }
 
     @RequestMapping(value = ["/test"], method = [RequestMethod.GET])
     fun test(
@@ -76,8 +81,8 @@ class HtmlController(
 
     @RequestMapping(value = ["/loadVertecIntoDB"], method = [RequestMethod.GET])
     fun loadVertec(
-        @RequestParam("month", required = false, defaultValue = "") month: Int,
-        @RequestParam("year", required = false, defaultValue = "") year: Int,
+        @RequestParam("month", required = false, defaultValue = "05") month: Int,
+        @RequestParam("year", required = false, defaultValue = "22") year: Int,
     ): MutableList<VertecDto> {
         return vertecService.loadVertecByMonthYear(month,year)
     }

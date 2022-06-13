@@ -10,32 +10,40 @@ import kotlinx.serialization.json.decodeFromJsonElement
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.DateUtil
 import org.apache.poi.ss.usermodel.WorkbookFactory
+import org.springframework.beans.factory.annotation.Value
 import java.io.FileInputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
-class VertecRepositoryImpl: VertecRepositoryCustom {
+class VertecRepositoryImpl(
+    @Value("\${excel.file}")
+    val filepath: String
+): VertecRepositoryCustom {
     override fun findAllVertecByMonthYear(data: HashMap<String, Any>): MutableList<VertecDto> {
         val titleColumn: HashMap<Int, String> = hashMapOf()
-        val filepath = "C:\\Users\\huy\\elca\\Ex1\\src\\main\\kotlin\\com\\example\\ex\\ProjectData-sample.xlsx"
         val xlWb = WorkbookFactory.create(FileInputStream(filepath))
         val sheet = xlWb.getSheet("ALL-DU-Vertec")
         val filter = hashMapOf<Int,CriteriaXLSX>()
+
         sheet.getRow(1).cellIterator().asSequence().toList().forEachIndexed{ i,c ->
             titleColumn[i] = c.stringCellValue
             if(data.containsKey(c.stringCellValue)){
                 filter[i] = CriteriaFactory.getCriteria(c.stringCellValue)
             }
         }
+
+
         val listData: MutableList<VertecDto> = mutableListOf()
         sheet.rowIterator().asSequence().toList().forEachIndexed{ i,r ->
             val model: HashMap<String, Any> = hashMapOf()
-            if(i>=2 && r.lastCellNum <= 19){
-                r.cellIterator().asSequence().toList().forEachIndexed { index, cell ->
+            if(i>=2){
+                for(index in r.firstCellNum until  sheet.getRow(1).lastCellNum){
+                    val cell = r.getCell(index)
+
                     val titleCell = titleColumn[index]!!
                     if(cell == null && filter.containsKey(index)) {
                         model.clear()
-                        return@forEachIndexed
+                        break
                     }
                     if(cell != null){
                         if(!filter.containsKey(index) || (filter.containsKey(index) && filter[index]!!.meetCriteria(cell,data[titleCell]!!))){
@@ -67,12 +75,13 @@ class VertecRepositoryImpl: VertecRepositoryCustom {
                             }
                         }else {
                             model.clear()
-                            return@forEachIndexed
+                            break
                         }
                     }
                 }
-                println(model)
-                if(model.isNotEmpty()) listData.add(Constant.format.decodeFromJsonElement(model.toJsonObject()))
+                if(model.isNotEmpty()) {
+                    listData.add(Constant.format.decodeFromJsonElement(model.toJsonObject()))
+                }
             }
         }
         return listData

@@ -2,7 +2,7 @@ package com.example.ex.service.impl
 
 import com.example.ex.model.EmployeeRole
 import com.example.ex.model.QEmployeeRole
-import com.example.ex.repository.EmployRoleRepository
+import com.example.ex.repository.EmployeeRoleRepository
 import com.example.ex.service.EmployeeRoleService
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,7 +11,7 @@ import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
 @Service
-class EmployeeRoleServiceImpl(@Autowired private val employeeRoleRepository: EmployRoleRepository):
+class EmployeeRoleServiceImpl(@Autowired private val employeeRoleRepository: EmployeeRoleRepository):
     EmployeeRoleService {
     @PersistenceContext
     private lateinit var entityManager: EntityManager

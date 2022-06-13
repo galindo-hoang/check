@@ -2,8 +2,9 @@ package com.example.ex.service.impl
 
 import com.example.ex.dto.HourReportCriteriaDto
 import com.example.ex.model.*
-import com.example.ex.repository.impl.EmployRoleRepositoryImpl
+import com.example.ex.repository.impl.EmployeeRoleRepositoryImpl
 import com.example.ex.repository.EmployeeMonthlyRepository
+import com.example.ex.repository.EmployeeRoleRepository
 import com.example.ex.service.EmployeeMonthlyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -12,7 +13,7 @@ import org.springframework.stereotype.Service
 class EmployeeMonthlyServiceImpl(@Autowired private val employeeMonthlyRepository: EmployeeMonthlyRepository):
     EmployeeMonthlyService {
 
-    @Autowired private lateinit var employRoleRepositoryImpl: EmployRoleRepositoryImpl
+    @Autowired private lateinit var employeeRoleRepository: EmployeeRoleRepository
     override fun loadAllEmployee(): MutableIterable<EmployeeMonthly> {
         return employeeMonthlyRepository.findAll()
     }
@@ -26,6 +27,6 @@ class EmployeeMonthlyServiceImpl(@Autowired private val employeeMonthlyRepositor
     }
 
     override fun loadEmployeeByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto): Map<EmployeeMetaInfo,Double> {
-        return employRoleRepositoryImpl.findEmployeesByHourReportCriteria(hourReportCriteria)
+        return employeeRoleRepository.findEmployeesByHourReportCriteria(hourReportCriteria)
     }
 }
