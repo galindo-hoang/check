@@ -18,9 +18,8 @@ class EmployeeInfoServiceImpl(
         return employeeMetaInfoRepository.findAll().map { employeeMapper.entityToDto(it) }
     }
 
-    override fun loadEmployeeByVisa(visa: String): List<EmployeeMetaInfoDto> {
-        return employeeMetaInfoRepository.findEmployMetaInfoByVisa(visa)
-            .map { employeeMapper.entityToDto(it) }
+    override fun loadEmployeeByVisa(visa: String): EmployeeMetaInfoDto {
+        return employeeMapper.entityToDto(employeeMetaInfoRepository.findEmployMetaInfoByVisa(visa))
     }
 
     override fun saveEmployee(employee: EmployeeMetaInfo) {

@@ -1,6 +1,5 @@
 package com.example.ex.model
 
-import com.fasterxml.jackson.annotation.JsonManagedReference
 import com.opencsv.bean.CsvBindByName
 import javax.persistence.*
 
@@ -132,30 +131,27 @@ class EmployeeMetaInfo: EntitySuper() {
     @CsvBindByName(column = "Others")
     var others: Int = 0
 
-    @OneToOne(mappedBy = "metaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
-    var capacity: Capacity? = null
+    @OneToMany(mappedBy = "visa", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @OrderBy("id")
+    var capacity: MutableSet<Capacity> = mutableSetOf()
 
 //    @OneToOne(mappedBy = "employMetaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
 //    lateinit var employeeHourReport: EmployeeHourReport
 
     @OneToMany( mappedBy = "supervisor", fetch = FetchType.LAZY)
     @OrderBy("id")
-    @JsonManagedReference
     var supervisors: MutableSet<EmployeeRole> = mutableSetOf()
 
     @OneToMany(mappedBy = "abbreviation", fetch = FetchType.LAZY)
     @OrderBy("id")
-    @JsonManagedReference
     var abbreviations: MutableSet<EmployeeRole> = mutableSetOf()
 
     @OneToMany(mappedBy = "metaInfo", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @OrderBy("id")
-    @JsonManagedReference
     var employeeMonthly: MutableSet<EmployeeMonthly> = mutableSetOf()
 
     @OneToMany(mappedBy = "visa", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @OrderBy("id")
-    @JsonManagedReference
     var vertec: MutableSet<Vertec> = mutableSetOf()
 
 }

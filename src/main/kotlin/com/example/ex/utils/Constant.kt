@@ -32,6 +32,7 @@ object Constant {
         ignoreUnknownKeys = true
     }
 
+    const val FORMAT_STRING_DATE = "yyyy-MM-dd"
     private fun Any?.toJsonElement(): JsonElement {
         return when (this) {
             is Number -> JsonPrimitive(this)

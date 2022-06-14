@@ -1,10 +1,8 @@
 package com.example.ex
 
-import com.example.ex.dto.EmployeeHourReportDto
-import com.example.ex.dto.EmployeeMetaInfoDto
-import com.example.ex.dto.HourReportCriteriaDto
-import com.example.ex.dto.VertecDto
+import com.example.ex.dto.*
 import com.example.ex.mapper.EmployeeMapper
+import com.example.ex.mapper.EmployeeMonthlyMapperDecorator
 import com.example.ex.model.Capacity
 import com.example.ex.model.EmployeeRole
 import com.example.ex.model.EmployeeMonthly
@@ -26,13 +24,15 @@ class HtmlController(
     @Autowired private val employeeCapacityService: EmployeeCapacityService,
     @Autowired private val vertecService: VertecService,
     @Autowired private val employeeMapper: EmployeeMapper,
+    @Autowired private val employeeMonthlyMapperDecorator: EmployeeMonthlyMapperDecorator,
+
 
 ) {
 
     @RequestMapping(value = ["/employeeInfo"], method = [RequestMethod.GET])
-    fun viewInfo(@RequestParam("visa", required = false, defaultValue = "") visa:String): Iterable<EmployeeMetaInfoDto> {
-        return if(visa == "") employeeInfoService.loadAllEmployee()
-        else employeeInfoService.loadEmployeeByVisa(visa)
+    fun viewInfo(@RequestParam("visa", required = false, defaultValue = " ") visa:String): EmployeeMetaInfoDto {
+//        return if(visa == "") EmployeeMetaInfoDto()
+        return employeeInfoService.loadEmployeeByVisa(visa)
     }
     @RequestMapping(value = ["/employeeRole"], method = [RequestMethod.GET])
     fun viewRole(@RequestParam("supervisors", required = false, defaultValue = "") supervisors:String): Iterable<EmployeeRole> {
@@ -79,11 +79,20 @@ class HtmlController(
         return result
     }
 
+//    @RequestMapping(value = ["/loadVertecIntoDB"], method = [RequestMethod.GET])
+//    fun loadVertec(
+//        @RequestParam("month", required = false, defaultValue = "05") month: Int,
+//        @RequestParam("year", required = false, defaultValue = "22") year: Int,
+//    ): MutableList<VertecDto> {
+//        return vertecService.loadVertecByMonthYear(month,year)
+//    }
+
+
     @RequestMapping(value = ["/loadVertecIntoDB"], method = [RequestMethod.GET])
     fun loadVertec(
         @RequestParam("month", required = false, defaultValue = "05") month: Int,
         @RequestParam("year", required = false, defaultValue = "22") year: Int,
-    ): MutableList<VertecDto> {
-        return vertecService.loadVertecByMonthYear(month,year)
+    ): List<EmployeeMonthlyDto> {
+        return employeeMonthlyService.loadEmployeeByMonth(month)
     }
 }

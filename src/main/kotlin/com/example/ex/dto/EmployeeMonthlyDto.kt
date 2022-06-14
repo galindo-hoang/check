@@ -1,58 +1,61 @@
 package com.example.ex.dto
 
-import java.sql.Date
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
+@Serializable
 class EmployeeMonthlyDto {
-    var visa: String = ""
-    var date: Date? = null
-    var code:String = ""
-    var hours: Double = 0.0
-    var comment:String = ""
-    var description:String = ""
-    var vn: Boolean = false
-    var subProject:String = ""
-    var subprojectName:String = ""
-    var project:Long = 0
-    var projectName:String = ""
-    var vnHrs:Int = 0
-    var chHrs:Int = 0
-    var unique:Int = 0
-    var calculatedSubprojectName:String = ""
-    var division:String = ""
 
-    constructor(
-        visa: String,
-        date: Date?,
-        code: String,
-        hours: Double,
-        comment: String,
-        description: String,
-        vn: Boolean,
-        subProject: String,
-        subprojectName: String,
-        project: Long,
-        projectName: String,
-        vnHrs: Int,
-        chHrs: Int,
-        unique: Int,
-        calculatedSubprojectName: String,
-        division: String
-    ) {
-        this.visa = visa
-        this.date = date
-        this.code = code
-        this.hours = hours
-        this.comment = comment
-        this.description = description
-        this.vn = vn
-        this.subProject = subProject
-        this.subprojectName = subprojectName
-        this.project = project
-        this.projectName = projectName
-        this.vnHrs = vnHrs
-        this.chHrs = chHrs
-        this.unique = unique
-        this.calculatedSubprojectName = calculatedSubprojectName
-        this.division = division
+    @SerialName("Visa")
+    var visa: String = ""
+
+    @SerialName("Date")
+    var dateString: String = ""
+
+    @SerialName("Code")
+    var code:String = ""
+
+    @SerialName("Hrs")
+    var hours: Double = 0.0
+
+    @SerialName("Comment")
+    var comment:String = ""
+
+    @SerialName("Description")
+    var description:String = ""
+
+    @SerialName("VN ?")
+    var vn: Boolean = false
+
+    @SerialName("Subproject")
+    var subProject:String = ""
+
+    @SerialName("Subproject name")
+    var subprojectName:String = ""
+
+    @SerialName("Project")
+    var project:Int = 0
+
+    @SerialName("Project name")
+    var projectName:String = ""
+
+    @SerialName("VN Hrs")
+    var vnHrs:Double = 0.0
+
+    @SerialName("CH Hrs")
+    var chHrs:Double = 0.0
+
+    @SerialName("Unique")
+    var unique:Int = 0
+
+    @SerialName("Calculated subproject name")
+    var calculatedSubprojectName:String = ""
+
+    @SerialName("Division")
+    var division:String = ""
+    override fun toString(): String {
+        return "EmployeeMonthlyDto(visa='$visa', dateString='$dateString', code='$code', hours=$hours, comment='$comment', description='$description', vn=$vn, subProject='$subProject', subprojectName='$subprojectName', project=$project, projectName='$projectName', vnHrs=$vnHrs, chHrs=$chHrs, unique=$unique, calculatedSubprojectName='$calculatedSubprojectName', division='$division')"
     }
+
+
 }

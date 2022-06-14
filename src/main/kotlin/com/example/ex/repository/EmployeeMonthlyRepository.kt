@@ -3,6 +3,6 @@ package com.example.ex.repository
 import com.example.ex.model.EmployeeMonthly
 import org.springframework.data.repository.CrudRepository
 
-interface EmployeeMonthlyRepository : CrudRepository<EmployeeMonthly, String> {
+interface EmployeeMonthlyRepository : CrudRepository<EmployeeMonthly, String>, EmployeeMonthlyRepositoryCustom {
     fun findEmployeeMonthliesByMetaInfo(visa: String): Iterable<EmployeeMonthly>
 }

@@ -8,14 +8,14 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "EmployeeMonthlyVertec")
-class EmployeeMonthly(): EntitySuper() {
+class EmployeeMonthly : EntitySuper() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long = 0
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Visa", nullable = true, foreignKey = ForeignKey(name = "fk_monthly_employee"))
-    @JsonBackReference
+//    @JsonBackReference
     lateinit var metaInfo: EmployeeMetaInfo
 
     @Column(name = "Date")
@@ -52,7 +52,7 @@ class EmployeeMonthly(): EntitySuper() {
 
     @Column(name = "Project")
     @CsvBindByName(column = "Project")
-    var project:Long = 0
+    var project:Int = 0
 
     @Column(name = "Project_Name")
     @CsvBindByName(column = "Project name")
@@ -60,11 +60,11 @@ class EmployeeMonthly(): EntitySuper() {
 
     @Column(name = "VN_Hrs")
     @CsvBindByName(column = "VN Hrs")
-    var vnHrs:Int = 0
+    var vnHrs:Double = 0.0
 
     @Column(name = "CH_Hrs")
     @CsvBindByName(column = "CH Hrs")
-    var chHrs:Int = 0
+    var chHrs:Double = 0.0
 
     @Column(name = "Uniques")
     @CsvBindByName(column = "Unique")
@@ -77,42 +77,4 @@ class EmployeeMonthly(): EntitySuper() {
     @Column(name = "Division")
     @CsvBindByName(column = "Division")
     var division:String = ""
-
-    constructor(
-        id: Long,
-        metaInfo: EmployeeMetaInfo,
-        date: Date?,
-        code: String,
-        hours: Double,
-        comment: String,
-        description: String,
-        vn: Boolean,
-        subProject: String,
-        subprojectName: String,
-        project: Long,
-        projectName: String,
-        vnHrs: Int,
-        chHrs: Int,
-        unique: Int,
-        calculatedSubprojectName: String,
-        division: String
-    ) : this() {
-        this.id = id
-        this.metaInfo = metaInfo
-        this.date = date
-        this.code = code
-        this.hours = hours
-        this.comment = comment
-        this.description = description
-        this.vn = vn
-        this.subProject = subProject
-        this.subprojectName = subprojectName
-        this.project = project
-        this.projectName = projectName
-        this.vnHrs = vnHrs
-        this.chHrs = chHrs
-        this.unique = unique
-        this.calculatedSubprojectName = calculatedSubprojectName
-        this.division = division
-    }
 }

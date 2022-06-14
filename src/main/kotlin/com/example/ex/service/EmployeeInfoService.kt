@@ -5,6 +5,6 @@ import com.example.ex.model.EmployeeMetaInfo
 
 interface EmployeeInfoService {
     fun loadAllEmployee(): List<EmployeeMetaInfoDto>
-    fun loadEmployeeByVisa(visa: String): List<EmployeeMetaInfoDto>
+    fun loadEmployeeByVisa(visa: String): EmployeeMetaInfoDto
     fun saveEmployee(employee: EmployeeMetaInfo)
 }

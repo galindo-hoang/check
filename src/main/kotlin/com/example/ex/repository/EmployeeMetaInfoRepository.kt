@@ -5,5 +5,5 @@ import org.springframework.data.repository.CrudRepository
 
 
 interface EmployeeMetaInfoRepository : CrudRepository<EmployeeMetaInfo, String> {
-    fun findEmployMetaInfoByVisa(visa: String): Iterable<EmployeeMetaInfo>
+    fun findEmployMetaInfoByVisa(visa: String): EmployeeMetaInfo
 }
