@@ -3,6 +3,7 @@ package com.example.ex.utils
 import com.google.gson.Gson
 import com.querydsl.jpa.impl.JPAQueryFactory
 import kotlinx.serialization.json.*
+import org.slf4j.LoggerFactory
 import java.util.HashMap
 import javax.persistence.EntityManager
 
@@ -32,7 +33,6 @@ object Constant {
         isLenient = true
         ignoreUnknownKeys = true
     }
-
 
     val gson = Gson()
     const val FORMAT_STRING_DATE = "yyyy-MM-dd"

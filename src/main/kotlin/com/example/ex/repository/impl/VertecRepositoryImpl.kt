@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class VertecRepositoryImpl(
-    @Value("\${excel.file}")
+    @Value("\${excel.fileDummy}")
     val filepath: String
 ): VertecRepositoryCustom {
     override fun findAllVertecByMonthYear(data: HashMap<String, Any>): MutableList<VertecDto> {

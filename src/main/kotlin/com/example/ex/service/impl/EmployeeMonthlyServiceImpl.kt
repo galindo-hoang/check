@@ -11,8 +11,6 @@ import com.example.ex.repository.EmployeeRoleRepository
 import com.example.ex.service.EmployeeMonthlyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
-import java.text.SimpleDateFormat
-import java.util.*
 
 @Service
 class EmployeeMonthlyServiceImpl:
@@ -41,10 +39,8 @@ class EmployeeMonthlyServiceImpl:
 
     override fun loadEmployeeByMonth(month: Int): List<EmployeeMonthlyDto> {
         var employeeMonthlyDtos = employeeMonthlyRepository.findEmployeeByMonth(month)
-        println(employeeMonthlyDtos)
-        val listDate = employeeMonthlyDtos.map { it.dateJava }
-        val visaCapacity = employeeCapacityRepository.findVisaByListDate(listDate as List<Date>)
+        return employeeCapacityRepository.findMonthlyMeetCriteria(employeeMonthlyDtos)
 
-        return employeeMonthlyDtos.filter { visaCapacity.contains(it.visa) }
+
     }
 }
