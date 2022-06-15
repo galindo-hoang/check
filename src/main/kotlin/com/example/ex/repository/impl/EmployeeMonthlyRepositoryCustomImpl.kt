@@ -3,8 +3,6 @@ package com.example.ex.repository.impl
 import com.example.ex.dto.EmployeeMonthlyDto
 import com.example.ex.repository.EmployeeMonthlyRepositoryCustom
 import com.example.ex.utils.Constant
-import com.example.ex.utils.Constant.toJsonObject
-import kotlinx.serialization.json.decodeFromJsonElement
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.DateUtil
 import org.apache.poi.ss.usermodel.WorkbookFactory
@@ -35,10 +33,9 @@ class EmployeeMonthlyRepositoryCustomImpl: EmployeeMonthlyRepositoryCustom {
                         CellType.BOOLEAN -> modelHash[cellTitle] = cell.booleanCellValue
                         CellType.NUMERIC -> {
                             if(DateUtil.isCellDateFormatted(cell)){
-                                modelHash[cellTitle] = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cell.dateCellValue)
+                                modelHash[cellTitle] = cell.dateCellValue
                             }else {
-                                if(cellTitle.contains("Hrs")) modelHash[cellTitle] = cell.numericCellValue
-                                else modelHash[cellTitle] = cell.numericCellValue.toInt()
+                                modelHash[cellTitle] = cell.numericCellValue
                             }
                         }
                         CellType.FORMULA -> {
@@ -47,20 +44,18 @@ class EmployeeMonthlyRepositoryCustomImpl: EmployeeMonthlyRepositoryCustom {
                                 CellType.BOOLEAN -> modelHash[cellTitle] = cell.booleanCellValue
                                 CellType.NUMERIC -> {
                                     if(DateUtil.isCellDateFormatted(cell)){
-                                        modelHash[cellTitle] = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(cell.dateCellValue)
+                                        modelHash[cellTitle] = cell.dateCellValue
                                     }else {
-                                        if(cellTitle.contains("Hrs")) modelHash[cellTitle] = cell.numericCellValue
-                                        else modelHash[cellTitle] = cell.numericCellValue.toInt()
+                                        modelHash[cellTitle] = cell.numericCellValue
                                     }
                                 }
                             }
                         }
                     }
                 }
-                val model: EmployeeMonthlyDto = Constant.format.decodeFromJsonElement(modelHash.toJsonObject())
-                if(SimpleDateFormat("yyyy-MM-dd").parse(model.dateString).month + 1 == month) result.add(model)
+                val model = Constant.gson.fromJson(Constant.gson.toJson(modelHash), EmployeeMonthlyDto::class.java)
+                if(model.dateJava!!.month + 1 == month) result.add(model)
             }
-            println(result)
             return result
         }
     }

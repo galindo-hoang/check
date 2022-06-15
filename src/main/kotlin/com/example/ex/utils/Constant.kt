@@ -1,5 +1,6 @@
 package com.example.ex.utils
 
+import com.google.gson.Gson
 import com.querydsl.jpa.impl.JPAQueryFactory
 import kotlinx.serialization.json.*
 import java.util.HashMap
@@ -32,6 +33,8 @@ object Constant {
         ignoreUnknownKeys = true
     }
 
+
+    val gson = Gson()
     const val FORMAT_STRING_DATE = "yyyy-MM-dd"
     private fun Any?.toJsonElement(): JsonElement {
         return when (this) {

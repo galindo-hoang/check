@@ -12,6 +12,7 @@ import com.example.ex.service.EmployeeMonthlyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.text.SimpleDateFormat
+import java.util.*
 
 @Service
 class EmployeeMonthlyServiceImpl:
@@ -40,8 +41,8 @@ class EmployeeMonthlyServiceImpl:
 
     override fun loadEmployeeByMonth(month: Int): List<EmployeeMonthlyDto> {
         var employeeMonthlyDtos = employeeMonthlyRepository.findEmployeeByMonth(month)
-        val listDate = employeeMonthlyDtos.map { SimpleDateFormat("yyyy-MM-dd").parse(it.dateString) }
-        val visaCapacity = employeeCapacityRepository.findVisaByListDate(listDate)
+        val listDate = employeeMonthlyDtos.map { it.dateJava }
+        val visaCapacity = employeeCapacityRepository.findVisaByListDate(listDate as List<Date>)
 
         return employeeMonthlyDtos.filter { visaCapacity.contains(it.visa) }
     }

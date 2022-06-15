@@ -6,6 +6,7 @@ import com.example.ex.model.EmployeeMonthly
 import org.springframework.beans.factory.annotation.Autowired
 import java.sql.Date
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 abstract class EmployeeMonthlyMapperDecorator: EmployeeMonthlyMapper{
@@ -15,7 +16,7 @@ abstract class EmployeeMonthlyMapperDecorator: EmployeeMonthlyMapper{
 
     override fun dtoToEntity(employeeMonthlyDto: EmployeeMonthlyDto, metaInfo: EmployeeMetaInfo): EmployeeMonthly {
         val result = delegate.dtoToEntity(employeeMonthlyDto, metaInfo)
-        result.date = Date.valueOf(employeeMonthlyDto.dateString)
+        result.date = Date.valueOf(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(employeeMonthlyDto.dateJava))
         return result
     }
 

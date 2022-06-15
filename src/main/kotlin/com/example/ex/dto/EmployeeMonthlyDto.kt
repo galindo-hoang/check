@@ -1,60 +1,59 @@
 package com.example.ex.dto
 
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
+import java.util.*
 
-@Serializable
 class EmployeeMonthlyDto {
 
-    @SerialName("Visa")
+    @SerializedName("Visa")
     var visa: String = ""
 
-    @SerialName("Date")
-    var dateString: String = ""
+    @SerializedName("Date")
+    var dateJava: Date? = null
 
-    @SerialName("Code")
+    @SerializedName("Code")
     var code:String = ""
 
-    @SerialName("Hrs")
+    @SerializedName("Hrs")
     var hours: Double = 0.0
 
-    @SerialName("Comment")
+    @SerializedName("Comment")
     var comment:String = ""
 
-    @SerialName("Description")
+    @SerializedName("Description")
     var description:String = ""
 
-    @SerialName("VN ?")
+    @SerializedName("VN ?")
     var vn: Boolean = false
 
-    @SerialName("Subproject")
+    @SerializedName("Subproject")
     var subProject:String = ""
 
-    @SerialName("Subproject name")
+    @SerializedName("Subproject name")
     var subprojectName:String = ""
 
-    @SerialName("Project")
-    var project:Int = 0
+    @SerializedName("Project")
+    var project:String = ""
 
-    @SerialName("Project name")
+    @SerializedName("Project name")
     var projectName:String = ""
 
-    @SerialName("VN Hrs")
+    @SerializedName("VN Hrs")
     var vnHrs:Double = 0.0
 
-    @SerialName("CH Hrs")
+    @SerializedName("CH Hrs")
     var chHrs:Double = 0.0
 
-    @SerialName("Unique")
+    @SerializedName("Unique")
     var unique:Int = 0
 
-    @SerialName("Calculated subproject name")
+    @SerializedName("Calculated subproject name")
     var calculatedSubprojectName:String = ""
 
-    @SerialName("Division")
+    @SerializedName("Division")
     var division:String = ""
     override fun toString(): String {
-        return "EmployeeMonthlyDto(visa='$visa', dateString='$dateString', code='$code', hours=$hours, comment='$comment', description='$description', vn=$vn, subProject='$subProject', subprojectName='$subprojectName', project=$project, projectName='$projectName', vnHrs=$vnHrs, chHrs=$chHrs, unique=$unique, calculatedSubprojectName='$calculatedSubprojectName', division='$division')"
+        return "EmployeeMonthlyDto(visa='$visa', dateString='$dateJava', code='$code', hours=$hours, comment='$comment', description='$description', vn=$vn, subProject='$subProject', subprojectName='$subprojectName', project=$project, projectName='$projectName', vnHrs=$vnHrs, chHrs=$chHrs, unique=$unique, calculatedSubprojectName='$calculatedSubprojectName', division='$division')"
     }
 
 

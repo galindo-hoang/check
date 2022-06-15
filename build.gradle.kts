@@ -52,7 +52,8 @@ dependencies {
     // serializable
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
-
+    //Gson
+    implementation("com.google.code.gson:gson:2.9.0")
 
 
 

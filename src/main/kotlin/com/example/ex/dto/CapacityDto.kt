@@ -1,24 +1,21 @@
 package com.example.ex.dto
 
-import kotlinx.serialization.Contextual
-import kotlinx.serialization.SerialName
-import kotlinx.serialization.Serializable
+import com.google.gson.annotations.SerializedName
 import java.util.Date
 
-@Serializable
-class CapacityDto {
-    @SerialName("Visa")
-    lateinit var visa: String
 
-    @SerialName("Department")
+class CapacityDto {
+    @SerializedName("Visa")
+    var visa: String = ""
+
+    @SerializedName("Department")
     var department: String = ""
 
-    @SerialName("StartDate")
-    var startDate: String = ""
+    @SerializedName("StartDate")
+    var startDate: Date? = null
 
-    @SerialName("EndDate")
-    var endDate: String = ""
-
+    @SerializedName("EndDate")
+    var endDate: Date? = null
     override fun toString(): String {
         return "CapacityDto(visa='$visa', department='$department', startDate='$startDate', endDate='$endDate')"
     }
