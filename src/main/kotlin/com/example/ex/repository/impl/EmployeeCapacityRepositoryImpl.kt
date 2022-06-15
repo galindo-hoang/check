@@ -31,8 +31,8 @@ class EmployeeCapacityRepositoryImpl(
 
     override fun findVisaByListDate(dates: List<Date>): List<String> {
         val path = "C:\\Users\\hoah\\Desktop\\jira\\Ex1\\Extra.xlsx"
+        val result: MutableList<String> = mutableListOf()
         FileInputStream(path).use {file ->
-            val result: MutableList<String> = mutableListOf()
             val titleColumn: HashMap<Int, String> = hashMapOf()
             val xlWb = WorkbookFactory.create(file)
             val sheet = xlWb.getSheetAt(0)
@@ -41,7 +41,7 @@ class EmployeeCapacityRepositoryImpl(
 
             }
 
-            for(i in 1 until sheet.lastRowNum){
+            for(i in 1 .. sheet.lastRowNum){
                 val cell = sheet.getRow(i)
                 val modelHash = hashMapOf<String, Any>()
                 cell.cellIterator().asSequence().toList().forEachIndexed { index, cell ->
@@ -77,7 +77,7 @@ class EmployeeCapacityRepositoryImpl(
                     }
                 }
             }
-            return result
         }
+        return result
     }
 }

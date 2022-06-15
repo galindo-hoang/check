@@ -41,6 +41,7 @@ class EmployeeMonthlyServiceImpl:
 
     override fun loadEmployeeByMonth(month: Int): List<EmployeeMonthlyDto> {
         var employeeMonthlyDtos = employeeMonthlyRepository.findEmployeeByMonth(month)
+        println(employeeMonthlyDtos)
         val listDate = employeeMonthlyDtos.map { it.dateJava }
         val visaCapacity = employeeCapacityRepository.findVisaByListDate(listDate as List<Date>)
 

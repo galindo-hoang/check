@@ -13,6 +13,7 @@ import java.util.*
 class EmployeeMonthlyRepositoryCustomImpl: EmployeeMonthlyRepositoryCustom {
     override fun findEmployeeByMonth(month: Int): List<EmployeeMonthlyDto> {
         val path = "C:\\Users\\hoah\\Desktop\\jira\\Ex1\\EmployeeMonthlyVertec-sample.xlsx"
+        val result: MutableList<EmployeeMonthlyDto> = mutableListOf()
         FileInputStream(path).use {file ->
             val titleColumn: HashMap<Int, String> = hashMapOf()
             val xlWb = WorkbookFactory.create(file)
@@ -22,8 +23,7 @@ class EmployeeMonthlyRepositoryCustomImpl: EmployeeMonthlyRepositoryCustom {
 
             }
 
-            val result: MutableList<EmployeeMonthlyDto> = mutableListOf()
-            for(i in 1 until sheet.lastRowNum){
+            for(i in 1 .. sheet.lastRowNum){
                 val cell = sheet.getRow(i)
                 val modelHash = hashMapOf<String, Any>()
                 cell.cellIterator().asSequence().toList().forEachIndexed { index, cell ->
@@ -54,9 +54,10 @@ class EmployeeMonthlyRepositoryCustomImpl: EmployeeMonthlyRepositoryCustom {
                     }
                 }
                 val model = Constant.gson.fromJson(Constant.gson.toJson(modelHash), EmployeeMonthlyDto::class.java)
+                println("----  $model")
                 if(model.dateJava!!.month + 1 == month) result.add(model)
             }
-            return result
         }
+        return result
     }
 }
