@@ -11,11 +11,15 @@ import com.example.ex.repository.EmployeeRoleRepository
 import com.example.ex.service.EmployeeMonthlyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import javax.persistence.EntityManager
+import javax.persistence.PersistenceContext
 
 @Service
 class EmployeeMonthlyServiceImpl:
     EmployeeMonthlyService {
 
+    @PersistenceContext
+    private lateinit var entityManager: EntityManager
     @Autowired private lateinit var employeeMonthlyMapperDecorator: EmployeeMonthlyMapperDecorator
     @Autowired private lateinit var employeeMetaInfoRepository: EmployeeMetaInfoRepository
     @Autowired private lateinit var employeeRoleRepository: EmployeeRoleRepository
@@ -37,10 +41,12 @@ class EmployeeMonthlyServiceImpl:
         return employeeRoleRepository.findEmployeesByHourReportCriteria(hourReportCriteria)
     }
 
-    override fun loadEmployeeByMonth(month: Int): List<EmployeeMonthlyDto> {
+    override fun saveEmployeeByMonth(month: Int): List<EmployeeMonthlyDto> {
         var employeeMonthlyDtos = employeeMonthlyRepository.findEmployeeByMonth(month)
-        return employeeCapacityRepository.findMonthlyMeetCriteria(employeeMonthlyDtos)
-
-
+        val dtoList = employeeCapacityRepository.findMonthlyMeetCriteria(employeeMonthlyDtos)
+        val modelList = dtoList.map {
+            employeeMonthlyMapperDecorator.dtoToEntity()
+        }
+        entityManager.getReference(EmployeeMetaInfo::class.java,)
     }
 }

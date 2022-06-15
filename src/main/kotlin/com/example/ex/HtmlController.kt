@@ -93,6 +93,6 @@ class HtmlController(
         @RequestParam("month", required = false, defaultValue = "05") month: Int,
         @RequestParam("year", required = false, defaultValue = "22") year: Int,
     ): List<EmployeeMonthlyDto> {
-        return employeeMonthlyService.loadEmployeeByMonth(month)
+        return employeeMonthlyService.saveEmployeeByMonth(month)
     }
 }

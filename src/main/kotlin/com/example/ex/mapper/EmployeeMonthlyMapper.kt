@@ -15,5 +15,5 @@ interface EmployeeMonthlyMapper {
     fun entityToDto(employeeMonthly: EmployeeMonthly): EmployeeMonthlyDto
 
     @Mapping(source = "employeeMonthlyDto.division", target = "division")
-    fun dtoToEntity(employeeMonthlyDto: EmployeeMonthlyDto, metaInfo: EmployeeMetaInfo): EmployeeMonthly
+    fun dtoToEntity(employeeMonthlyDto: EmployeeMonthlyDto): EmployeeMonthly
 }

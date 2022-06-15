@@ -1,7 +1,5 @@
 package com.example.ex.service
 
-import com.example.ex.dto.EmployeeHourReportDto
-import com.example.ex.dto.EmployeeMetaInfoDto
 import com.example.ex.dto.EmployeeMonthlyDto
 import com.example.ex.dto.HourReportCriteriaDto
 import com.example.ex.model.EmployeeMetaInfo
@@ -14,5 +12,5 @@ interface EmployeeMonthlyService {
     fun saveEmployee(employeeMonthly: EmployeeMonthly)
     fun loadEmployeeByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto): Map<EmployeeMetaInfo, Double>
 
-    fun loadEmployeeByMonth(month: Int): List<EmployeeMonthlyDto>
+    fun saveEmployeeByMonth(month: Int): List<EmployeeMonthlyDto>
 }

@@ -14,8 +14,8 @@ abstract class EmployeeMonthlyMapperDecorator: EmployeeMonthlyMapper{
     @Autowired
     lateinit var delegate: EmployeeMonthlyMapper
 
-    override fun dtoToEntity(employeeMonthlyDto: EmployeeMonthlyDto, metaInfo: EmployeeMetaInfo): EmployeeMonthly {
-        val result = delegate.dtoToEntity(employeeMonthlyDto, metaInfo)
+    override fun dtoToEntity(employeeMonthlyDto: EmployeeMonthlyDto): EmployeeMonthly {
+        val result = delegate.dtoToEntity(employeeMonthlyDto)
         result.date = Date.valueOf(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(employeeMonthlyDto.dateJava))
         return result
     }
