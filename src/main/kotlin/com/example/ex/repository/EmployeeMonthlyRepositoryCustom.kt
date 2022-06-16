@@ -1,9 +1,11 @@
 package com.example.ex.repository
 
 import com.example.ex.dto.EmployeeMonthlyDto
-import java.util.Date
+import com.example.ex.model.EmployeeMonthly
+import java.sql.Date
 
 interface EmployeeMonthlyRepositoryCustom {
     fun findEmployeeByMonth(month: Int): List<EmployeeMonthlyDto>
-    fun deleteEmployeeByMonth(month: List<java.sql.Date>)
+    fun deleteEmployeeByMonth(month: List<Date>)
+    fun findByProjectGroup(projectGroup: String?): List<EmployeeMonthly>
 }

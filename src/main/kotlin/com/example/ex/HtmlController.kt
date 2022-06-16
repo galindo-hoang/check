@@ -22,7 +22,6 @@ class HtmlController(
     @Autowired private val employeeRoleService: EmployeeRoleService,
     @Autowired private val employeeMonthlyService: EmployeeMonthlyService,
     @Autowired private val employeeCapacityService: EmployeeCapacityService,
-    @Autowired private val vertecService: VertecService,
     @Autowired private val employeeMapper: EmployeeMapper,
     @Autowired private val employeeMonthlyMapperDecorator: EmployeeMonthlyMapperDecorator,
 
@@ -79,14 +78,6 @@ class HtmlController(
         return result
     }
 
-//    @RequestMapping(value = ["/loadVertecIntoDB"], method = [RequestMethod.GET])
-//    fun loadVertec(
-//        @RequestParam("month", required = false, defaultValue = "05") month: Int,
-//        @RequestParam("year", required = false, defaultValue = "22") year: Int,
-//    ): MutableList<VertecDto> {
-//        return vertecService.loadVertecByMonthYear(month,year)
-//    }
-
 
     @RequestMapping(value = ["/loadVertecIntoDB"], method = [RequestMethod.GET])
     fun loadVertec(
@@ -95,5 +86,11 @@ class HtmlController(
     ): List<EmployeeMonthlyDto> {
         employeeMonthlyService.saveEmployeeByMonth(month)
         return listOf()
+    }
+
+
+    @RequestMapping(value = ["/mapping"], method = [RequestMethod.GET])
+    fun mappingProject(): List<EmployeeMonthlyDto> {
+        return employeeMonthlyService.mappingProjectGroup().map { employeeMonthlyMapperDecorator.entityToDto(it) }
     }
 }

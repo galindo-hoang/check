@@ -13,4 +13,5 @@ interface EmployeeMonthlyService {
     fun loadEmployeeByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto): Map<EmployeeMetaInfo, Double>
 
     fun saveEmployeeByMonth(month: Int)
+    fun mappingProjectGroup(): List<EmployeeMonthly>
 }

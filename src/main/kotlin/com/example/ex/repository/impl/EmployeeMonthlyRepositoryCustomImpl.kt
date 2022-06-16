@@ -1,19 +1,18 @@
 package com.example.ex.repository.impl
 
 import com.example.ex.dto.EmployeeMonthlyDto
+import com.example.ex.model.EmployeeMonthly
 import com.example.ex.model.QEmployeeMonthly.Companion.employeeMonthly
-import com.example.ex.model.QEmployeeRole
 import com.example.ex.repository.EmployeeMonthlyRepositoryCustom
 import com.example.ex.utils.Constant
+import com.example.ex.utils.Constant.getJpaQuery
 import com.querydsl.jpa.impl.JPADeleteClause
-import org.apache.poi.ss.usermodel.CellType
-import org.apache.poi.ss.usermodel.DateUtil
+import com.querydsl.jpa.impl.JPAQuery
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.springframework.beans.factory.annotation.Value
 import java.io.File
 import java.io.FileInputStream
 import java.sql.Date
-import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
@@ -40,8 +39,18 @@ class EmployeeMonthlyRepositoryCustomImpl(
         return result
     }
 
-
     override fun deleteEmployeeByMonth(month: List<Date>) {
-        JPADeleteClause(entityManager, employeeMonthly).where(employeeMonthly.date.`in`(month)).execute()
+        val delete = JPADeleteClause(entityManager, employeeMonthly)
+        for(i in month){
+            delete.where(employeeMonthly.date.eq(i)).execute()
+        }
+    }
+
+    override fun findByProjectGroup(projectGroup: String?): List<EmployeeMonthly> {
+        val query = getJpaQuery(entityManager).from(employeeMonthly)
+        if(projectGroup == null){
+            query.where(employeeMonthly.projectGroup.isNull)
+        }else query.where(employeeMonthly.projectGroup.eq(projectGroup))
+        return query.fetch().toList() as List<EmployeeMonthly>
     }
 }
