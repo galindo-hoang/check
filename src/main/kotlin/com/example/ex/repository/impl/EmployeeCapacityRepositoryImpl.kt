@@ -4,7 +4,9 @@ import com.example.ex.dto.CapacityDto
 import com.example.ex.dto.EmployeeMonthlyDto
 import com.example.ex.model.QCapacity.Companion.capacity
 import com.example.ex.repository.EmployeeCapacityRepositoryCustom
+import com.example.ex.utils.Constant.convertXLSXToHashMap
 import com.example.ex.utils.Constant.getJpaQuery
+import com.example.ex.utils.Constant.getTitleXLSX
 import com.example.ex.utils.Constant.gson
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.DateUtil
@@ -35,41 +37,11 @@ class EmployeeCapacityRepositoryImpl(
         val result: MutableList<EmployeeMonthlyDto> = mutableListOf()
         if(File(filepath).isFile){
             FileInputStream(filepath).use { file ->
-                val titleColumn: HashMap<Int, String> = hashMapOf()
                 val xlWb = WorkbookFactory.create(file)
                 val sheet = xlWb.getSheetAt(0)
-                sheet.getRow(0).cellIterator().asSequence().toList().forEachIndexed { index, cell ->
-                    titleColumn[index] = cell.stringCellValue
-
-                }
-
+                val titleColumn = getTitleXLSX(sheet)
                 for(i in 1 .. sheet.lastRowNum){
-                    val cell = sheet.getRow(i)
-                    val modelHash = hashMapOf<String, Any>()
-                    cell.cellIterator().asSequence().toList().forEachIndexed { index, cell ->
-                        val cellTitle = titleColumn[index]!!
-                        when(cell.cellType){
-                            CellType.STRING -> modelHash[cellTitle] = cell.stringCellValue
-                            CellType.BOOLEAN -> modelHash[cellTitle] = cell.stringCellValue
-                            CellType.NUMERIC -> {
-                                if(DateUtil.isCellDateFormatted(cell)){
-                                    modelHash[cellTitle] = cell.dateCellValue
-//                                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format()
-                                }else modelHash[cellTitle] = cell.numericCellValue
-                            }
-                            CellType.FORMULA -> {
-                                when(cell.cellType){
-                                    CellType.STRING -> modelHash[cellTitle] = cell.stringCellValue
-                                    CellType.BOOLEAN -> modelHash[cellTitle] = cell.stringCellValue
-                                    CellType.NUMERIC -> {
-                                        if(DateUtil.isCellDateFormatted(cell)){
-                                            modelHash[cellTitle] = cell.dateCellValue
-                                        }else modelHash[cellTitle] = cell.numericCellValue
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    val modelHash = convertXLSXToHashMap(sheet.getRow(i),titleColumn)
                     val model = gson.fromJson(gson.toJson(modelHash),CapacityDto::class.java)
                     val list = clone.filter { model.startDate!! < it.dateJava && (model.endDate == null || model.endDate!! > it.dateJava) && it.visa == model.visa }
                     result.addAll(list)

@@ -11,6 +11,10 @@ import com.example.ex.repository.EmployeeRoleRepository
 import com.example.ex.service.EmployeeMonthlyService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
+import java.sql.Date
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
@@ -40,13 +44,15 @@ class EmployeeMonthlyServiceImpl:
     override fun loadEmployeeByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto): Map<EmployeeMetaInfo,Double> {
         return employeeRoleRepository.findEmployeesByHourReportCriteria(hourReportCriteria)
     }
-
-    override fun saveEmployeeByMonth(month: Int): List<EmployeeMonthlyDto> {
+@Transactional
+    override fun saveEmployeeByMonth(month: Int) {
         var employeeMonthlyDtos = employeeMonthlyRepository.findEmployeeByMonth(month)
         val dtoList = employeeCapacityRepository.findMonthlyMeetCriteria(employeeMonthlyDtos)
-        val modelList = dtoList.map {
-            employeeMonthlyMapperDecorator.dtoToEntity()
+        employeeMonthlyRepository.deleteEmployeeByMonth(dtoList.map { Date.valueOf(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(it.dateJava)) })
+        dtoList.forEach {
+            val a = employeeMonthlyMapperDecorator.dtoToEntity(it)
+            a.metaInfo = entityManager.getReference(EmployeeMetaInfo::class.java,it.visa)
+            entityManager.persist(a)
         }
-        entityManager.getReference(EmployeeMetaInfo::class.java,)
     }
 }

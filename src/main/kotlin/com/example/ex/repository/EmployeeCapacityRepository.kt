@@ -4,6 +4,6 @@ import com.example.ex.model.Capacity
 import org.springframework.data.repository.CrudRepository
 
 
-interface EmployeeCapacityRepository : CrudRepository<Capacity, String>, EmployeeCapacityRepositoryCustom {
+interface EmployeeCapacityRepository : CrudRepository<Capacity, Int>, EmployeeCapacityRepositoryCustom {
     fun findCapacityByVisa(visa: String): Capacity
 }

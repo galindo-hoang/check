@@ -1,6 +1,5 @@
 package com.example.ex.model
 
-import com.fasterxml.jackson.annotation.JsonBackReference
 import com.opencsv.bean.CsvBindByName
 import java.sql.Date
 import javax.persistence.*

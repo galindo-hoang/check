@@ -12,5 +12,5 @@ interface EmployeeMonthlyService {
     fun saveEmployee(employeeMonthly: EmployeeMonthly)
     fun loadEmployeeByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto): Map<EmployeeMetaInfo, Double>
 
-    fun saveEmployeeByMonth(month: Int): List<EmployeeMonthlyDto>
+    fun saveEmployeeByMonth(month: Int)
 }
