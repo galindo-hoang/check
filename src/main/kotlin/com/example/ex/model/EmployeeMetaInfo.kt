@@ -4,7 +4,7 @@ import com.opencsv.bean.CsvBindByName
 import javax.persistence.*
 
 @Entity
-@Table(name = "Employ_Meta_Info")
+@Table(name = "Employee_Meta_Info")
 class EmployeeMetaInfo: EntitySuper() {
     @Id
     @Column(name = "Visa")

@@ -42,16 +42,11 @@ class HtmlController(
     @RequestMapping(value = ["/employeeMonthly"], method = [RequestMethod.GET])
     fun viewMonthly(): MutableIterable<EmployeeMonthly> = employeeMonthlyService.loadAllEmployee()
 
-    @RequestMapping(value = ["/version"], method = [RequestMethod.GET])
-    fun version(){
-
-    }
-
     @RequestMapping(value = ["/test"], method = [RequestMethod.GET])
     fun test(
         @RequestParam("levels", required = false, defaultValue = "") levels: String,
-        @RequestParam("start", required = false, defaultValue = "") start: String,
-        @RequestParam("end", required = false, defaultValue = "") end: String,
+        @RequestParam("start", required = false, defaultValue = "2022-1-1") start: String,
+        @RequestParam("end", required = false, defaultValue = "2023-1-1") end: String,
         @RequestParam("projects", required = false, defaultValue = "") projects: String,
 
     ): MutableList<EmployeeHourReportDto> {
@@ -63,8 +58,8 @@ class HtmlController(
         if(projects.trim().trimStart() != "" && projects.trim().trimStart().contains("-")){
             hourReportCriteriaDto.projectCodes = projects.trim().trimStart().split(" ")
         }
-        if(start != "") hourReportCriteriaDto.startMonth = Date.valueOf(start)
-        if(end != "") hourReportCriteriaDto.endMonth = Date.valueOf(end)
+        hourReportCriteriaDto.startMonth = Date.valueOf(start)
+        hourReportCriteriaDto.endMonth = Date.valueOf(end)
         val data = employeeMonthlyService.loadEmployeeByHourReportCriteria(hourReportCriteriaDto)
         data.forEach { (k, v) ->
             result.add(

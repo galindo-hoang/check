@@ -5,7 +5,7 @@ import java.sql.Date
 class HourReportCriteriaDto{
 
     var levels: List<String> = listOf()
-    var startMonth: Date = Date.valueOf("2022-1-1")
-    var endMonth:Date = Date.valueOf("2023-1-1")
+    lateinit var startMonth: Date
+    lateinit var endMonth:Date
     var projectCodes: List<String> = listOf()
 }
