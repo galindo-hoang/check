@@ -30,7 +30,6 @@ class HtmlController(
 
     @RequestMapping(value = ["/employeeInfo"], method = [RequestMethod.GET])
     fun viewInfo(@RequestParam("visa", required = false, defaultValue = " ") visa:String): EmployeeMetaInfoDto {
-//        return if(visa == "") EmployeeMetaInfoDto()
         return employeeInfoService.loadEmployeeByVisa(visa)
     }
     @RequestMapping(value = ["/employeeRole"], method = [RequestMethod.GET])

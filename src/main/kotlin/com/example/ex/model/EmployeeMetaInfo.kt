@@ -8,127 +8,96 @@ import javax.persistence.*
 class EmployeeMetaInfo: EntitySuper() {
     @Id
     @Column(name = "Visa")
-    @CsvBindByName(column = "Visa")
-    var visa: String = ""
+    var visa: String? = null
 
     @Column(name = "Name")
-    @CsvBindByName(column = "Name")
-    var name: String = ""
+    var name: String? = null
 
     @Column(name = "First_Name")
-    @CsvBindByName(column = "First name")
-    var firstName: String = ""
+    var firstName: String? = null
 
     @Column(name = "Last_Name")
-    @CsvBindByName(column = "Last Name")
-    var lastName: String = ""
+    var lastName: String? = null
 
     @Column(name = "Division")
-    @CsvBindByName(column = "Division")
-    var division: String = ""
+    var division: String? = null
 
     @Column(name = "Is_Mgr")
-    @CsvBindByName(column = "Is Mgr ? ")
-    var ismgr: String = ""
+    var ismgr: String? = null
 
     @Column(name = "Group_sa")
-    @CsvBindByName(column = "Group")
-    var groupsa: String = ""
+    var groupsa: String? = null
 
     @Column(name = "Working_Hours")
-    @CsvBindByName(column = "Working hours")
     var workingHours: Double = 0.0
 
     @Column(name = "Worked_Hours")
-    @CsvBindByName(column = "Worked hours")
     var workedHours: Double = 0.0
 
     @Column(name = "Difference")
-    @CsvBindByName(column = "Difference")
     var difference: Double = 0.0
 
     @Column(name = "Cumul_Diff")
-    @CsvBindByName(column = "Cumul diff")
     var cumulDiff: Double = 0.0
 
     @Column(name = "Vac_Left")
-    @CsvBindByName(column = "Vac left")
     var vecLeft: Double = 0.0
 
     @Column(name = "Entrance")
-    @CsvBindByName(column = "Entrance")
-    var entrance: String = ""
+    var entrance: String? = null
 
     @Column(name = "Resignation")
-    @CsvBindByName(column = "Resignation")
     var resignation: Int? = null
 
     @Column(name = "CH_Prd")
-    @CsvBindByName(column = "CH Prd")
     var chPrd: Double = 0.0
 
     @Column(name = "ch_Prd_Percent")
-    @CsvBindByName(column = "CH Prd %")
     var chPrdPercent: Double = 0.0
 
     @Column(name = "Absence")
-    @CsvBindByName(column = "Absence")
     var absence: Double = 0.0
 
     @Column(name = "Sort")
-    @CsvBindByName(column = "Sort")
     var sort: Int = 0
 
     @Column(name = "Forfait")
-    @CsvBindByName(column = "Forfait")
     var forfait: Boolean = false
 
     @Column(name = "Part_Time")
-    @CsvBindByName(column = "Part-time")
     var partTime: Int = 0
 
     @Column(name = "Calculated")
-    @CsvBindByName(column = "Calculated Part-time %")
     var calculated: Double = 0.0
 
     @Column(name = "Calculated_Vac_Left")
-    @CsvBindByName(column = "Calculated Vac left (d)")
     var calculatedVecLeft: Double = 0.0
 
     @Column(name = "Calculated_Is_Mgr")
-    @CsvBindByName(column = "Calculated Is Mgr ?")
-    var calculatedIsMgr: String = ""
+    var calculatedIsMgr: String? = null
 
     @Column(name = "VN_Entry")
-    @CsvBindByName(column = "VN Entry")
-    var vnEntry: String = ""
+    var vnEntry: String? = null
 
     @Column(name = "Calculated_Division")
-    @CsvBindByName(column = "Calculated Division")
-    var calculatedDivision: String = ""
+    var calculatedDivision: String? = null
 
     @Column(name = "Calculated_Overview")
-    @CsvBindByName(column = "Calculated Overview")
-    var calculatedOverview: String = ""
+    var calculatedOverview: String? = null
 
     @Column(name = "Holidays")
-    @CsvBindByName(column = "Holidays")
     var holidays: Int = 0
 
     @Column(name = "Illness")
-    @CsvBindByName(column = "Illness")
     var illness: Int = 0
 
     @Column(name = "Trainings")
-    @CsvBindByName(column = "Trainings")
     var trainings: Int = 0
 
     @Column(name = "Onboarding")
-    @CsvBindByName(column = "Onboarding")
     var onboarding: Int = 0
 
     @Column(name = "Others")
-    @CsvBindByName(column = "Others")
     var others: Int = 0
 
     @OneToMany(mappedBy = "visa", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)

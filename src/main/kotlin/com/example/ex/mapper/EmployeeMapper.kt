@@ -8,7 +8,7 @@ import org.mapstruct.Mapping
 
 @Mapper(componentModel = "spring")
 interface EmployeeMapper {
-    @Mapping(target = "isMgr", source = "employeeMetaInfo.ismgr", defaultValue = "")
+    @Mapping(target = "ismgr", source = "employeeMetaInfo.ismgr", defaultValue = "")
     @Mapping(target = "group", source = "employeeMetaInfo.groupsa", defaultValue = "")
     fun entityReportHourToDto(employeeMetaInfo: EmployeeMetaInfo,consolidatedHours: Double): EmployeeHourReportDto
     fun entityToDto(employeeMetaInfo: EmployeeMetaInfo): EmployeeMetaInfoDto
