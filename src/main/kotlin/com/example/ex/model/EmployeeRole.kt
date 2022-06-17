@@ -45,12 +45,10 @@ class EmployeeRole: EntitySuper() {
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @JoinColumn(name = "Supervisor", nullable = true, foreignKey = ForeignKey(name = "fk_roleSupervisor_employee"))
     @CsvBindByName(column = "Supervisor")
-    @JsonBackReference
     var supervisor:EmployeeMetaInfo? = null
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "Abbreviation", nullable = true, foreignKey = ForeignKey(name = "fk_roleAbbreviation_employee"))
     @CsvBindByName(column = "Abbreviation")
-    @JsonBackReference
     var abbreviation:EmployeeMetaInfo? = null
 }

@@ -1,6 +1,6 @@
 package com.example.ex.model
 
-import com.opencsv.bean.CsvBindByName
+import java.sql.Date
 import javax.persistence.*
 
 @Entity
@@ -44,7 +44,7 @@ class EmployeeMetaInfo: EntitySuper() {
     var vecLeft: Double = 0.0
 
     @Column(name = "Entrance")
-    var entrance: String? = null
+    var entrance: Date? = null
 
     @Column(name = "Resignation")
     var resignation: Int? = null
@@ -68,7 +68,7 @@ class EmployeeMetaInfo: EntitySuper() {
     var partTime: Int = 0
 
     @Column(name = "Calculated")
-    var calculated: Double = 0.0
+    var calculated: String? = ""
 
     @Column(name = "Calculated_Vac_Left")
     var calculatedVecLeft: Double = 0.0
@@ -77,7 +77,7 @@ class EmployeeMetaInfo: EntitySuper() {
     var calculatedIsMgr: String? = null
 
     @Column(name = "VN_Entry")
-    var vnEntry: String? = null
+    var vnEntry: Date? = null
 
     @Column(name = "Calculated_Division")
     var calculatedDivision: String? = null

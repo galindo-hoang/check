@@ -39,7 +39,7 @@ class EmployeeCapacityRepositoryImpl(
                 for(i in 1 .. sheet.lastRowNum){
                     val modelHash = convertXLSXToHashMap(sheet.getRow(i),titleColumn)
                     val model = gson.fromJson(gson.toJson(modelHash),CapacityDto::class.java)
-                    val list = clone.filter { model.startDate!! < it.dateJava && (model.endDate == null || model.endDate!! > it.dateJava) && it.visa == model.visa }
+                    val list = clone.filter { model.startDate!! < it.dateJava && (model.endDate == null || model.endDate!! > it.dateJava) && it.visa == model.visaDto }
                     result.addAll(list)
                     clone.removeAll(list)
                 }

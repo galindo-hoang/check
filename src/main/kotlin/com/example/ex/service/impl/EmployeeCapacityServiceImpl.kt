@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class EmployeeCapacityServiceImpl(@Autowired private val employeeCapacityRepository: EmployeeCapacityRepository):
-    EmployeeCapacityService {
+class EmployeeCapacityServiceImpl(
+    @Autowired private val employeeCapacityRepository: EmployeeCapacityRepository,
+): EmployeeCapacityService {
     override fun loadAllEmployee(): MutableIterable<Capacity> {
         return employeeCapacityRepository.findAll()
     }

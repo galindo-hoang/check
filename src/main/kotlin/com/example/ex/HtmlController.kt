@@ -14,11 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.sql.Date
+import javax.annotation.PostConstruct
 
 @RestController
 @CrossOrigin
 class HtmlController(
-    @Autowired private val employeeInfoService: EmployeeInfoService,
+    @Autowired private val employeeMetaInfoService: EmployeeMetaInfoService,
     @Autowired private val employeeRoleService: EmployeeRoleService,
     @Autowired private val employeeMonthlyVertecService: EmployeeMonthlyVertecService,
     @Autowired private val employeeCapacityService: EmployeeCapacityService,
@@ -29,8 +30,9 @@ class HtmlController(
     ) {
 
     @RequestMapping(value = ["/employeeInfo"], method = [RequestMethod.GET])
-    fun viewInfo(@RequestParam("visa", required = false, defaultValue = " ") visa:String): EmployeeMetaInfoDto {
-        return employeeInfoService.loadEmployeeByVisa(visa)
+    fun viewInfo(@RequestParam("visa", required = false, defaultValue = "") visa:String): Any {
+        return if(visa == "") employeeMetaInfoService.loadAllEmployee()
+        else employeeMetaInfoService.loadEmployeeByVisa(visa)
     }
     @RequestMapping(value = ["/employeeRole"], method = [RequestMethod.GET])
     fun viewRole(@RequestParam("supervisors", required = false, defaultValue = "") supervisors:String): Iterable<EmployeeRole> {
@@ -86,5 +88,11 @@ class HtmlController(
     @RequestMapping(value = ["/mapping"], method = [RequestMethod.GET])
     fun mappingProject(): List<EmployeeMonthlyDto> {
         return employeeMonthlyVertecService.mappingProjectGroup().map { employeeMonthlyMapperDecorator.entityToDto(it) }
+    }
+
+
+    @RequestMapping(value = ["/check"], method = [RequestMethod.GET])
+    fun check(): List<EmployeeRoleDto> {
+        return employeeRoleService.readAllFromXLSX()
     }
 }

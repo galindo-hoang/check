@@ -1,14 +1,14 @@
 package com.example.ex.dto
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import java.util.*
 
 class EmployeeMetaInfoDto{
     @SerializedName("Visa")
-    var visa: String = ""
+    var visa: String? = null
 
     @SerializedName("Name")
-    var name: String = ""
+    var name: String? = null
 
     @SerializedName("First name")
     var firstName: String? = null
@@ -19,7 +19,7 @@ class EmployeeMetaInfoDto{
     @SerializedName("Division")
     var division: String? = null
 
-    @SerializedName("Is Mgr ? ")
+    @SerializedName("Is Mgr ?")
     var ismgr: String? = null
 
     @SerializedName("Group")
@@ -41,7 +41,7 @@ class EmployeeMetaInfoDto{
     var vecLeft: Double = 0.0
 
     @SerializedName("Entrance")
-    var entrance: String? = null
+    var entrance: Date? = null
 
     @SerializedName("Resignation")
     var resignation: Int? = null
@@ -65,7 +65,7 @@ class EmployeeMetaInfoDto{
     var partTime: Int = 0
 
     @SerializedName("Calculated Part-time %")
-    var calculated: Double = 0.0
+    var calculated: String? = null
 
     @SerializedName("Calculated Vac left (d)")
     var calculatedVecLeft: Double = 0.0
@@ -74,7 +74,7 @@ class EmployeeMetaInfoDto{
     var calculatedIsMgr: String? = null
 
     @SerializedName("VN Entry")
-    var vnEntry: String? = null
+    var vnEntry: Date? = null
 
     @SerializedName("Calculated Division")
     var calculatedDivision: String? = null
@@ -96,4 +96,9 @@ class EmployeeMetaInfoDto{
 
     @SerializedName("Others")
     var others: Int = 0
+    override fun toString(): String {
+        return "EmployeeMetaInfoDto(visa=$visa, name=$name, firstName=$firstName, lastName=$lastName, division=$division, ismgr=$ismgr, groupsa=$groupsa, workingHours=$workingHours, workedHours=$workedHours, difference=$difference, cumulDiff=$cumulDiff, vecLeft=$vecLeft, entrance=$entrance, resignation=$resignation, chPrd=$chPrd, chPrdPercent=$chPrdPercent, absence=$absence, sort=$sort, forfait=$forfait, partTime=$partTime, calculated=$calculated, calculatedVecLeft=$calculatedVecLeft, calculatedIsMgr=$calculatedIsMgr, vnEntry=$vnEntry, calculatedDivision=$calculatedDivision, calculatedOverview=$calculatedOverview, holidays=$holidays, illness=$illness, trainings=$trainings, onboarding=$onboarding, others=$others)"
+    }
+
+
 }

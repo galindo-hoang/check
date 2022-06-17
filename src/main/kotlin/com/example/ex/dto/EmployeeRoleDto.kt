@@ -1,9 +1,6 @@
 package com.example.ex.dto
 
-import com.fasterxml.jackson.annotation.JsonBackReference
 import com.google.gson.annotations.SerializedName
-import com.opencsv.bean.CsvBindByName
-import javax.persistence.*
 
 class EmployeeRoleDto {
     @SerializedName("Employee Nr")
@@ -37,8 +34,8 @@ class EmployeeRoleDto {
     var partTime:Double? = null
 
     @SerializedName("Supervisor")
-    var supervisor:String? = null
+    var supervisorss:String? = null
 
     @SerializedName("Abbreviation")
-    var abbreviation:String? = null
+    var abbreviationss:String? = null
 }

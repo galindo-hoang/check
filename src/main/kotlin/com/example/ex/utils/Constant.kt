@@ -27,9 +27,9 @@ object Constant {
 
     val gson = Gson()
 
-    fun convertXLSXToHashMap(curRow: Row, titleColumn: HashMap<Int,String>): HashMap<String, Any>{
+    fun convertXLSXToHashMap(curRow: Row, titleColumn: HashMap<Int,String>): HashMap<String, Any?> {
 
-        val modelHash = hashMapOf<String, Any>()
+        val modelHash = hashMapOf<String, Any?>()
         curRow.cellIterator().asSequence().toList().forEachIndexed { index, cell ->
             val cellTitle = titleColumn[index]!!
             when(cell.cellType){
@@ -50,7 +50,7 @@ object Constant {
                                 modelHash[cellTitle] = cell.dateCellValue
                             }else modelHash[cellTitle] = cell.numericCellValue
                         }
-                        else -> {}
+                        else -> {modelHash[cellTitle] = null}
                     }
                 }
                 else -> {}

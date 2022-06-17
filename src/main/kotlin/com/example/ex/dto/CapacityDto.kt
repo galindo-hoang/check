@@ -6,7 +6,7 @@ import java.util.Date
 
 class CapacityDto {
     @SerializedName("Visa")
-    var visa: String = ""
+    var visaDto: String = ""
 
     @SerializedName("Department")
     var department: String = ""
@@ -16,9 +16,11 @@ class CapacityDto {
 
     @SerializedName("EndDate")
     var endDate: Date? = null
+
     override fun toString(): String {
-        return "CapacityDto(visa='$visa', department='$department', startDate='$startDate', endDate='$endDate')"
+        return "CapacityDto(visa='$visaDto', department='$department', startDate='$startDate', endDate='$endDate')"
     }
+
 
 
 }
