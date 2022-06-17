@@ -13,43 +13,33 @@ class EmployeeRole: EntitySuper() {
     var id:Long = 0
 
     @Column(name = "Employee_Nr")
-    @CsvBindByName(column = "Employee Nr")
-    var employeeNr:Int? = null
+    var employeeNr:String? = null
 
     @Column(name = "Active")
-    @CsvBindByName(column = "Active")
-    var active: Boolean? = null
+    var active: String? = null
 
     @Column(name = "Last")
-    @CsvBindByName(column = "Last")
-    var last: String = ""
+    var last: String? = null
 
     @Column(name = "First")
-    @CsvBindByName(column = "First")
-    var first:String = ""
+    var first:String? = null
 
     @Column(name = "Contract")
-    @CsvBindByName(column = "Contract")
     var contract:Char? = null
 
     @Column(name = "Forfait")
-    @CsvBindByName(column = "Forfait")
     var forfait:Char? = null
 
     @Column(name = "User_Level")
-    @CsvBindByName(column = "User Level")
-    var userLevel:String = ""
+    var userLevel:String? = null
 
     @Column(name = "Level")
-    @CsvBindByName(column = "Level")
     var level:Int = 0
 
     @Column(name = "Sub_Level")
-    @CsvBindByName(column = "Sub-level")
     var subLevel:Int = 0
 
     @Column(name = "Part_Time")
-    @CsvBindByName(column = "Part-time")
     var partTime:Double? = null
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)

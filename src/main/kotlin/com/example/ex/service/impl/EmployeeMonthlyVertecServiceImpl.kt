@@ -8,7 +8,7 @@ import com.example.ex.repository.EmployeeCapacityRepository
 import com.example.ex.repository.EmployeeMonthlyRepository
 import com.example.ex.repository.EmployeeRoleRepository
 import com.example.ex.repository.ProjectMappingRepositoryCustom
-import com.example.ex.service.EmployeeMonthlyService
+import com.example.ex.service.EmployeeMonthlyVertecService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -19,8 +19,8 @@ import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
 @Service
-class EmployeeMonthlyServiceImpl:
-    EmployeeMonthlyService {
+class EmployeeMonthlyVertecServiceImpl:
+    EmployeeMonthlyVertecService {
 
     @PersistenceContext
     private lateinit var entityManager: EntityManager
@@ -47,8 +47,8 @@ class EmployeeMonthlyServiceImpl:
 
     @Transactional
     override fun saveEmployeeByMonth(month: Int) {
-        var employeeMonthlyDtos = employeeMonthlyRepository.findEmployeeByMonth(month)
-        val dtoList = employeeCapacityRepository.findMonthlyMeetCriteria(employeeMonthlyDtos)
+        var employeeMonthlyDtos = employeeMonthlyRepository.findEmployeeByMonthFromXLSX(month)
+        val dtoList = employeeCapacityRepository.findMonthlyMeetCriteriaFromXLSX(employeeMonthlyDtos)
         employeeMonthlyRepository.deleteEmployeeByMonth(
             dtoList.map {
                 Date.valueOf(
@@ -65,7 +65,7 @@ class EmployeeMonthlyServiceImpl:
 
     @Transactional
     override fun mappingProjectGroup(): List<EmployeeMonthly> {
-        val list = projectMappingRepositoryCustom.fetchAll()
+        val list = projectMappingRepositoryCustom.fetchAllFromXLSX()
         val transformMapping = list.associate { it.projectCode to it.projectGroup }
         val monthlyVertec = employeeMonthlyRepository.findByProjectGroup(null)
         return monthlyVertec.filter {

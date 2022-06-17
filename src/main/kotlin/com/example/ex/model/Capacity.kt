@@ -18,25 +18,6 @@ class Capacity: EntitySuper() {
     @JoinColumn(name = "visa", nullable = true, foreignKey = ForeignKey(name = "fk_capacity_employee"))
     lateinit var visa: EmployeeMetaInfo
 
-//    @Column(name = "Reserve_1")
-//    @CsvBindByName(column = "reserve 1")
-//    var reverse1:String = ""
-//
-//    @Column(name = "Reserve_2")
-//    @CsvBindByName(column = "reserve 2")
-//    var reverse2:String = ""
-//
-//    @Column(name = "Reserve_3")
-//    @CsvBindByName(column = "reserve 3")
-//    var reverse3:String = ""
-//
-//    @Column(name = "Reserve_4")
-//    @CsvBindByName(column = "reserve 4")
-//    var reverse4:String = ""
-//
-//    @Embedded
-//    var month: Month? = null
-
     @Column(name = "Department")
     var department: String = ""
 

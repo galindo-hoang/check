@@ -58,7 +58,7 @@ class EmployeeMonthlyDto {
 
 
     override fun toString(): String {
-        return "EmployeeMonthlyDto(visa='$visa', dateString='$dateJava', code='$code', hours=$hours, comment='$comment', description='$description', vn=$vn, subProject='$subProject', subprojectName='$subprojectName', project=$project, projectName='$projectName', vnHrs=$vnHrs, chHrs=$chHrs, unique=$unique, calculatedSubprojectName='$calculatedSubprojectName', division='$division')"
+        return "EmployeeMonthlyDto(visa='$visa', dateJava=$dateJava, code='$code', hours=$hours, comment='$comment', description='$description', vn=$vn, subProject='$subProject', subprojectName='$subprojectName', project='$project', projectName='$projectName', vnHrs=$vnHrs, chHrs=$chHrs, unique=$unique, calculatedSubprojectName='$calculatedSubprojectName', division='$division', projectGroup=$projectGroup)"
     }
 
 

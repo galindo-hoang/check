@@ -22,7 +22,7 @@ abstract class EmployeeMonthlyMapperDecorator: EmployeeMonthlyMapper{
 
     override fun entityToDto(employeeMonthly: EmployeeMonthly): EmployeeMonthlyDto {
         val result = delegate.entityToDto(employeeMonthly)
-        result.visa = employeeMonthly.metaInfo.visa!!
+        result.visa = employeeMonthly.metaInfo?.visa!!
         return result
     }
 

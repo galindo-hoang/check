@@ -14,7 +14,7 @@ class ProjectMappingRepositoryImpl(
     @Value("\${excel.fileProjectMapping}")
     val filepath: String,
 ): ProjectMappingRepositoryCustom {
-    override fun fetchAll(): List<ProjectMappingDto> {
+    override fun fetchAllFromXLSX(): List<ProjectMappingDto> {
         val file = File(filepath)
         val result = mutableListOf<ProjectMappingDto>()
         if(file.exists() && file.isFile){

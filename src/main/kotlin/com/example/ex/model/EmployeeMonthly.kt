@@ -15,7 +15,7 @@ class EmployeeMonthly : EntitySuper() {
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Visa", nullable = true, foreignKey = ForeignKey(name = "fk_monthly_employee"))
 //    @JsonBackReference
-    lateinit var metaInfo: EmployeeMetaInfo
+    var metaInfo: EmployeeMetaInfo? = null
 
     @Column(name = "Date")
     var date:Date? = null
@@ -64,4 +64,9 @@ class EmployeeMonthly : EntitySuper() {
 
     @Column(name = "ProjectGroup")
     var projectGroup:String? = null
+    override fun toString(): String {
+        return "EmployeeMonthly(id=$id, metaInfo=$metaInfo, date=$date, code='$code', hours=$hours, comment='$comment', description='$description', vn=$vn, subProject='$subProject', subprojectName='$subprojectName', project='$project', projectName='$projectName', vnHrs=$vnHrs, chHrs=$chHrs, unique=$unique, calculatedSubprojectName='$calculatedSubprojectName', division='$division', projectGroup=$projectGroup)"
+    }
+
+
 }

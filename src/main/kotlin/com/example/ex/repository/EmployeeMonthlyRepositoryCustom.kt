@@ -5,7 +5,7 @@ import com.example.ex.model.EmployeeMonthly
 import java.sql.Date
 
 interface EmployeeMonthlyRepositoryCustom {
-    fun findEmployeeByMonth(month: Int): List<EmployeeMonthlyDto>
+    fun findEmployeeByMonthFromXLSX(month: Int): List<EmployeeMonthlyDto>
     fun deleteEmployeeByMonth(month: List<Date>)
     fun findByProjectGroup(projectGroup: String?): List<EmployeeMonthly>
 }

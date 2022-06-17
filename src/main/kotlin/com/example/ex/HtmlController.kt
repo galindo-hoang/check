@@ -20,13 +20,13 @@ import java.sql.Date
 class HtmlController(
     @Autowired private val employeeInfoService: EmployeeInfoService,
     @Autowired private val employeeRoleService: EmployeeRoleService,
-    @Autowired private val employeeMonthlyService: EmployeeMonthlyService,
+    @Autowired private val employeeMonthlyVertecService: EmployeeMonthlyVertecService,
     @Autowired private val employeeCapacityService: EmployeeCapacityService,
     @Autowired private val employeeMapper: EmployeeMapper,
     @Autowired private val employeeMonthlyMapperDecorator: EmployeeMonthlyMapperDecorator,
 
 
-) {
+    ) {
 
     @RequestMapping(value = ["/employeeInfo"], method = [RequestMethod.GET])
     fun viewInfo(@RequestParam("visa", required = false, defaultValue = " ") visa:String): EmployeeMetaInfoDto {
@@ -40,7 +40,7 @@ class HtmlController(
     @RequestMapping(value = ["/employeeCapacity"], method = [RequestMethod.GET])
     fun viewCapacity(): MutableIterable<Capacity> = employeeCapacityService.loadAllEmployee()
     @RequestMapping(value = ["/employeeMonthly"], method = [RequestMethod.GET])
-    fun viewMonthly(): MutableIterable<EmployeeMonthly> = employeeMonthlyService.loadAllEmployee()
+    fun viewMonthly(): MutableIterable<EmployeeMonthly> = employeeMonthlyVertecService.loadAllEmployee()
 
     @RequestMapping(value = ["/test"], method = [RequestMethod.GET])
     fun test(
@@ -60,7 +60,7 @@ class HtmlController(
         }
         hourReportCriteriaDto.startMonth = Date.valueOf(start)
         hourReportCriteriaDto.endMonth = Date.valueOf(end)
-        val data = employeeMonthlyService.loadEmployeeByHourReportCriteria(hourReportCriteriaDto)
+        val data = employeeMonthlyVertecService.loadEmployeeByHourReportCriteria(hourReportCriteriaDto)
         data.forEach { (k, v) ->
             result.add(
                 employeeMapper.entityReportHourToDto(k,v)
@@ -78,13 +78,13 @@ class HtmlController(
         @RequestParam("month", required = false, defaultValue = "05") month: Int,
         @RequestParam("year", required = false, defaultValue = "22") year: Int,
     ): List<EmployeeMonthlyDto> {
-        employeeMonthlyService.saveEmployeeByMonth(month)
+        employeeMonthlyVertecService.saveEmployeeByMonth(month)
         return listOf()
     }
 
 
     @RequestMapping(value = ["/mapping"], method = [RequestMethod.GET])
     fun mappingProject(): List<EmployeeMonthlyDto> {
-        return employeeMonthlyService.mappingProjectGroup().map { employeeMonthlyMapperDecorator.entityToDto(it) }
+        return employeeMonthlyVertecService.mappingProjectGroup().map { employeeMonthlyMapperDecorator.entityToDto(it) }
     }
 }

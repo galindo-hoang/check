@@ -10,17 +10,8 @@ import kotlin.collections.HashMap
 object Constant {
 
     const val MONTH_YEAR = "Month"
-    const val SUB_PROJECT = "Subproject"
     const val VISA = "Visa"
-
-
-    const val YEAR = "year"
-    const val DATE = "Date"
-    const val GRP_PRJ = "GRP-PRJ"
     const val P = "P"
-    const val CODE = "Code"
-    const val HRS = "Hrs"
-    const val IS_VN = "Vn ?"
     const val PROJECT = "Project"
 
 
@@ -35,41 +26,6 @@ object Constant {
     }
 
     val gson = Gson()
-    const val FORMAT_STRING_DATE = "yyyy-MM-dd"
-    private fun Any?.toJsonElement(): JsonElement {
-        return when (this) {
-            is Number -> JsonPrimitive(this)
-            is Boolean -> JsonPrimitive(this)
-            is String -> JsonPrimitive(this)
-            is Array<*> -> this.toJsonArray()
-            is List<*> -> this.toJsonArray()
-            is Map<*, *> -> this.toJsonObject()
-            is JsonElement -> this
-            else -> JsonNull
-        }
-    }
-
-    private fun Array<*>.toJsonArray(): JsonArray {
-        val array = mutableListOf<JsonElement>()
-        this.forEach { array.add(it.toJsonElement()) }
-        return JsonArray(array)
-    }
-
-    private fun List<*>.toJsonArray(): JsonArray {
-        val array = mutableListOf<JsonElement>()
-        this.forEach { array.add(it.toJsonElement()) }
-        return JsonArray(array)
-    }
-
-    fun Map<*, *>.toJsonObject(): JsonObject {
-        val map = mutableMapOf<String, JsonElement>()
-        this.forEach {
-            if (it.key is String) {
-                map[it.key as String] = it.value.toJsonElement()
-            }
-        }
-        return JsonObject(map)
-    }
 
     fun convertXLSXToHashMap(curRow: Row, titleColumn: HashMap<Int,String>): HashMap<String, Any>{
 
@@ -86,7 +42,7 @@ object Constant {
                     }else modelHash[cellTitle] = cell.numericCellValue
                 }
                 CellType.FORMULA -> {
-                    when(cell.cellType){
+                    when(cell.cachedFormulaResultType){
                         CellType.STRING -> modelHash[cellTitle] = cell.stringCellValue
                         CellType.BOOLEAN -> modelHash[cellTitle] = cell.booleanCellValue
                         CellType.NUMERIC -> {

@@ -8,14 +8,10 @@ import com.example.ex.utils.Constant.convertXLSXToHashMap
 import com.example.ex.utils.Constant.getJpaQuery
 import com.example.ex.utils.Constant.getTitleXLSX
 import com.example.ex.utils.Constant.gson
-import org.apache.poi.ss.usermodel.CellType
-import org.apache.poi.ss.usermodel.DateUtil
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.springframework.beans.factory.annotation.Value
 import java.io.File
 import java.io.FileInputStream
-import java.util.*
-import java.util.logging.Logger
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
@@ -32,7 +28,7 @@ class EmployeeCapacityRepositoryImpl(
         return query.fetch().toList() as List<String>
     }
 
-    override fun findMonthlyMeetCriteria(list: List<EmployeeMonthlyDto>): List<EmployeeMonthlyDto> {
+    override fun findMonthlyMeetCriteriaFromXLSX(list: List<EmployeeMonthlyDto>): List<EmployeeMonthlyDto> {
         val clone: MutableList<EmployeeMonthlyDto> = list as MutableList<EmployeeMonthlyDto>
         val result: MutableList<EmployeeMonthlyDto> = mutableListOf()
         if(File(filepath).isFile){

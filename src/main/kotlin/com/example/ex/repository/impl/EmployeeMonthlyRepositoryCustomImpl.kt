@@ -7,7 +7,6 @@ import com.example.ex.repository.EmployeeMonthlyRepositoryCustom
 import com.example.ex.utils.Constant
 import com.example.ex.utils.Constant.getJpaQuery
 import com.querydsl.jpa.impl.JPADeleteClause
-import com.querydsl.jpa.impl.JPAQuery
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.springframework.beans.factory.annotation.Value
 import java.io.File
@@ -22,7 +21,7 @@ class EmployeeMonthlyRepositoryCustomImpl(
     @PersistenceContext
     private val entityManager: EntityManager
 ): EmployeeMonthlyRepositoryCustom {
-    override fun findEmployeeByMonth(month: Int): List<EmployeeMonthlyDto> {
+    override fun findEmployeeByMonthFromXLSX(month: Int): List<EmployeeMonthlyDto> {
         val result: MutableList<EmployeeMonthlyDto> = mutableListOf()
         if(File(filepath).exists()){
             FileInputStream(filepath).use { file ->

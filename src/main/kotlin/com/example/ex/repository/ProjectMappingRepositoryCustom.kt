@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface ProjectMappingRepositoryCustom {
-    fun fetchAll(): List<ProjectMappingDto>
+    fun fetchAllFromXLSX(): List<ProjectMappingDto>
 }
