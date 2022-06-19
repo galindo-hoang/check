@@ -9,6 +9,7 @@ import org.mapstruct.Mapper
 import org.mapstruct.Mapping
 
 @Mapper(componentModel = "spring")
+@DecoratedWith(EmployeeRoleMapperDecorator::class)
 interface EmployeeRoleMapper {
 
     @Mapping(source = "employeeRole.supervisor.visa", target = "supervisorss")

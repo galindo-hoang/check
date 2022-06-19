@@ -2,6 +2,7 @@ package com.example.ex.service.impl
 
 import com.example.ex.dto.EmployeeRoleDto
 import com.example.ex.mapper.EmployeeRoleMapper
+import com.example.ex.mapper.EmployeeRoleMapperDecorator
 import com.example.ex.model.EmployeeRole
 import com.example.ex.model.QEmployeeRole.Companion.employeeRole
 import com.example.ex.repository.EmployeeRoleRepository
@@ -16,7 +17,8 @@ import javax.persistence.PersistenceContext
 @Service
 class EmployeeRoleServiceImpl(
     private val employeeRoleRepository: EmployeeRoleRepository,
-    private val employeeRoleMapper: EmployeeRoleMapper,
+    private val employeeRoleMapperDecorator: EmployeeRoleMapperDecorator,
+
 ): EmployeeRoleService {
     @PersistenceContext
     private lateinit var entityManager: EntityManager
@@ -25,7 +27,9 @@ class EmployeeRoleServiceImpl(
     @PostConstruct
     private fun postConstruct(){
         employeeRoleRepository.saveAll(
-            this.readAllFromXLSX().map { employeeRoleMapper.dtoToEntity(it) }
+            this.readAllFromXLSX().map {
+                employeeRoleMapperDecorator.dtoToEntity(it)
+            }
         )
     }
 

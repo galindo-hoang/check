@@ -57,9 +57,7 @@ class EmployeeMonthlyVertecServiceImpl:
             }
         )
         dtoList.forEach {
-            val a = employeeMonthlyMapperDecorator.dtoToEntity(it)
-            a.metaInfo = entityManager.getReference(EmployeeMetaInfo::class.java,it.visa)
-            entityManager.persist(a)
+            entityManager.persist(employeeMonthlyMapperDecorator.dtoToEntity(it) )
         }
     }
 
