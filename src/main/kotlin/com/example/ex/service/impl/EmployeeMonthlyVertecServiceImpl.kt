@@ -22,8 +22,6 @@ import javax.persistence.PersistenceContext
 class EmployeeMonthlyVertecServiceImpl:
     EmployeeMonthlyVertecService {
 
-    @PersistenceContext
-    private lateinit var entityManager: EntityManager
     @Autowired private lateinit var employeeMonthlyMapperDecorator: EmployeeMonthlyMapperDecorator
     @Autowired private lateinit var projectMappingRepositoryCustom: ProjectMappingRepositoryCustom
     @Autowired private lateinit var employeeRoleRepository: EmployeeRoleRepository
@@ -56,9 +54,11 @@ class EmployeeMonthlyVertecServiceImpl:
                 )
             }
         )
-        dtoList.forEach {
-            entityManager.persist(employeeMonthlyMapperDecorator.dtoToEntity(it) )
-        }
+        employeeMonthlyRepository.saveAll(
+            dtoList.map {
+                employeeMonthlyMapperDecorator.dtoToEntity(it)
+            }
+        )
     }
 
     @Transactional
@@ -69,7 +69,7 @@ class EmployeeMonthlyVertecServiceImpl:
         return monthlyVertec.filter {
             if(transformMapping.containsKey(it.project)){
                 it.projectGroup = transformMapping[it.project]
-                entityManager.persist(it)
+                employeeMonthlyRepository.mappingProjectGroup(it)
             }
             !transformMapping.containsKey(it.project)
         }

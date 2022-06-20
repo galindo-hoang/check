@@ -5,11 +5,13 @@ import com.example.ex.utils.Constant.getJpaQuery
 import com.example.ex.dto.HourReportCriteriaDto
 import com.example.ex.mapper.EmployeeRoleMapperDecorator
 import com.example.ex.model.EmployeeMetaInfo
+import com.example.ex.model.EmployeeRole
 import com.example.ex.model.QEmployeeMetaInfo.Companion.employeeMetaInfo
 import com.example.ex.model.QEmployeeMonthly.Companion.employeeMonthly
 import com.example.ex.model.QEmployeeRole.Companion.employeeRole
 import com.example.ex.repository.EmployeeRoleRepositoryCustom
 import com.example.ex.utils.Constant
+import com.querydsl.jpa.impl.JPAQueryFactory
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
@@ -89,4 +91,16 @@ class EmployeeRoleRepositoryImpl(
             entityManager.persist(entity)
         }
     }
+
+    override fun findEmployeeByAbbreviation(visa: String): Iterable<EmployeeRole> =
+        JPAQueryFactory(entityManager)
+            .from(employeeRole)
+            .where(employeeRole.abbreviation.visa.eq(visa))
+            .fetch() as Iterable<EmployeeRole>
+
+    override fun findEmployeeBySupervisor(visa: String): Iterable<EmployeeRole> =
+        getJpaQuery(entityManager)
+            .from(employeeRole)
+            .where(employeeRole.supervisor.visa.eq(visa))
+            .fetch() as Iterable<EmployeeRole>
 }

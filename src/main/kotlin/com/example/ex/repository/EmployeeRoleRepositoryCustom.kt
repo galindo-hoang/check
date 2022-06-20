@@ -10,4 +10,7 @@ interface EmployeeRoleRepositoryCustom {
     fun findAllFromXLSX(): List<EmployeeRoleDto>
 
     fun saveAllCustom(list: List<EmployeeRoleDto>)
+
+    fun findEmployeeByAbbreviation(visa: String): Iterable<EmployeeRole>
+    fun findEmployeeBySupervisor(visa: String): Iterable<EmployeeRole>
 }

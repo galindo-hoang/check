@@ -8,4 +8,5 @@ interface EmployeeMonthlyRepositoryCustom {
     fun findEmployeeByMonthFromXLSX(month: Int): List<EmployeeMonthlyDto>
     fun deleteEmployeeByMonth(month: List<Date>)
     fun findByProjectGroup(projectGroup: String?): List<EmployeeMonthly>
+    fun mappingProjectGroup(employeeMonthly: EmployeeMonthly)
 }

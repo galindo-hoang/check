@@ -52,4 +52,8 @@ class EmployeeMonthlyRepositoryCustomImpl(
         }else query.where(employeeMonthly.projectGroup.eq(projectGroup))
         return query.fetch().toList() as List<EmployeeMonthly>
     }
+
+    override fun mappingProjectGroup(employeeMonthly: EmployeeMonthly) {
+        entityManager.merge(employeeMonthly)
+    }
 }

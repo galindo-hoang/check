@@ -1,26 +1,16 @@
 package com.example.ex.service.impl
 
 import com.example.ex.dto.EmployeeRoleDto
-import com.example.ex.mapper.EmployeeRoleMapperDecorator
 import com.example.ex.model.EmployeeRole
-import com.example.ex.model.QEmployeeRole.Companion.employeeRole
 import com.example.ex.repository.EmployeeRoleRepository
 import com.example.ex.service.EmployeeRoleService
-import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
-import javax.persistence.EntityManager
-import javax.persistence.PersistenceContext
 
 @Service
 class EmployeeRoleServiceImpl(
     private val employeeRoleRepository: EmployeeRoleRepository,
-    private val employeeRoleMapperDecorator: EmployeeRoleMapperDecorator,
-
 ): EmployeeRoleService {
-    @PersistenceContext
-    private lateinit var entityManager: EntityManager
-
 
     @PostConstruct
     fun postConstruct(){
@@ -34,19 +24,11 @@ class EmployeeRoleServiceImpl(
     }
 
     override fun loadEmployeeBySupervisor(visa: String): Iterable<EmployeeRole> {
-        val jpaQuery = JPAQueryFactory(entityManager)
-        return jpaQuery
-            .from(employeeRole)
-            .where(employeeRole.supervisor.visa.eq(visa))
-            .fetch() as Iterable<EmployeeRole>
+        return employeeRoleRepository.findEmployeeBySupervisor(visa)
     }
 
     override fun loadEmployeeByAbbreviation(visa: String): Iterable<EmployeeRole> {
-        val jpaQuery = JPAQueryFactory(entityManager)
-        return jpaQuery
-            .from(employeeRole)
-            .where(employeeRole.abbreviation.visa.eq(visa))
-            .fetch() as Iterable<EmployeeRole>
+        return employeeRoleRepository.findEmployeeByAbbreviation(visa)
     }
 
     override fun saveEmployee(employeeRole: EmployeeRole) {
