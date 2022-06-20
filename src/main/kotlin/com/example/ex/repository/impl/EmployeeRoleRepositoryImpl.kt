@@ -1,9 +1,9 @@
 package com.example.ex.repository.impl
 
-import com.example.ex.dto.EmployeeMonthlyDto
 import com.example.ex.dto.EmployeeRoleDto
 import com.example.ex.utils.Constant.getJpaQuery
 import com.example.ex.dto.HourReportCriteriaDto
+import com.example.ex.mapper.EmployeeRoleMapperDecorator
 import com.example.ex.model.EmployeeMetaInfo
 import com.example.ex.model.QEmployeeMetaInfo.Companion.employeeMetaInfo
 import com.example.ex.model.QEmployeeMonthly.Companion.employeeMonthly
@@ -11,8 +11,10 @@ import com.example.ex.model.QEmployeeRole.Companion.employeeRole
 import com.example.ex.repository.EmployeeRoleRepositoryCustom
 import com.example.ex.utils.Constant
 import org.apache.poi.ss.usermodel.WorkbookFactory
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Repository
+import org.springframework.transaction.annotation.Transactional
 import java.io.File
 import java.io.FileInputStream
 import javax.persistence.EntityManager
@@ -25,6 +27,7 @@ class EmployeeRoleRepositoryImpl(
 ): EmployeeRoleRepositoryCustom {
     @PersistenceContext
     private lateinit var entityManager: EntityManager
+    @Autowired private lateinit var employeeRoleMapperDecorator: EmployeeRoleMapperDecorator
 
     override fun findEmployeesByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto):Map<EmployeeMetaInfo,Double> {
         val result = mutableMapOf<EmployeeMetaInfo,Double>()
@@ -75,5 +78,15 @@ class EmployeeRoleRepositoryImpl(
             }
         }else println("File not exist")
         return result
+    }
+
+    @Transactional
+    override fun saveAllCustom(list: List<EmployeeRoleDto>) {
+        list.forEach {
+            val entity = employeeRoleMapperDecorator.dtoToEntity(it)
+            entity.abbreviation = entityManager.getReference(EmployeeMetaInfo::class.java,it.abbreviationss)
+            entity.supervisor = entityManager.getReference(EmployeeMetaInfo::class.java,it.supervisorss)
+            entityManager.persist(entity)
+        }
     }
 }

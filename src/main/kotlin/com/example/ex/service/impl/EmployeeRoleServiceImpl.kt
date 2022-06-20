@@ -1,14 +1,12 @@
 package com.example.ex.service.impl
 
 import com.example.ex.dto.EmployeeRoleDto
-import com.example.ex.mapper.EmployeeRoleMapper
 import com.example.ex.mapper.EmployeeRoleMapperDecorator
 import com.example.ex.model.EmployeeRole
 import com.example.ex.model.QEmployeeRole.Companion.employeeRole
 import com.example.ex.repository.EmployeeRoleRepository
 import com.example.ex.service.EmployeeRoleService
 import com.querydsl.jpa.impl.JPAQueryFactory
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import javax.annotation.PostConstruct
 import javax.persistence.EntityManager
@@ -25,11 +23,9 @@ class EmployeeRoleServiceImpl(
 
 
     @PostConstruct
-    private fun postConstruct(){
-        employeeRoleRepository.saveAll(
-            this.readAllFromXLSX().map {
-                employeeRoleMapperDecorator.dtoToEntity(it)
-            }
+    fun postConstruct(){
+        employeeRoleRepository.saveAllCustom(
+            this.readAllFromXLSX()
         )
     }
 
