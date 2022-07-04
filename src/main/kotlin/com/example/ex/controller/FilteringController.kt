@@ -11,12 +11,11 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@CrossOrigin
 @RequestMapping("/filtering")
 class FilteringController(
     @Autowired private val employeeMonthlyVertecService: EmployeeMonthlyVertecService,
     @Autowired private val employeeMonthlyMapperDecorator: EmployeeMonthlyMapperDecorator,
-) {
+): BaseController() {
 
     @RequestMapping(value = ["/loadIntoDB"], method = [RequestMethod.GET])
     fun loadVertec(

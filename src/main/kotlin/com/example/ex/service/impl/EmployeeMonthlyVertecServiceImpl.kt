@@ -13,16 +13,23 @@ import com.example.ex.repository.EmployeeMonthlyRepository
 import com.example.ex.repository.EmployeeRoleRepository
 import com.example.ex.repository.ProjectMappingRepositoryCustom
 import com.example.ex.service.EmployeeMonthlyVertecService
+import com.example.ex.utils.Constant
+import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.io.FileInputStream
 import java.sql.Date
 import java.text.SimpleDateFormat
 import java.util.*
 
 @Service
-class EmployeeMonthlyVertecServiceImpl:
+class EmployeeMonthlyVertecServiceImpl(
+    @Value("\${excel.fileMonthlyVertec}")
+    val fileMonthlyVertec: String,
+):
     EmployeeMonthlyVertecService {
 
     @Autowired private lateinit var employeeMonthlyMapperDecorator: EmployeeMonthlyMapperDecorator
@@ -45,17 +52,37 @@ class EmployeeMonthlyVertecServiceImpl:
     override fun loadEmployeeByHourReportCriteria(hourReportCriteria: HourReportCriteriaDto): Map<EmployeeMetaInfo,Double> {
         return employeeRoleRepository.findEmployeesByHourReportCriteria(hourReportCriteria)
     }
+    private fun findEmployeeByMonthFromXLSX(month: Int): List<EmployeeMonthlyDto> {
+        val listEmployeeMonthlyDto: MutableList<EmployeeMonthlyDto> = mutableListOf()
+        try {
+            FileInputStream(fileMonthlyVertec).use { file ->
+                try {
+                    val wb = WorkbookFactory.create(file)
+                    val sheet = wb.getSheetAt(0)
+                    val titleColumn = Constant.getTitleXLSX(sheet)
+                    for(i in 1 .. sheet.lastRowNum){
+                        val modelHash = Constant.convertXLSXToHashMap(sheet.getRow(i), titleColumn)
+                        val model = Constant.gson.fromJson(Constant.gson.toJson(modelHash), EmployeeMonthlyDto::class.java)
+                        Constant.setTimeCalendar(model.dateJava!!)
+                        if(Constant.getCalendar.get(Calendar.MONTH) + 1 == month) listEmployeeMonthlyDto.add(model)
+                    }
+                }catch (e:Exception){
+                    e.printStackTrace()
+                    throw FileNotFoundExceptionCustom("XLSX $fileMonthlyVertec not Exist",HttpStatus.NOT_FOUND)
+                }
+            }
+            return listEmployeeMonthlyDto
+        }catch (e:Exception){
+            e.printStackTrace()
+            throw FileNotFoundExceptionCustom("${e.message}", HttpStatus.NOT_FOUND)
+        }
+    }
 
     @Transactional
     override fun saveEmployeeByMonth(month: Int, year: Int): List<EmployeeMonthlyDto> {
+        employeeMonthlyRepository.deleteEmployeeByMonth(month)
         val dtoList: MutableList<EmployeeMonthlyDto> = mutableListOf()
-        dtoList.addAll(employeeCapacityRepository.findMonthlyMeetCriteriaFromXLSX(employeeMonthlyRepository.findEmployeeByMonthFromXLSX(month)))
-        val listEmployeeMonthly = mutableListOf<EmployeeMonthly>()
-        dtoList
-            .map { Date.valueOf(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(it.dateJava))}
-            .distinct()
-            .forEach { listEmployeeMonthly.addAll(employeeMonthlyRepository.findEmployeeByMonth(it)) }
-        employeeMonthlyRepository.deleteAll(listEmployeeMonthly.map { it })
+        dtoList.addAll(employeeCapacityRepository.findMonthlyMeetCriteriaFromXLSX(this.findEmployeeByMonthFromXLSX(month)))
         employeeMonthlyRepository.saveAll(
             dtoList.map {
                 employeeMonthlyMapperDecorator.dtoToEntity(it)
@@ -72,7 +99,7 @@ class EmployeeMonthlyVertecServiceImpl:
         return monthlyVertec.filter {
             if(transformMapping.containsKey(it.project)){
                 it.projectGroup = transformMapping[it.project]
-                employeeMonthlyRepository.saveAndFlush(it)
+                employeeMonthlyRepository.save(it)
             }
             !transformMapping.containsKey(it.project)
         }
@@ -81,7 +108,7 @@ class EmployeeMonthlyVertecServiceImpl:
     override fun fillWhoDoWhatByMonth(month: Int, year: Int): List<WhoDoWhat> {
         val label: Pair<HashMap<String, Int>?, HashMap<String, Int>?> = employeeMonthlyRepository.readingLabelRowAndCol()
         if(label.second == null || label.first == null){
-            throw FileNotFoundExceptionCustom("label of ProjectGroup or Visa empty",HttpStatus.NOT_FOUND)
+            throw FileNotFoundExceptionCustom("label of ProjectGroup or Visa empty",HttpStatus.NO_CONTENT)
         }else {
             val whoDoWhatList = employeeMonthlyRepository.findHoursByMonthYearGroupByVisaProjectGroup(month, year)
             employeeMonthlyRepository.fillDataIntoXLSX(

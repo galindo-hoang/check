@@ -2,5 +2,5 @@ package com.example.ex.exception
 
 import org.springframework.http.HttpStatus
 
-class FileNotFoundExceptionCustom(message: String,val status: HttpStatus) : RuntimeException(message) {
+class FileNotFoundExceptionCustom(message: String = "File not found",val status: HttpStatus) : RuntimeException(message){
 }

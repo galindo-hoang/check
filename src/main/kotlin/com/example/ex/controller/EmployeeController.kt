@@ -11,20 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@CrossOrigin
 @RequestMapping("/employee")
 class EmployeeController(
     @Autowired private val employeeMetaInfoService: EmployeeMetaInfoService,
     @Autowired private val employeeRoleService: EmployeeRoleService,
     @Autowired private val employeeCapacityService: EmployeeCapacityService,
     @Autowired private val employeeMonthlyVertecService: EmployeeMonthlyVertecService,
-) {
-    @RequestMapping(value = ["/Info"], method = [RequestMethod.GET])
+): BaseController() {
+    @GetMapping(value = ["/Info"])
     fun viewInfo(@RequestParam("visa", required = false, defaultValue = "") visa:String): Any {
         return if(visa == "") employeeMetaInfoService.loadAllEmployee()
         else employeeMetaInfoService.loadEmployeeByVisa(visa)
     }
-    @RequestMapping(value = ["/Role"], method = [RequestMethod.GET])
+    @GetMapping(value = ["/Role"])
     fun viewRole(@RequestParam("supervisors", required = false, defaultValue = "") supervisors:String): Iterable<EmployeeRole> {
         return if(supervisors == "") employeeRoleService.loadAllEmployee()
         else employeeRoleService.loadEmployeeBySupervisor(supervisors)

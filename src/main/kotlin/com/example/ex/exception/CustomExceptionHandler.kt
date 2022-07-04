@@ -13,6 +13,6 @@ class CustomExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     fun handlerNotFoundException(ex:FileNotFoundExceptionCustom): ErrorMessage {
-        return ErrorMessage(HttpStatus.NOT_FOUND,ex.message ?: "File not found=======")
+        return ErrorMessage(HttpStatus.BAD_REQUEST, "${ ex.message }")
     }
 }

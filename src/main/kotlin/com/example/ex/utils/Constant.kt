@@ -22,7 +22,7 @@ object Constant {
         return JPAQueryFactory(entityManager)
     }
 
-    private val CALENDAR: Calendar = Calendar.getInstance(TimeZone.getDefault())
+    private var CALENDAR: Calendar = Calendar.getInstance(TimeZone.getDefault())
     val getCalendar: Calendar get() = CALENDAR
     fun setTimeCalendar(value: Date) {
         CALENDAR.time = value

@@ -1,9 +1,8 @@
 import React from 'react';
 import './App.css'
-import Text from "./components/text/Text";
+import Text from './components/Text';
+import BartChart from './components/BartChart';
 import hibernate from "./api/hibernate";
-import Date from "./components/date/Date";
-import Table from './components/table/Table';
 
 
 export type employee = {
@@ -68,15 +67,13 @@ class App extends React.Component<props,hourReportCriteria>{
     render() {
         return (
             <div className="App">
-                <form className="form" onSubmit={(e) => this.onSubmit(e.nativeEvent)}>
+                {/* <form className="form" onSubmit={(e) => this.onSubmit(e.nativeEvent)}>
                     <span className="heading">Hibernate</span>
                     <Text fun={this.level} label="Level"/>
                     <Text fun={this.subproject} label="Sub-Project"/>
-                    <Date fun={this.startDate} label="Start-Date"/>
-                    <Date fun={this.endDate} label="End-Date"/>
                     <input type="submit" value="Submit"/>
-                    <Table list={this.state.employee}/>
-                </form>
+                </form> */}
+                <BartChart/>
             </div>
         );
     }

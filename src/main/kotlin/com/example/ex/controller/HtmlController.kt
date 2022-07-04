@@ -22,11 +22,10 @@ import org.springframework.web.bind.annotation.RestController
 import java.sql.Date
 
 @RestController
-@CrossOrigin
 class HtmlController(
     @Autowired private val employeeMonthlyVertecService: EmployeeMonthlyVertecService,
     @Autowired private val employeeMapper: EmployeeMapper,
-) {
+): BaseController() {
 
 //    @RequestMapping(value = ["/test"], method = [RequestMethod.GET])
 //    fun test(

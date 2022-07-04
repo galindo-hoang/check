@@ -1,15 +1,11 @@
 package com.example.ex.repository.impl
 
-import com.example.ex.dto.EmployeeMonthlyDto
 import com.example.ex.dto.WhoDoWhat
 import com.example.ex.exception.FileNotFoundExceptionCustom
 import com.example.ex.model.EmployeeMonthly
 import com.example.ex.model.QEmployeeMonthly.Companion.employeeMonthly
 import com.example.ex.repository.EmployeeMonthlyRepositoryCustom
-import com.example.ex.utils.Constant
-import com.example.ex.utils.Constant.getCalendar
 import com.example.ex.utils.Constant.getJpaQuery
-import com.example.ex.utils.Constant.setTimeCalendar
 import com.spire.xls.Workbook
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.Sheet
@@ -25,44 +21,23 @@ import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
 class EmployeeMonthlyRepositoryCustomImpl(
-    @Value("\${excel.fileMonthlyVertec}")
-    val fileMonthlyVertec: String,
     @Value("\${excel.fileWhoDoWhat}")
     val filepathWhoDoWhat: String,
     @PersistenceContext
     private val entityManager: EntityManager
 ): EmployeeMonthlyRepositoryCustom {
-    override fun findEmployeeByMonthFromXLSX(month: Int): List<EmployeeMonthlyDto> {
-        val listEmployeeMonthlyDto: MutableList<EmployeeMonthlyDto> = mutableListOf()
-        try {
-            FileInputStream(fileMonthlyVertec).use { file ->
-                try {
-                    val wb = WorkbookFactory.create(file)
-                    val sheet = wb.getSheetAt(0)
-                    val titleColumn = Constant.getTitleXLSX(sheet)
-                    for(i in 1 .. sheet.lastRowNum){
-                        val modelHash = Constant.convertXLSXToHashMap(sheet.getRow(i), titleColumn)
-                        val model = Constant.gson.fromJson(Constant.gson.toJson(modelHash), EmployeeMonthlyDto::class.java)
-                        setTimeCalendar(model.dateJava!!)
-                        if(getCalendar.get(Calendar.MONTH) + 1 == month) listEmployeeMonthlyDto.add(model)
-                    }
-                }catch (e:Exception){
-                    e.printStackTrace()
-                    throw FileNotFoundExceptionCustom("XLSX $fileMonthlyVertec not Exist",HttpStatus.CONFLICT)
-                }
-            }
-            return listEmployeeMonthlyDto
-        }catch (e:Exception){
-            e.printStackTrace()
-            throw FileNotFoundExceptionCustom("URL $fileMonthlyVertec not Found", HttpStatus.NOT_FOUND)
-        }
-    }
-
     override fun findEmployeeByMonth(month: Date): List<EmployeeMonthly> {
         return getJpaQuery(entityManager)
             .from(employeeMonthly)
             .where(employeeMonthly.date.eq(month))
             .fetch() as List<EmployeeMonthly>
+    }
+
+    override fun deleteEmployeeByMonth(month: Int) {
+        getJpaQuery(entityManager)
+            .delete(employeeMonthly)
+            .where(employeeMonthly.date.month().eq(month))
+            .execute()
     }
 
     override fun findByProjectGroup(projectGroup: String?): List<EmployeeMonthly> {
@@ -109,7 +84,7 @@ class EmployeeMonthlyRepositoryCustomImpl(
             return Pair(labelProjectGroup,labelVisa)
         }catch (e:Exception) {
             e.printStackTrace()
-            throw FileNotFoundExceptionCustom("File $filepathWhoDoWhat cant read label", HttpStatus.NOT_FOUND)
+            throw FileNotFoundExceptionCustom("${e.message}", HttpStatus.NOT_FOUND)
         }
     }
 
@@ -138,7 +113,7 @@ class EmployeeMonthlyRepositoryCustomImpl(
         labels: Pair<HashMap<String, Int>, HashMap<String, Int>>,
         data: List<WhoDoWhat>
     ): Boolean {
-        cloneFile(filepathWhoDoWhat,"WhoDoWhat-${month}-${year}")
+        cloneSheet(filepathWhoDoWhat,"WhoDoWhat-${month}-${year}")
 
         val readFileWhoDoWhat = FileInputStream(filepathWhoDoWhat)
         try {
@@ -177,7 +152,7 @@ class EmployeeMonthlyRepositoryCustomImpl(
         }
     }
 
-    private fun cloneFile(file: String, name:String){
+    private fun cloneSheet(file: String, name:String){
         val workbook = Workbook()
         workbook.loadFromFile(file)
         val a = workbook.worksheets.get(0)
