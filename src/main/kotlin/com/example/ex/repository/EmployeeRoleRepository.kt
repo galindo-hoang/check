@@ -1,6 +1,6 @@
 package com.example.ex.repository
 
 import com.example.ex.model.EmployeeRole
-import org.springframework.data.repository.CrudRepository
+import org.springframework.data.jpa.repository.JpaRepository
 
-interface EmployeeRoleRepository : CrudRepository<EmployeeRole, Long>, EmployeeRoleRepositoryCustom
+interface EmployeeRoleRepository : JpaRepository<EmployeeRole, Long>, EmployeeRoleRepositoryCustom

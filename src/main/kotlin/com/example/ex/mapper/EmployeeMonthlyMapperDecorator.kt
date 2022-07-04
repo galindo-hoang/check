@@ -19,17 +19,17 @@ abstract class EmployeeMonthlyMapperDecorator: EmployeeMonthlyMapper{
     lateinit var entityManager:EntityManager
 
     override fun dtoToEntity(employeeMonthlyDto: EmployeeMonthlyDto): EmployeeMonthly {
-        val result = delegate.dtoToEntity(employeeMonthlyDto)
-        result.metaInfo = entityManager.getReference(EmployeeMetaInfo::class.java,employeeMonthlyDto.visa)
-        result.date = Date.valueOf(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(employeeMonthlyDto.dateJava))
-        entityManager.persist(result)
-        return result
+        val employeeMonthly = delegate.dtoToEntity(employeeMonthlyDto)
+        employeeMonthly.metaInfo = entityManager.getReference(EmployeeMetaInfo::class.java,employeeMonthlyDto.visa)
+        employeeMonthly.date = Date.valueOf(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(employeeMonthlyDto.dateJava))
+        entityManager.persist(employeeMonthly)
+        return employeeMonthly
     }
 
     override fun entityToDto(employeeMonthly: EmployeeMonthly): EmployeeMonthlyDto {
-        val result = delegate.entityToDto(employeeMonthly)
-        result.visa = employeeMonthly.metaInfo?.visa!!
-        return result
+        val employeeMonthlyDto = delegate.entityToDto(employeeMonthly)
+        employeeMonthlyDto.visa = employeeMonthly.metaInfo?.visa!!
+        return employeeMonthlyDto
     }
 
 }

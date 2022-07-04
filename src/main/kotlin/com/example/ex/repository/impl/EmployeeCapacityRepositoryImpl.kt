@@ -30,21 +30,21 @@ class EmployeeCapacityRepositoryImpl(
 
     override fun findMonthlyMeetCriteriaFromXLSX(list: List<EmployeeMonthlyDto>): List<EmployeeMonthlyDto> {
         val clone: MutableList<EmployeeMonthlyDto> = list as MutableList<EmployeeMonthlyDto>
-        val result: MutableList<EmployeeMonthlyDto> = mutableListOf()
+        val listEmployeeMonthlyDto: MutableList<EmployeeMonthlyDto> = mutableListOf()
         if(File(filepath).isFile){
             FileInputStream(filepath).use { file ->
-                val xlWb = WorkbookFactory.create(file)
-                val sheet = xlWb.getSheetAt(0)
+                val wb = WorkbookFactory.create(file)
+                val sheet = wb.getSheetAt(0)
                 val titleColumn = getTitleXLSX(sheet)
                 for(i in 1 .. sheet.lastRowNum){
                     val modelHash = convertXLSXToHashMap(sheet.getRow(i),titleColumn)
                     val model = gson.fromJson(gson.toJson(modelHash),CapacityDto::class.java)
                     val list = clone.filter { model.startDate!! < it.dateJava && (model.endDate == null || model.endDate!! > it.dateJava) && it.visa == model.visaDto }
-                    result.addAll(list)
+                    listEmployeeMonthlyDto.addAll(list)
                     clone.removeAll(list)
                 }
             }
         }else println("file not exits")
-        return result
+        return listEmployeeMonthlyDto
     }
 }

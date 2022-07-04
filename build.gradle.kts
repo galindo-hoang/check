@@ -25,6 +25,7 @@ repositories {
     mavenCentral()
     maven("https://jitpack.io")
     maven("https://plugins.gradle.org/m2/")
+    maven("https://repo.e-iceblue.com/nexus/content/groups/public/")
 }
 
 allOpen {
@@ -35,12 +36,10 @@ allOpen {
 
 dependencies {
     // openCSV
-    implementation("com.opencsv:opencsv:5.6")
-    // XSSFWorkbook
-    implementation("org.apache.poi:poi:5.2.2")
-    implementation("org.apache.poi:poi-ooxml:5.2.2")
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
-    implementation("org.apache.commons:commons-csv:1.9.0")
+//    implementation("com.opencsv:opencsv:5.6")
+//    // XSSFWorkbook
+//    // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
+//    implementation("org.apache.commons:commons-csv:1.9.0")
     // mapstruct
     implementation("org.mapstruct:mapstruct:1.5.1.Final")
     kapt("org.mapstruct:mapstruct-processor:1.5.1.Final")
@@ -54,6 +53,13 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.3.2")
     //Gson
     implementation("com.google.code.gson:gson:2.9.0")
+    // ApiResponse
+    implementation("org.springdoc:springdoc-openapi-ui:1.6.9")
+    // Reading file xlsx
+    implementation ("org.simpleframework:simple-xml:2.7")
+    implementation ("org.apache.poi:poi-ooxml:3.9")
+    // spire
+    implementation("e-iceblue:spire.xls:12.6.0")
 
 
 

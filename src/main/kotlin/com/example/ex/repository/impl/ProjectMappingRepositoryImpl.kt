@@ -16,20 +16,19 @@ class ProjectMappingRepositoryImpl(
 ): ProjectMappingRepositoryCustom {
     override fun fetchAllFromXLSX(): List<ProjectMappingDto> {
         val file = File(filepath)
-        val result = mutableListOf<ProjectMappingDto>()
+        val listProjectMappingDto = mutableListOf<ProjectMappingDto>()
         if(file.exists() && file.isFile){
-            FileInputStream(file).use { it ->
-                val xlWb = WorkbookFactory.create(it)
-                val sheet = xlWb.getSheetAt(0)
+            FileInputStream(file).use {
+                val wb = WorkbookFactory.create(it)
+                val sheet = wb.getSheetAt(0)
                 val titleColumn = Constant.getTitleXLSX(sheet)
                 for(i in 1 .. sheet.lastRowNum){
                     val modelHash = Constant.convertXLSXToHashMap(sheet.getRow(i), titleColumn)
                     val model = Constant.gson.fromJson(Constant.gson.toJson(modelHash), ProjectMappingDto::class.java)
-                    result.add(model)
+                    listProjectMappingDto.add(model)
                 }
-
             }
         }
-        return result
+        return listProjectMappingDto
     }
 }

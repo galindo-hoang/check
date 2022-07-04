@@ -4,8 +4,11 @@ import com.google.gson.Gson
 import com.querydsl.jpa.impl.JPAQueryFactory
 import kotlinx.serialization.json.*
 import org.apache.poi.ss.usermodel.*
+import org.apache.poi.ss.usermodel.Cell.*
+import java.util.*
 import javax.persistence.EntityManager
 import kotlin.collections.HashMap
+
 
 object Constant {
 
@@ -19,12 +22,11 @@ object Constant {
         return JPAQueryFactory(entityManager)
     }
 
-
-    val format = Json {
-        isLenient = true
-        ignoreUnknownKeys = true
+    private val CALENDAR: Calendar = Calendar.getInstance(TimeZone.getDefault())
+    val getCalendar: Calendar get() = CALENDAR
+    fun setTimeCalendar(value: Date) {
+        CALENDAR.time = value
     }
-
     val gson = Gson()
 
     fun convertXLSXToHashMap(curRow: Row, titleColumn: HashMap<Int,String>): HashMap<String, Any?> {
@@ -33,19 +35,19 @@ object Constant {
         curRow.cellIterator().asSequence().toList().forEachIndexed { index, cell ->
             val cellTitle = titleColumn[index]!!
             when(cell.cellType){
-                CellType.STRING -> modelHash[cellTitle] = cell.stringCellValue
-                CellType.BOOLEAN -> modelHash[cellTitle] = cell.booleanCellValue
-                CellType.NUMERIC -> {
+                CELL_TYPE_STRING -> modelHash[cellTitle] = cell.stringCellValue
+                CELL_TYPE_BOOLEAN -> modelHash[cellTitle] = cell.booleanCellValue
+                CELL_TYPE_NUMERIC -> {
                     if(DateUtil.isCellDateFormatted(cell)){
                         modelHash[cellTitle] = cell.dateCellValue
 //                                    SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format()
                     }else modelHash[cellTitle] = cell.numericCellValue
                 }
-                CellType.FORMULA -> {
+                CELL_TYPE_FORMULA -> {
                     when(cell.cachedFormulaResultType){
-                        CellType.STRING -> modelHash[cellTitle] = cell.stringCellValue
-                        CellType.BOOLEAN -> modelHash[cellTitle] = cell.booleanCellValue
-                        CellType.NUMERIC -> {
+                        CELL_TYPE_STRING -> modelHash[cellTitle] = cell.stringCellValue
+                        CELL_TYPE_BOOLEAN -> modelHash[cellTitle] = cell.booleanCellValue
+                        CELL_TYPE_NUMERIC -> {
                             if(DateUtil.isCellDateFormatted(cell)){
                                 modelHash[cellTitle] = cell.dateCellValue
                             }else modelHash[cellTitle] = cell.numericCellValue

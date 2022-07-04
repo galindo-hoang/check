@@ -1,6 +1,5 @@
 package com.example.ex.model
 
-import com.opencsv.bean.CsvBindByName
 import java.sql.Date
 import javax.persistence.*
 
@@ -12,7 +11,7 @@ class EmployeeMonthly : EntitySuper() {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id:Long = 0
 
-    @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "Visa", nullable = true, foreignKey = ForeignKey(name = "fk_monthly_employee"))
 //    @JsonBackReference
     var metaInfo: EmployeeMetaInfo? = null

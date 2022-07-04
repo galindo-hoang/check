@@ -1,7 +1,5 @@
 package com.example.ex.model
 
-import com.fasterxml.jackson.annotation.JsonBackReference
-import com.opencsv.bean.CsvBindByName
 import javax.persistence.*
 
 @Entity
@@ -44,11 +42,9 @@ class EmployeeRole: EntitySuper() {
 
     @ManyToOne(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @JoinColumn(name = "Supervisor", nullable = true, foreignKey = ForeignKey(name = "fk_roleSupervisor_employee"))
-    @CsvBindByName(column = "Supervisor")
     var supervisor:EmployeeMetaInfo? = null
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = [CascadeType.ALL])
     @JoinColumn(name = "Abbreviation", nullable = true, foreignKey = ForeignKey(name = "fk_roleAbbreviation_employee"))
-    @CsvBindByName(column = "Abbreviation")
     var abbreviation:EmployeeMetaInfo? = null
 }

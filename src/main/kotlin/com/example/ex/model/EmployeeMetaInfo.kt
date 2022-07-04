@@ -104,11 +104,11 @@ class EmployeeMetaInfo: EntitySuper() {
     @OrderBy("id")
     var capacity: MutableSet<Capacity> = mutableSetOf()
 
-    @OneToMany( mappedBy = "supervisor", fetch = FetchType.LAZY)
+    @OneToMany( mappedBy = "supervisor", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @OrderBy("id")
     var supervisors: MutableSet<EmployeeRole> = mutableSetOf()
 
-    @OneToMany(mappedBy = "abbreviation", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "abbreviation", cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
     @OrderBy("id")
     var abbreviations: MutableSet<EmployeeRole> = mutableSetOf()
 

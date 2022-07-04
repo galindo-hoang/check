@@ -59,7 +59,7 @@ class EmployeeRoleRepositoryImpl(
             )
             .groupBy(employeeMetaInfo.visa)
             .select(employeeMetaInfo,employeeMonthly.hours.sum())
-            .fetch().map {
+            .fetch().forEach {
                 result[it[employeeMetaInfo]!!] = it[employeeMonthly.hours.sum()]!!
             }
         return result
@@ -69,8 +69,8 @@ class EmployeeRoleRepositoryImpl(
         val result: MutableList<EmployeeRoleDto> = mutableListOf()
         if(File(filepath).exists()){
             FileInputStream(filepath).use { file ->
-                val xlWb = WorkbookFactory.create(file)
-                val sheet = xlWb.getSheetAt(0)
+                val wb = WorkbookFactory.create(file)
+                val sheet = wb.getSheetAt(0)
                 val titleColumn = Constant.getTitleXLSX(sheet)
                 for(i in 1 .. sheet.lastRowNum){
                     val modelHash = Constant.convertXLSXToHashMap(sheet.getRow(i), titleColumn)
