@@ -1,10 +1,11 @@
 package com.example.ex.service.impl
 
+import com.example.ex.dto.CriteriaChart
 import com.example.ex.dto.EmployeeMonthlyDto
 import com.example.ex.dto.HourReportCriteriaDto
 import com.example.ex.dto.WhoDoWhat
-import com.example.ex.exception.ErrorMessage
-import com.example.ex.exception.FileNotFoundExceptionCustom
+import com.example.ex.exception.BusinessExceptionCustom
+import com.example.ex.exception.TechExceptionCustom
 import com.example.ex.mapper.EmployeeMonthlyMapperDecorator
 import com.example.ex.model.EmployeeMetaInfo
 import com.example.ex.model.EmployeeMonthly
@@ -21,8 +22,6 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.io.FileInputStream
-import java.sql.Date
-import java.text.SimpleDateFormat
 import java.util.*
 
 @Service
@@ -68,13 +67,13 @@ class EmployeeMonthlyVertecServiceImpl(
                     }
                 }catch (e:Exception){
                     e.printStackTrace()
-                    throw FileNotFoundExceptionCustom("XLSX $fileMonthlyVertec not Exist",HttpStatus.NOT_FOUND)
+                    throw TechExceptionCustom("XLSX $fileMonthlyVertec not Exist",e)
                 }
             }
             return listEmployeeMonthlyDto
         }catch (e:Exception){
             e.printStackTrace()
-            throw FileNotFoundExceptionCustom("${e.message}", HttpStatus.NOT_FOUND)
+            throw TechExceptionCustom("${e.message}", e)
         }
     }
 
@@ -108,7 +107,7 @@ class EmployeeMonthlyVertecServiceImpl(
     override fun fillWhoDoWhatByMonth(month: Int, year: Int): List<WhoDoWhat> {
         val label: Pair<HashMap<String, Int>?, HashMap<String, Int>?> = employeeMonthlyRepository.readingLabelRowAndCol()
         if(label.second == null || label.first == null){
-            throw FileNotFoundExceptionCustom("label of ProjectGroup or Visa empty",HttpStatus.NO_CONTENT)
+            throw BusinessExceptionCustom("label of ProjectGroup or Visa empty",HttpStatus.NO_CONTENT)
         }else {
             val whoDoWhatList = employeeMonthlyRepository.findHoursByMonthYearGroupByVisaProjectGroup(month, year)
             employeeMonthlyRepository.fillDataIntoXLSX(
@@ -120,4 +119,7 @@ class EmployeeMonthlyVertecServiceImpl(
             return whoDoWhatList
         }
     }
+
+    override fun filterCriteriaChart(criteriaChart: CriteriaChart): List<EmployeeMonthly> =
+        employeeMonthlyRepository.findEmployeeByCriteriaChart(criteriaChart)
 }

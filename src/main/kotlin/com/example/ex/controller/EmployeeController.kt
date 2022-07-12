@@ -18,19 +18,19 @@ class EmployeeController(
     @Autowired private val employeeCapacityService: EmployeeCapacityService,
     @Autowired private val employeeMonthlyVertecService: EmployeeMonthlyVertecService,
 ): BaseController() {
-    @GetMapping(value = ["/Info"])
+    @GetMapping("/Info")
     fun viewInfo(@RequestParam("visa", required = false, defaultValue = "") visa:String): Any {
         return if(visa == "") employeeMetaInfoService.loadAllEmployee()
         else employeeMetaInfoService.loadEmployeeByVisa(visa)
     }
-    @GetMapping(value = ["/Role"])
+    @GetMapping("/Role")
     fun viewRole(@RequestParam("supervisors", required = false, defaultValue = "") supervisors:String): Iterable<EmployeeRole> {
         return if(supervisors == "") employeeRoleService.loadAllEmployee()
         else employeeRoleService.loadEmployeeBySupervisor(supervisors)
     }
-    @GetMapping(value = ["/Capacity"])
+    @GetMapping("/Capacity")
     fun viewCapacity(): MutableIterable<Capacity> = employeeCapacityService.loadAllEmployee()
 
-    @GetMapping(value = ["/Monthly"])
+    @GetMapping("/Monthly")
     fun viewMonthly(): MutableIterable<EmployeeMonthly> = employeeMonthlyVertecService.loadAllEmployee()
 }

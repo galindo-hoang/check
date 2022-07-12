@@ -2,6 +2,7 @@ package com.example.ex.mapper
 
 import com.example.ex.dto.EmployeeMetaInfoDto
 import com.example.ex.model.EmployeeMetaInfo
+import com.example.ex.utils.Constant.convertDateUtilToDateSql
 import org.springframework.beans.factory.annotation.Autowired
 import java.sql.Date
 import java.text.SimpleDateFormat
@@ -15,8 +16,8 @@ abstract class MetaInfoMapperDecorator: MetaInfoMapper{
 
     override fun dtoToEntity(employeeMetaInfoDto: EmployeeMetaInfoDto): EmployeeMetaInfo {
         val employeeMonthly = delegate.dtoToEntity(employeeMetaInfoDto)
-        employeeMonthly.vnEntry = Date.valueOf(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(employeeMetaInfoDto.vnEntry))
-        employeeMonthly.entrance = Date.valueOf(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(employeeMetaInfoDto.entrance))
+        employeeMonthly.vnEntry = employeeMetaInfoDto.vnEntry?.let { convertDateUtilToDateSql(it) }
+        employeeMonthly.entrance = employeeMetaInfoDto.entrance?.let { convertDateUtilToDateSql(it) }
         return employeeMonthly
     }
 

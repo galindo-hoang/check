@@ -1,5 +1,6 @@
 package com.example.ex.service
 
+import com.example.ex.dto.CriteriaChart
 import com.example.ex.dto.EmployeeMonthlyDto
 import com.example.ex.dto.HourReportCriteriaDto
 import com.example.ex.dto.WhoDoWhat
@@ -16,4 +17,5 @@ interface EmployeeMonthlyVertecService {
     fun saveEmployeeByMonth(month: Int, year: Int): List<EmployeeMonthlyDto>
     fun mappingProjectGroup(): List<EmployeeMonthly>
     fun fillWhoDoWhatByMonth(month: Int, year: Int): List<WhoDoWhat>
+    fun filterCriteriaChart(criteriaChart: CriteriaChart): List<EmployeeMonthly>
 }

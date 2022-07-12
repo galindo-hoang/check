@@ -1,22 +1,23 @@
 package com.example.ex.repository.impl
 
+import com.example.ex.dto.CriteriaChart
 import com.example.ex.dto.WhoDoWhat
-import com.example.ex.exception.FileNotFoundExceptionCustom
+import com.example.ex.exception.TechExceptionCustom
 import com.example.ex.model.EmployeeMonthly
 import com.example.ex.model.QEmployeeMonthly.Companion.employeeMonthly
 import com.example.ex.repository.EmployeeMonthlyRepositoryCustom
+import com.example.ex.utils.Constant.convertDateUtilToDateSql
+import com.example.ex.utils.Constant.convertStringToDate
 import com.example.ex.utils.Constant.getJpaQuery
 import com.spire.xls.Workbook
 import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpStatus
 import java.io.BufferedOutputStream
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.sql.Date
-import java.util.*
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
 
@@ -38,6 +39,25 @@ class EmployeeMonthlyRepositoryCustomImpl(
             .delete(employeeMonthly)
             .where(employeeMonthly.date.month().eq(month))
             .execute()
+    }
+
+    override fun findEmployeeByCriteriaChart(criteriaChart: CriteriaChart): List<EmployeeMonthly> {
+        val query = getJpaQuery(entityManager)
+            .from(employeeMonthly)
+            .where()
+            .where(employeeMonthly.date.goe(convertStringToDate(criteriaChart.start)?.let {
+                println(it)
+                convertDateUtilToDateSql(it)
+            }))
+        if(criteriaChart.end != ""){
+            query.where(employeeMonthly.date.loe(convertStringToDate(criteriaChart.end)?.let {
+                convertDateUtilToDateSql(
+                    it
+                )
+            }))
+        }
+        query.where(employeeMonthly.projectGroup.`in`(criteriaChart.projects))
+        return query.fetch() as List<EmployeeMonthly>
     }
 
     override fun findByProjectGroup(projectGroup: String?): List<EmployeeMonthly> {
@@ -84,7 +104,7 @@ class EmployeeMonthlyRepositoryCustomImpl(
             return Pair(labelProjectGroup,labelVisa)
         }catch (e:Exception) {
             e.printStackTrace()
-            throw FileNotFoundExceptionCustom("${e.message}", HttpStatus.NOT_FOUND)
+            throw TechExceptionCustom("${e.message}", e)
         }
     }
 
@@ -140,12 +160,12 @@ class EmployeeMonthlyRepositoryCustomImpl(
                 wb.write(writeFileWhoDoWhat)
                 return true
             } catch (e: Exception) {
-                throw FileNotFoundExceptionCustom("Cant write file $filepathWhoDoWhat", HttpStatus.NOT_FOUND)
+                throw TechExceptionCustom("Cant write file $filepathWhoDoWhat", e)
             } finally {
                 writeFileWhoDoWhat.close()
             }
         } catch (e: Exception) {
-            throw FileNotFoundExceptionCustom("file $filepathWhoDoWhat cant open to write", HttpStatus.CONFLICT)
+            throw TechExceptionCustom("file $filepathWhoDoWhat cant open to write", e)
         }
         finally {
             readFileWhoDoWhat.close()

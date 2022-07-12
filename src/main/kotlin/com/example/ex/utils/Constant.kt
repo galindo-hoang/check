@@ -5,6 +5,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory
 import kotlinx.serialization.json.*
 import org.apache.poi.ss.usermodel.*
 import org.apache.poi.ss.usermodel.Cell.*
+import java.text.SimpleDateFormat
 import java.util.*
 import javax.persistence.EntityManager
 import kotlin.collections.HashMap
@@ -67,5 +68,19 @@ object Constant {
             titleColumn[index] = cell.stringCellValue
         }
         return titleColumn
+    }
+
+    fun convertDateUtilToDateSql(date: Date): java.sql.Date =
+        java.sql.Date.valueOf(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(date))
+    fun convertDateToString(date: Date): String = SimpleDateFormat("MM-dd-yyyy").format(date);
+
+    fun convertStringToDate(str: String): Date? {
+        var date: Date? = null
+        try{
+            date = SimpleDateFormat("yyyy-dd-MM").parse(str)
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+        return date
     }
 }

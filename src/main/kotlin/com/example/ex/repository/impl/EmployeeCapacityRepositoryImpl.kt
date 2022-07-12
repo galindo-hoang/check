@@ -2,7 +2,7 @@ package com.example.ex.repository.impl
 
 import com.example.ex.dto.CapacityDto
 import com.example.ex.dto.EmployeeMonthlyDto
-import com.example.ex.exception.FileNotFoundExceptionCustom
+import com.example.ex.exception.TechExceptionCustom
 import com.example.ex.model.QCapacity.Companion.capacity
 import com.example.ex.repository.EmployeeCapacityRepositoryCustom
 import com.example.ex.utils.Constant.convertXLSXToHashMap
@@ -11,8 +11,6 @@ import com.example.ex.utils.Constant.getTitleXLSX
 import com.example.ex.utils.Constant.gson
 import org.apache.poi.ss.usermodel.WorkbookFactory
 import org.springframework.beans.factory.annotation.Value
-import org.springframework.http.HttpStatus
-import java.io.File
 import java.io.FileInputStream
 import javax.persistence.EntityManager
 import javax.persistence.PersistenceContext
@@ -47,7 +45,7 @@ class EmployeeCapacityRepositoryImpl(
                 }
             }
         }catch (e:Exception){
-            throw FileNotFoundExceptionCustom("${ e.message }",HttpStatus.NOT_FOUND)
+            throw TechExceptionCustom("${ e.message }",e)
         }
         return listEmployeeMonthlyDto
     }

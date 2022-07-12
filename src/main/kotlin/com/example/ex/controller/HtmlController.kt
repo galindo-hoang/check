@@ -1,25 +1,14 @@
 package com.example.ex.controller
 
-import com.example.ex.dto.*
-import com.example.ex.exception.ErrorMessage
-import com.example.ex.exception.FileNotFoundExceptionCustom
+import com.example.ex.dto.WhoDoWhat
 import com.example.ex.mapper.EmployeeMapper
-import com.example.ex.mapper.EmployeeMonthlyMapperDecorator
-import com.example.ex.model.Capacity
-import com.example.ex.model.EmployeeRole
-import com.example.ex.model.EmployeeMonthly
-import com.example.ex.service.*
-import com.sun.jdi.request.ExceptionRequest
+import com.example.ex.service.EmployeeMonthlyVertecService
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.http.HttpStatus
-import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestMethod
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.sql.Date
 
 @RestController
 class HtmlController(
@@ -55,7 +44,7 @@ class HtmlController(
 //    }
 
 
-    @RequestMapping(value = ["/writeExcel"], method = [RequestMethod.GET])
+    @GetMapping("/writeExcel")
     fun writeXLSX(
         @RequestParam("month") month: Int,
         @RequestParam("year") year: Int,

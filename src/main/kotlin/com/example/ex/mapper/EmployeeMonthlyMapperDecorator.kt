@@ -3,6 +3,7 @@ package com.example.ex.mapper
 import com.example.ex.dto.EmployeeMonthlyDto
 import com.example.ex.model.EmployeeMetaInfo
 import com.example.ex.model.EmployeeMonthly
+import com.example.ex.utils.Constant.convertDateUtilToDateSql
 import org.springframework.beans.factory.annotation.Autowired
 import java.sql.Date
 import java.text.SimpleDateFormat
@@ -21,13 +22,14 @@ abstract class EmployeeMonthlyMapperDecorator: EmployeeMonthlyMapper{
     override fun dtoToEntity(employeeMonthlyDto: EmployeeMonthlyDto): EmployeeMonthly {
         val employeeMonthly = delegate.dtoToEntity(employeeMonthlyDto)
         employeeMonthly.metaInfo = entityManager.getReference(EmployeeMetaInfo::class.java,employeeMonthlyDto.visa)
-        employeeMonthly.date = Date.valueOf(SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(employeeMonthlyDto.dateJava))
+        employeeMonthly.date = employeeMonthlyDto.dateJava?.let { convertDateUtilToDateSql(it) }
         entityManager.persist(employeeMonthly)
         return employeeMonthly
     }
 
     override fun entityToDto(employeeMonthly: EmployeeMonthly): EmployeeMonthlyDto {
         val employeeMonthlyDto = delegate.entityToDto(employeeMonthly)
+        employeeMonthlyDto.dateJava = employeeMonthly.date?.let { java.util.Date(it.time) }
         employeeMonthlyDto.visa = employeeMonthly.metaInfo?.visa!!
         return employeeMonthlyDto
     }
