@@ -1,9 +1,6 @@
 package com.example.ex.service.impl
 
-import com.example.ex.dto.CriteriaChart
-import com.example.ex.dto.EmployeeMonthlyDto
-import com.example.ex.dto.HourReportCriteriaDto
-import com.example.ex.dto.WhoDoWhat
+import com.example.ex.dto.*
 import com.example.ex.exception.BusinessExceptionCustom
 import com.example.ex.exception.TechExceptionCustom
 import com.example.ex.mapper.EmployeeMonthlyMapperDecorator
@@ -107,7 +104,7 @@ class EmployeeMonthlyVertecServiceImpl(
     override fun fillWhoDoWhatByMonth(month: Int, year: Int): List<WhoDoWhat> {
         val label: Pair<HashMap<String, Int>?, HashMap<String, Int>?> = employeeMonthlyRepository.readingLabelRowAndCol()
         if(label.second == null || label.first == null){
-            throw BusinessExceptionCustom("label of ProjectGroup or Visa empty",HttpStatus.NO_CONTENT)
+            throw BusinessExceptionCustom("label of ProjectGroup or Visa empty")
         }else {
             val whoDoWhatList = employeeMonthlyRepository.findHoursByMonthYearGroupByVisaProjectGroup(month, year)
             employeeMonthlyRepository.fillDataIntoXLSX(
@@ -120,6 +117,6 @@ class EmployeeMonthlyVertecServiceImpl(
         }
     }
 
-    override fun filterCriteriaChart(criteriaChart: CriteriaChart): List<EmployeeMonthly> =
+    override fun filterCriteriaChart(criteriaChart: CriteriaChart): List<EmployeeMonthlyChart> =
         employeeMonthlyRepository.findEmployeeByCriteriaChart(criteriaChart)
 }
