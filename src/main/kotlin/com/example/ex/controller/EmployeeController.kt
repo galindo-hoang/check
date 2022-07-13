@@ -7,6 +7,7 @@ import com.example.ex.service.EmployeeCapacityService
 import com.example.ex.service.EmployeeMetaInfoService
 import com.example.ex.service.EmployeeMonthlyVertecService
 import com.example.ex.service.EmployeeRoleService
+
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
 
@@ -23,6 +24,7 @@ class EmployeeController(
         return if(visa == "") employeeMetaInfoService.loadAllEmployee()
         else employeeMetaInfoService.loadEmployeeByVisa(visa)
     }
+
     @GetMapping("/Role")
     fun viewRole(@RequestParam("supervisors", required = false, defaultValue = "") supervisors:String): Iterable<EmployeeRole> {
         return if(supervisors == "") employeeRoleService.loadAllEmployee()
