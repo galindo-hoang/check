@@ -1,6 +1,7 @@
 package com.example.ex.controller
 
 import com.example.ex.dto.CriteriaChart
+import com.example.ex.dto.EmployeeMonthlyChart
 import com.example.ex.dto.EmployeeMonthlyDto
 import com.example.ex.mapper.EmployeeMonthlyMapperDecorator
 import com.example.ex.service.EmployeeMonthlyVertecService
@@ -30,7 +31,7 @@ class FilteringController(
     @GetMapping("/chart")
     fun getHourProjectDate(
         criteriaChart: CriteriaChart
-    ): List<EmployeeMonthlyDto>{
-        return employeeMonthlyVertecService.filterCriteriaChart(criteriaChart).map { employeeMonthlyMapperDecorator.entityToDto(it) }
+    ): List<EmployeeMonthlyChart>{
+        return employeeMonthlyVertecService.filterCriteriaChart(criteriaChart)
     }
 }

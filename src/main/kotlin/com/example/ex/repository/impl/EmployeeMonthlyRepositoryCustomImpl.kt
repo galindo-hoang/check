@@ -1,6 +1,7 @@
 package com.example.ex.repository.impl
 
 import com.example.ex.dto.CriteriaChart
+import com.example.ex.dto.EmployeeMonthlyChart
 import com.example.ex.dto.WhoDoWhat
 import com.example.ex.exception.TechExceptionCustom
 import com.example.ex.model.EmployeeMonthly
@@ -41,23 +42,27 @@ class EmployeeMonthlyRepositoryCustomImpl(
             .execute()
     }
 
-    override fun findEmployeeByCriteriaChart(criteriaChart: CriteriaChart): List<EmployeeMonthly> {
+    override fun findEmployeeByCriteriaChart(criteriaChart: CriteriaChart): List<EmployeeMonthlyChart> {
         val query = getJpaQuery(entityManager)
             .from(employeeMonthly)
-            .where()
-            .where(employeeMonthly.date.goe(convertStringToDate(criteriaChart.start)?.let {
-                println(it)
-                convertDateUtilToDateSql(it)
-            }))
-        if(criteriaChart.end != ""){
-            query.where(employeeMonthly.date.loe(convertStringToDate(criteriaChart.end)?.let {
-                convertDateUtilToDateSql(
-                    it
-                )
-            }))
+            .where(employeeMonthly.date.goe(convertStringToDate(criteriaChart.start)?.let { convertDateUtilToDateSql(it) }))
+            .groupBy(employeeMonthly.projectGroup, employeeMonthly.date.month(), employeeMonthly.date.year())
+        if(criteriaChart.end != "")
+            query.where(employeeMonthly.date.loe(convertStringToDate(criteriaChart.end)?.let { convertDateUtilToDateSql(it) }))
+        query.having(employeeMonthly.projectGroup.`in`(criteriaChart.projects))
+        return query.select(
+            employeeMonthly.hours.sum(),
+            employeeMonthly.projectGroup,
+            employeeMonthly.date.month(),
+            employeeMonthly.date.year()
+        ).fetch().map {
+            EmployeeMonthlyChart(
+                hours = it[employeeMonthly.hours.sum()]!!,
+                projectGroup = it[employeeMonthly.projectGroup]!!,
+                month = it[employeeMonthly.date.month()]!!,
+                year = it[employeeMonthly.date.year()]!!
+            )
         }
-        query.where(employeeMonthly.projectGroup.`in`(criteriaChart.projects))
-        return query.fetch() as List<EmployeeMonthly>
     }
 
     override fun findByProjectGroup(projectGroup: String?): List<EmployeeMonthly> {
