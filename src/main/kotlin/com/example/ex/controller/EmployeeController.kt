@@ -24,6 +24,7 @@ class EmployeeController(
         return if(visa == "") employeeMetaInfoService.loadAllEmployee()
         else employeeMetaInfoService.loadEmployeeByVisa(visa)
     }
+
     @GetMapping("/Role")
     fun viewRole(@RequestParam("supervisors", required = false, defaultValue = "") supervisors:String): Iterable<EmployeeRole> {
         return if(supervisors == "") employeeRoleService.loadAllEmployee()
